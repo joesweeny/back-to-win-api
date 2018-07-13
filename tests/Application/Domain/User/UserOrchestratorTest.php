@@ -129,46 +129,6 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
     }
 
-    public function test_can_create_user_returns_true_if_email_is_not_present_in_the_database()
-    {
-        $this->assertTrue($this->orchestrator->canCreateNewUser((new User)->setEmail('joe@email.com')));
-    }
-
-    public function test_can_create_user_returns_false_if_email_is_present_in_the_database()
-    {
-        $this->orchestrator->createUser(
-            (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
-                ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
-                ->setEmail('joe@example.com')
-                ->setLocation('Durham')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
-        );
-
-        $this->assertFalse($this->orchestrator->canCreateNewUser((new User)->setEmail('joe@example.com')));
-    }
-
-    public function test_can_update_user_returns_true_if_updated_email_is_not_already_used_by_another_user()
-    {
-        $this->assertTrue($this->orchestrator->canUpdateUser('joe@email.com'));
-    }
-
-    public function test_can_update_user_returns_false_if_updated_email_is_already_used_by_another_user()
-    {
-        $this->orchestrator->createUser(
-            (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
-                ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
-                ->setEmail('joe@example.com')
-                ->setLocation('Durham')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
-        );
-
-        $this->assertFalse($this->orchestrator->canUpdateUser('joe@example.com'));
-    }
-
     public function test_validate_user_password_returns_true_if_password_matches_password_stored_for_user()
     {
         $this->orchestrator->createUser(

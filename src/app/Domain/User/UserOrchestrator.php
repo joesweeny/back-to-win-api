@@ -6,6 +6,7 @@ use BackToWin\Domain\User\Persistence\Reader;
 use BackToWin\Domain\User\Persistence\Writer;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Exception\UserCreationException;
 use BackToWin\Framework\Uuid\Uuid;
 
 class UserOrchestrator
@@ -73,32 +74,23 @@ class UserOrchestrator
        $this->writer->delete($user);
     }
 
-    /**
-     * @param User $user
-     * @return bool
-     * @throws \BackToWin\Framework\Exception\UndefinedException
-     */
-    public function canCreateNewUser(User $user): bool
+    public function userExistsWithEmail(User $user): bool
     {
         try {
             $this->getUserByEmail($user->getEmail());
-            return false;
-        } catch (NotFoundException $e) {
             return true;
+        } catch (NotFoundException $e) {
+            return false;
         }
     }
 
-    /**
-     * @param string $email
-     * @return bool
-     */
-    public function canUpdateUser(string $email): bool
+    public function userExistsWithUsername(User $user): bool
     {
         try {
-            $this->getUserByEmail($email);
-            return false;
-        } catch (NotFoundException $e) {
+            $this->reader->getByUsername($user->getUsername());
             return true;
+        } catch (NotFoundException $e) {
+            return false;
         }
     }
 

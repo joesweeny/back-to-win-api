@@ -87,6 +87,31 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->reader->getById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
     }
 
+    public function test_a_user_can_be_retrieved_by_their_username()
+    {
+        $this->writer->insert(
+            (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
+                ->setUsername('joesweeny')
+                ->setFirstName('Joe')
+                ->setLastName('Sweeny')
+                ->setEmail('joe@example.com')
+                ->setLocation('Durham')
+                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+        );
+
+        $fetched = $this->reader->getByUsername('joesweeny');
+
+        $this->assertEquals('dc5b6421-d452-4862-b741-d43383c3fe1d', $fetched->getId()->__toString());
+        $this->assertEquals('joe@example.com', $fetched->getEmail());
+    }
+
+    public function test_exception_is_thrown_if_username_is_not_present_in_the_database()
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage("User with username 'joesweeny' does not exist");
+        $this->reader->getByUsername('joesweeny');
+    }
+
     public function test_gets_users_returns_an_array_of_users_sorted_alphabetically_by_email()
     {
         $this->writer->insert(

@@ -57,6 +57,20 @@ class IlluminateReader implements Reader
     /**
      * @inheritdoc
      */
+    public function getByUsername(string $username): User
+    {
+        $data = $this->table()->where('username', $username)->get()->first();
+
+        if (!$data) {
+            throw new NotFoundException("User with username '{$username}' does not exist");
+        }
+
+        return Hydrator::fromRawData($data);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getUsers(): array
     {
         return array_map(function ($row) {

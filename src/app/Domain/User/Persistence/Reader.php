@@ -5,18 +5,9 @@ namespace BackToWin\Domain\User\Persistence;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
-use Illuminate\Support\Collection;
 
-interface Repository
+interface Reader
 {
-    /**
-     * Create a new by adding a new User entry into the database
-     *
-     * @param User $user
-     * @return User
-     */
-    public function createUser(User $user): User;
-
     /**
      * Retrieves a user by their email
      *
@@ -34,23 +25,9 @@ interface Repository
     public function getUserById(Uuid $id): User;
 
     /**
-     * @param User $user
-     * @return User
-     */
-    public function updateUser(User $user): User;
-
-    /**
      * Return a collection of all Users
      *
-     * @return Collection
+     * @return array
      */
-    public function getUsers(): Collection;
-
-    /**
-     * Deletes a user from the database
-     *
-     * @param User $user
-     * @return void
-     */
-    public function deleteUser(User $user);
+    public function getUsers(): array;
 }

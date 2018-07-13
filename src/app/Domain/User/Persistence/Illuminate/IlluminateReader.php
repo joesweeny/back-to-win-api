@@ -4,12 +4,13 @@ namespace BackToWin\Domain\User\Persistence\Illuminate;
 
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\User\Persistence\Hydration\Hydrator;
+use BackToWin\Domain\User\Persistence\Reader;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 
-class IlluminateReader
+class IlluminateReader implements Reader
 {
     /**
      * @var Connection
@@ -60,7 +61,7 @@ class IlluminateReader
     {
         return array_map(function ($row) {
             return Hydrator::fromRawData($row);
-        }, (array) $this->table()->orderBy('email')->get());
+        }, (array) $this->table()->orderBy('email')->get()->toArray());
     }
 
     /**

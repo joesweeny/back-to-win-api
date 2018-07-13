@@ -11,6 +11,8 @@ use BackToWin\Framework\DateTime\Clock;
 use BackToWin\Framework\DateTime\SystemClock;
 use Dflydev\FigCookies\SetCookie;
 use DI\ContainerBuilder;
+use function DI\object;
+use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Illuminate\Database\Connection;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
@@ -127,7 +129,9 @@ class ContainerFactory
     private function defineDomain(): array
     {
         return [
+            \BackToWin\Domain\User\Persistence\Reader::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateReader::class),
 
+            \BackToWin\Domain\User\Persistence\Writer::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateWriter::class),
         ];
     }
 
@@ -135,6 +139,10 @@ class ContainerFactory
     private function defineConnections()
     {
         return [
+            AbstractSchemaManager::class => \DI\factory(function (ContainerInterface $container) {
+                return $container->get(Connection::class)->getDoctrineSchemaManager();
+            }),
+
             Connection::class => \DI\factory(function (ContainerInterface $container) {
 
                 $config = $container->get(Config::class);

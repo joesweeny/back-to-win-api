@@ -1,0 +1,10 @@
+#!/bin/bash
+
+bin/docker-dev up $@
+
+if [[ $@ == *"-d"* ]]
+then
+  # In daemon mode, provide some extra output
+  echo -n "Running in deamon mode on: http://"
+  docker port backtowinplatform_nginx_1 80
+fi

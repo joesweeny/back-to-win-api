@@ -10,4 +10,6 @@ if (file_exists(__DIR__ . '/.env')) {
         ->putenv();
 }
 
-return (new ContainerFactory())->create();
+return (new ContainerFactory())->create(
+    \BackToWin\Bootstrap\ConfigFactory::create()
+);

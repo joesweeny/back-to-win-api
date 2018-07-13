@@ -15,14 +15,14 @@ interface Reader
      * @return User
      * @throws NotFoundException
      */
-    public function getUserByEmail(string $email): User;
+    public function getByEmail(string $email): User;
 
     /**
      * @param Uuid $id
      * @return User
      * @throws NotFoundException
      */
-    public function getUserById(Uuid $id): User;
+    public function getById(Uuid $id): User;
 
     /**
      * Return a collection of all Users

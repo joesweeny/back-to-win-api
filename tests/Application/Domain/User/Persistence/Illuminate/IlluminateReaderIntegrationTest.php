@@ -39,7 +39,7 @@ class IlluminateReaderIntegrationTest extends TestCase
 
     public function test_user_can_be_retrieved_by_email()
     {
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setFirstName('Joe')
@@ -49,7 +49,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $fetched = $this->reader->getUserByEmail('joe@example.com');
+        $fetched = $this->reader->getByEmail('joe@example.com');
 
         $this->assertEquals('dc5b6421-d452-4862-b741-d43383c3fe1d', $fetched->getId()->__toString());
         $this->assertEquals('joe@example.com', $fetched->getEmail());
@@ -59,12 +59,12 @@ class IlluminateReaderIntegrationTest extends TestCase
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage("User with email 'fake@email.com' does not exist");
-        $this->reader->getUserByEmail('fake@email.com');
+        $this->reader->getByEmail('fake@email.com');
     }
 
     public function test_a_user_can_be_retrieved_by_their_id()
     {
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setFirstName('Joe')
@@ -74,7 +74,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $fetched = $this->reader->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
+        $fetched = $this->reader->getById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
 
         $this->assertEquals('dc5b6421-d452-4862-b741-d43383c3fe1d', $fetched->getId()->__toString());
         $this->assertEquals('joe@example.com', $fetched->getEmail());
@@ -84,12 +84,12 @@ class IlluminateReaderIntegrationTest extends TestCase
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage("User with ID 'dc5b6421-d452-4862-b741-d43383c3fe1d' does not exist");
-        $this->reader->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
+        $this->reader->getById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
     }
 
     public function test_gets_users_returns_an_array_of_users_sorted_alphabetically_by_email()
     {
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setFirstName('Joe')
@@ -99,7 +99,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('fbeb2f20-b1a4-433f-8f83-bb6f83c01cfa'))
                 ->setUsername('andreasweeny')
                 ->setFirstName('Andrea')
@@ -109,7 +109,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('77e2438d-a744-4590-9785-08917dcdeb75'))
                 ->setUsername('thomasweeny')
                 ->setFirstName('Thomas')

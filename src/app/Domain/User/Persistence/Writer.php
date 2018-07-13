@@ -3,6 +3,7 @@
 namespace BackToWin\Domain\User\Persistence;
 
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Exception\NotFoundException;
 
 interface Writer
 {
@@ -12,13 +13,14 @@ interface Writer
      * @param User $user
      * @return User
      */
-    public function createUser(User $user): User;
+    public function insert(User $user): User;
 
     /**
      * @param User $user
+     * @throws NotFoundException
      * @return User
      */
-    public function updateUser(User $user): User;
+    public function update(User $user): User;
 
     /**
      * Deletes a user from the database
@@ -26,5 +28,5 @@ interface Writer
      * @param User $user
      * @return void
      */
-    public function deleteUser(User $user);
+    public function delete(User $user);
 }

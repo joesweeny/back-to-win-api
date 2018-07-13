@@ -35,7 +35,7 @@ class IlluminateWriter implements Writer
     /**
      * @inheritdoc
      */
-    public function createUser(User $user): User
+    public function insert(User $user): User
     {
         $user->setCreatedDate($this->clock->now());
         $user->setLastModifiedDate($this->clock->now());
@@ -48,7 +48,7 @@ class IlluminateWriter implements Writer
     /**
      * @inheritdoc
      */
-    public function updateUser(User $user): User
+    public function update(User $user): User
     {
         if (!$this->table()->where('id', $user->getId()->toBinary())->exists()) {
             throw new NotFoundException("Cannot update - User with User ID {$user->getId()->__toString()} does not exist");
@@ -64,7 +64,7 @@ class IlluminateWriter implements Writer
     /**
      * @inheritdoc
      */
-    public function deleteUser(User $user)
+    public function delete(User $user)
     {
         $this->table()->where('id', $user->getId()->toBinary())->delete();
     }

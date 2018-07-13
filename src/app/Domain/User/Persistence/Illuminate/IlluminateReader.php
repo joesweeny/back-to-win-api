@@ -29,7 +29,7 @@ class IlluminateReader implements Reader
     /**
      * @inheritdoc
      */
-    public function getUserByEmail(string $email): User
+    public function getByEmail(string $email): User
     {
         $data = $this->table()->where('email', $email)->get()->first();
 
@@ -43,7 +43,7 @@ class IlluminateReader implements Reader
     /**
      * @inheritdoc
      */
-    public function getUserById(Uuid $id): User
+    public function getById(Uuid $id): User
     {
         $data = $this->table()->where('id', $id->toBinary())->get()->first();
 

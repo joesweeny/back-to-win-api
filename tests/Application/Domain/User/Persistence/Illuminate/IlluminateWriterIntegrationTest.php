@@ -42,7 +42,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
     public function test_create_user_adds_a_new_record_to_the_database()
     {
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setFirstName('Joe')
@@ -54,7 +54,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
         $this->assertCount(1, $this->connection->table('user')->get());
 
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('a4a93668-6e61-4a81-93b4-b2404dbe9788'))
                 ->setUsername('andreasweeny')
                 ->setFirstName('Andrea')
@@ -69,7 +69,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
     public function test_a_user_can_be_deleted_from_the_database()
     {
-        $user = $this->writer->createUser(
+        $user = $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setFirstName('Joe')
@@ -81,14 +81,14 @@ class IlluminateWriterIntegrationTest extends TestCase
 
         $this->assertCount(1, $this->connection->table('user')->get());
 
-        $this->writer->deleteUser($user);
+        $this->writer->delete($user);
 
         $this->assertCount(0, $this->connection->table('user')->get());
     }
 
     public function test_update_user_updates_a_user_record_in_the_database()
     {
-        $this->writer->createUser(
+        $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setFirstName('Joe')
@@ -98,14 +98,14 @@ class IlluminateWriterIntegrationTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $fetched = $this->reader->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
+        $fetched = $this->reader->getById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
 
         $this->assertInstanceOf(User::class, $fetched);
         $this->assertEquals('dc5b6421-d452-4862-b741-d43383c3fe1d', $fetched->getId()->__toString());
 
-        $this->writer->updateUser($fetched->setEmail('joe@email.com'));
+        $this->writer->update($fetched->setEmail('joe@email.com'));
 
-        $fetched = $this->reader->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
+        $fetched = $this->reader->getById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
 
         $this->assertEquals('joe@email.com', $fetched->getEmail());
     }

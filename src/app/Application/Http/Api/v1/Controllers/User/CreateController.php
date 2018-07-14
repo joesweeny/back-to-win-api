@@ -1,21 +1,13 @@
 <?php
 
-namespace Cocktales\Application\Http\Api\v1\Controllers\User;
+namespace BackToWin\Application\Http\Api\v1\Controllers\User;
 
-use Cocktales\Boundary\Session\Command\CreateSessionTokenCommand;
-use Cocktales\Framework\Controller\ControllerService;
-use Cocktales\Framework\Exception\NotFoundException;
-use Cocktales\Framework\Exception\UserEmailValidationException;
-use Cocktales\Boundary\User\Command\RegisterUserCommand;
-use Cocktales\Framework\JsendResponse\JsendBadRequestResponse;
-use Cocktales\Framework\JsendResponse\JsendError;
-use Cocktales\Framework\JsendResponse\JsendErrorResponse;
-use Cocktales\Framework\JsendResponse\JsendFailResponse;
-use Cocktales\Framework\JsendResponse\JsendResponse;
-use Cocktales\Framework\JsendResponse\JsendSuccessResponse;
+use BackToWin\Framework\Controller\ControllerService;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Jsend\JsendResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RegisterController
+class CreateController
 {
     use ControllerService;
 
@@ -29,6 +21,10 @@ class RegisterController
         $body = json_decode($request->getBody()->getContents());
 
         $data = (object) [
+            'username' => $body->username,
+            'first_name' => $body->first_name,
+            'last_name' => $body->last_name,
+            'location' => $body->location,
             'email' => $body->email,
             'password' => $body->password
         ];

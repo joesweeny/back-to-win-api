@@ -69,10 +69,6 @@ class CreateController
 
     private function hydrateCommand(\stdClass $data): CreateUserCommand
     {
-        return new CreateUserCommand(
-            $data->username ?? '',
-            $data->email ?? '',
-            $data->password ?? ''
-        );
+        return new CreateUserCommand($data->username, $data->email, $data->password);
     }
 }

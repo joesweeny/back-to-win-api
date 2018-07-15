@@ -11,10 +11,7 @@ class UserTest extends TestCase
     {
         $user = (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
             ->setUsername('joesweeny')
-            ->setFirstName('Joe')
-            ->setLastName('Sweeny')
             ->setEmail('joe@example.com')
-            ->setLocation('Durham')
             ->setPasswordHash(PasswordHash::createFromRaw('password'))
             ->setCreatedDate(new \DateTimeImmutable('2017-05-03 21:39:00'))
             ->setLastModifiedDate(new \DateTimeImmutable('2017-05-03 21:39:00'));
@@ -22,10 +19,7 @@ class UserTest extends TestCase
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals('dc5b6421-d452-4862-b741-d43383c3fe1d', $user->getId()->__toString());
         $this->assertEquals('joesweeny', $user->getUsername());
-        $this->assertEquals('Joe', $user->getFirstName());
-        $this->assertEquals('Sweeny', $user->getLastName());
         $this->assertEquals('joe@example.com', $user->getEmail());
-        $this->assertEquals('Durham', $user->getLocation());
         $this->assertTrue($user->getPasswordHash()->verify('password'));
         $this->assertEquals('2017-05-03 21:39:00', $user->getCreatedDate());
         $this->assertEquals('2017-05-03 21:39:00', $user->getLastModifiedDate());

@@ -6,7 +6,6 @@ use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
 use Chief\Resolvers\NativeCommandHandlerResolver;
-use BackToWin\Application\Http\App\Routes\RouteManager;
 use BackToWin\Framework\DateTime\Clock;
 use BackToWin\Framework\DateTime\SystemClock;
 use Dflydev\FigCookies\SetCookie;
@@ -20,6 +19,11 @@ use Interop\Container\ContainerInterface;
 use Lcobucci\JWT\Parser;
 use BackToWin\Framework\CommandBus\ChiefAdapter;
 use BackToWin\Framework\Routing\Router;
+use Monolog\Handler\ErrorLogHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use PSR7Session\Http\SessionMiddleware;
 use PSR7Session\Time\SystemCurrentTime;
 
@@ -79,7 +83,8 @@ class ContainerFactory
             Router::class => \DI\decorate(function (Router $router, ContainerInterface $container) {
                 // @todo Add RouteManagers here
                 return $router
-                    ->addRoutes($container->get(RouteManager::class));
+                    ->addRoutes($container->get(\BackToWin\Application\Http\App\Routes\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class));
 
 
             }),
@@ -118,6 +123,21 @@ class ContainerFactory
                 );
             }),
 
+            LoggerInterface::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($logger = $container->get(Config::class)->get('log.logger')) {
+                    case 'monolog':
+                        $logger = new Logger('error');
+                        $logger->pushHandler(new ErrorLogHandler);
+                        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/error.log', Logger::ERROR));
+                        return $logger;
+
+                    case 'null':
+                        return new NullLogger;
+
+                    default:
+                        throw new \UnexpectedValueException("Logger '$logger' not recognised");
+                }
+            }),
 
             Clock::class => \DI\object(SystemClock::class)
         ];

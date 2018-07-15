@@ -3,17 +3,31 @@
 namespace BackToWin\Application\Http\Api\v1\Controllers\User;
 
 use BackToWin\Boundary\User\Command\CreateUserCommand;
-use BackToWin\Framework\Controller\ControllerService;
 use BackToWin\Framework\Exception\UserCreationException;
 use BackToWin\Framework\Jsend\JsendError;
 use BackToWin\Framework\Jsend\JsendFailResponse;
 use BackToWin\Framework\Jsend\JsendResponse;
 use BackToWin\Framework\Jsend\JsendSuccessResponse;
+use Chief\CommandBus;
+use BackToWin\Application\Http\Api\v1\Validation\User\RequestValidator;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CreateController
 {
-    use ControllerService;
+    /**
+     * @var CommandBus
+     */
+    private $bus;
+    /**
+     * @var RequestValidator
+     */
+    private $validator;
+
+    public function __construct(CommandBus $bus, RequestValidator $validator)
+    {
+        $this->bus = $bus;
+        $this->validator = $validator;
+    }
 
     /**
      * @param ServerRequestInterface $request
@@ -28,6 +42,16 @@ class CreateController
             return new JsendFailResponse([
                 new JsendError('Unable to parse request body')
             ]);
+        }
+
+        $errors = $this->validator->validate($body);
+
+        if (!empty($errors)) {
+            return new JsendFailResponse(
+                array_map(function (string $error) {
+                    return new JsendError($error);
+                }, $errors)
+            );
         }
 
         try {

@@ -20,8 +20,40 @@ class ConfigFactory
                         'password' => getenv('DB_PASSWORD') ?: 'password'
                     ]
                 ]
+            ],
+
+            'log' => [
+                /**
+                 * Which psr/log implementation to use. Options: monolog, null
+                 */
+                'logger' => self::fromEnv('LOG_LOGGER') ?: 'null'
             ]
         ]);
+    }
+
+    /**
+     * Get an value from ENV.
+     *
+     * If the value does not exist in ENV, then search for a {key}_FILE ENV variable.. if the _FILE
+     * var exists, then read the contents of that file to get the value.
+     *
+     * @param string $key
+     * @param $default
+     * @return mixed|null
+     */
+    private static function fromEnv(string $key, $default = null)
+    {
+        if ($val = getenv($key)) {
+            return $val;
+        }
+
+        if ($path = getenv("{$key}_FILE")) {
+            if (file_exists($path)) {
+                return file_get_contents($path);
+            }
+        }
+
+        return $default;
     }
 
     /**

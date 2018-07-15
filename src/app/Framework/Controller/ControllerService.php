@@ -2,7 +2,7 @@
 
 namespace BackToWin\Framework\Controller;
 
-use BackToWin\Framework\CommandBus\CommandBus;
+use Chief\CommandBus;
 use Psr\Log\LoggerInterface;
 
 trait ControllerService

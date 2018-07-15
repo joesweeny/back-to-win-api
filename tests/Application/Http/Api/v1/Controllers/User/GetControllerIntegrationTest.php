@@ -24,8 +24,6 @@ class GetControllerIntegrationTest extends TestCase
     private $orchestrator;
     /** @var  User */
     private $user;
-    /** @var  SessionToken */
-    private $token;
 
     public function setUp()
     {

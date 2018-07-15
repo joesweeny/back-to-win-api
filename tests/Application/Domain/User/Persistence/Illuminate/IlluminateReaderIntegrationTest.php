@@ -42,10 +42,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -67,10 +64,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -92,10 +86,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -117,30 +108,21 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
         $this->writer->insert(
             (new User('fbeb2f20-b1a4-433f-8f83-bb6f83c01cfa'))
                 ->setUsername('andreasweeny')
-                ->setFirstName('Andrea')
-                ->setLastName('Sweeny')
                 ->setEmail('andrea@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
         $this->writer->insert(
             (new User('77e2438d-a744-4590-9785-08917dcdeb75'))
                 ->setUsername('thomasweeny')
-                ->setFirstName('Thomas')
-                ->setLastName('Sweeny')
                 ->setEmail('thomas@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 

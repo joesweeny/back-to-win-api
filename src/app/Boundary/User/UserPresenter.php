@@ -16,9 +16,6 @@ class UserPresenter
         return (object) [
             'id' => $user->getId()->__toString(),
             'username' => $user->getUsername(),
-            'first_name' => $user->getFirstName(),
-            'last_name' => $user->getLastName(),
-            'location' => $user->getLocation(),
             'email' => $user->getEmail(),
             'created_at' => $user->getCreatedDate()->format(\DATE_ATOM),
             'updated_at' => $user->getLastModifiedDate()->format(\DATE_ATOM)

@@ -53,9 +53,6 @@ class CreateUserCommandHandler
     {
         return (new User)
             ->setUsername($command->getUsername())
-            ->setFirstName($command->getFirstName())
-            ->setLastName($command->getLastName())
-            ->setLocation($command->getLocation())
             ->setEmail($command->getEmail())
             ->setPasswordHash($command->getPassword());
     }

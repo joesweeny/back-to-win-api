@@ -36,10 +36,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -48,10 +45,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('a4a93668-6e61-4a81-93b4-b2404dbe9788'))
                 ->setUsername('andreasweeny')
-                ->setFirstName('Andrea')
-                ->setLastName('Sweeny')
                 ->setEmail('andrea@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -63,10 +57,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -88,10 +79,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -109,10 +97,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -134,10 +119,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -149,10 +131,7 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
@@ -164,30 +143,21 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
-                ->setFirstName('Joe')
-                ->setLastName('Sweeny')
                 ->setEmail('joe@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
         $this->orchestrator->createUser(
             (new User('fbeb2f20-b1a4-433f-8f83-bb6f83c01cfa'))
                 ->setUsername('andreasweeny')
-                ->setFirstName('Andrea')
-                ->setLastName('Sweeny')
                 ->setEmail('andrea@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
         $this->orchestrator->createUser(
             (new User('77e2438d-a744-4590-9785-08917dcdeb75'))
                 ->setUsername('thomasweeny')
-                ->setFirstName('Thomas')
-                ->setLastName('Sweeny')
                 ->setEmail('thomas@example.com')
-                ->setLocation('Durham')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 

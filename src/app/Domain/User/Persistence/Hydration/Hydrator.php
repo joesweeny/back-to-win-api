@@ -16,10 +16,7 @@ final class Hydrator
     {
         return (new User(Uuid::createFromBinary($data->id)))
             ->setUsername($data->username)
-            ->setFirstName($data->first_name)
-            ->setLastName($data->last_name)
             ->setEmail($data->email)
-            ->setLocation($data->location)
             ->setPasswordHash(new PasswordHash($data->password))
             ->setCreatedDate(new \DateTimeImmutable($data->created_at))
             ->setLastModifiedDate(new \DateTimeImmutable($data->updated_at));

@@ -6,7 +6,6 @@ use BackToWin\Domain\User\Persistence\Reader;
 use BackToWin\Domain\User\Persistence\Writer;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Exception\UserCreationException;
 use BackToWin\Framework\Uuid\Uuid;
 
 class UserOrchestrator

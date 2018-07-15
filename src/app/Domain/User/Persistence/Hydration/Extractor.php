@@ -16,10 +16,7 @@ final class Extractor
         return (object) [
             'id' => $user->getId()->toBinary(),
             'username' => $user->getUsername(),
-            'first_name' => $user->getFirstName(),
-            'last_name' => $user->getLastName(),
             'email' => $user->getEmail(),
-            'location' => $user->getLocation(),
             'password' => $user->getPasswordHash(),
             'created_at' => $user->getCreatedDate(),
             'updated_at' => $user->getLastModifiedDate()

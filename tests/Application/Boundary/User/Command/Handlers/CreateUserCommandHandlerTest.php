@@ -22,11 +22,8 @@ class CreateUserCommandHandlerTest extends TestCase
 
         $command = new CreateUserCommand(
             'joesweeny',
-            'Joe',
-            'Sweeny',
             'joe@email.com',
-            'password',
-            'Durham'
+            'password'
         );
 
         $orchestrator->userExistsWithEmail(Argument::type(User::class))->shouldBeCalled()->willReturn(false);
@@ -52,11 +49,8 @@ class CreateUserCommandHandlerTest extends TestCase
 
         $command = new CreateUserCommand(
             'joesweeny',
-            'Joe',
-            'Sweeny',
             'joe@email.com',
-            'password',
-            'Durham'
+            'password'
         );
 
         $orchestrator->userExistsWithEmail(Argument::type(User::class))->shouldBeCalled()->willReturn(true);

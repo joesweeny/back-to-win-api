@@ -2,9 +2,13 @@
 
 namespace BackToWin\Application\Http\Api\v1\Controllers\User;
 
+use BackToWin\Boundary\User\Command\CreateUserCommand;
 use BackToWin\Framework\Controller\ControllerService;
-use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Exception\UserCreationException;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendFailResponse;
 use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CreateController
@@ -20,31 +24,31 @@ class CreateController
     {
         $body = json_decode($request->getBody()->getContents());
 
-        $data = (object) [
-            'username' => $body->username,
-            'first_name' => $body->first_name,
-            'last_name' => $body->last_name,
-            'location' => $body->location,
-            'email' => $body->email,
-            'password' => $body->password
-        ];
+        if (!$body) {
+            return new JsendFailResponse([
+                new JsendError('Unable to parse request body')
+            ]);
+        }
 
         try {
-            $user = $this->bus->execute(new RegisterUserCommand($data));
-            $token = $this->bus->execute(new CreateSessionTokenCommand($user->id));
+            $user = $this->bus->execute($this->hydrateCommand($body));
 
             return new JsendSuccessResponse([
-                'user' => $user,
-                'token' => $token
+                'user' => $user
             ]);
-        } catch (UserEmailValidationException $e) {
+        } catch (UserCreationException $e) {
             return (new JsendFailResponse([
-                new JsendError('A user has already registered with this email address')
+                new JsendError($e->getMessage())
             ]))->withStatus(422);
-        } catch (NotFoundException $e) {
-            return (new JsendFailResponse([
-                new JsendError('Unable to verify user credentials')
-            ]))->withStatus(401);
         }
+    }
+
+    private function hydrateCommand(\stdClass $data): CreateUserCommand
+    {
+        return new CreateUserCommand(
+            $data->username ?? '',
+            $data->email ?? '',
+            $data->password ?? ''
+        );
     }
 }

@@ -25,4 +25,5 @@ jobs:
           name: Test Release Image
           command: |
             composer install --ignore-platform-reqs
+            docker-compose -f docker-compose.yml up -d
             docker-compose -f docker-compose.yml run php bash /opt/bin/test

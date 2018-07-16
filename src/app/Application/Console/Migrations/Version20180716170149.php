@@ -21,8 +21,8 @@ class Version20180716170149 extends AbstractMigration
 
         $table = $schema->createTable('user_purse');
         $table->addColumn('user_id', Type::BINARY)->setLength(16);
-        $table->addColumn('currency', Type::STRING);
-        $table->addColumn('amount', Type::INTEGER);
+        $table->addColumn('currency', Type::STRING)->setDefault('GBP');
+        $table->addColumn('amount', Type::INTEGER)->setDefault(0);
         $table->addColumn('created_at', Type::INTEGER);
         $table->addColumn('updated_at', Type::INTEGER);
         $table->setPrimaryKey(['user_id']);

@@ -84,7 +84,8 @@ class ContainerFactory
                 // @todo Add RouteManagers here
                 return $router
                     ->addRoutes($container->get(\BackToWin\Application\Http\App\Routes\RouteManager::class))
-                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class));
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class));
 
 
             }),

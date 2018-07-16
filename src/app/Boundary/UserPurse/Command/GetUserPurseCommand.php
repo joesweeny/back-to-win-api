@@ -1,15 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joesweeny
- * Date: 16/07/18
- * Time: 20:50
- */
 
 namespace BackToWin\Boundary\UserPurse\Command;
 
+use BackToWin\Framework\Uuid\Uuid;
+use Chief\Command;
 
-class UserPurseCommand
+class GetUserPurseCommand implements Command
 {
+    /**
+     * @var Uuid
+     */
+    private $userId;
 
+    public function __construct(string $userId)
+    {
+        $this->userId = new Uuid($userId);
+    }
+
+    public function getUserId(): Uuid
+    {
+        return $this->userId;
+    }
 }

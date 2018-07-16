@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    machine:
+      image: circleci/classic:201711-01
+
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt-get update
+            sudo apt-get install php7.2
+            curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+      - run:
+          name: Build Release Image
+          command: |
+            composer install --ignore-platform-reqs --no-dev --optimize-autoloader
+            docker-compose -f docker-compose.yml up -d --build
+
+      - run:
+          name: Test Release Image
+          command: |
+            composer install --ignore-platform-reqs
+            docker-compose -f docker-compose.yml run php bash /opt/bin/test

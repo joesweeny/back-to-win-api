@@ -34,14 +34,6 @@ class CreateUserCommandHandler
     {
         $user = $this->createUserEntity($command);
 
-        if ($this->orchestrator->userExistsWithEmail($user)) {
-            throw new UserCreationException("A user has already registered with this email address {$user->getEmail()}");
-        }
-
-        if ($this->orchestrator->userExistsWithUsername($user)) {
-            throw new UserCreationException("A user has already registered with this username {$user->getUsername()}");
-        }
-
         return $this->presenter->toDto($this->orchestrator->createUser($user));
     }
 

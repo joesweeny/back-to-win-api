@@ -6,6 +6,7 @@ use BackToWin\Domain\User\Persistence\Reader;
 use BackToWin\Domain\User\Persistence\Writer;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Exception\UserCreationException;
 use BackToWin\Framework\Uuid\Uuid;
 
 class UserOrchestrator
@@ -27,10 +28,19 @@ class UserOrchestrator
 
     /**
      * @param User $user
+     * @throws UserCreationException
      * @return User
      */
     public function createUser(User $user): User
     {
+        if ($this->userExistsWithEmail($user)) {
+            throw new UserCreationException("A user has already registered with this email address {$user->getEmail()}");
+        }
+
+        if ($this->userExistsWithUsername($user)) {
+            throw new UserCreationException("A user has already registered with this username {$user->getUsername()}");
+        }
+
         return $this->writer->insert($user);
     }
 

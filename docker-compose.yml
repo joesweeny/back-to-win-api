@@ -5,6 +5,10 @@ services:
     build:
       dockerfile: ./docker/php/Dockerfile
       context: ./
+    environment:
+     - DB_DSN=mysql:host=mysql;dbname=app
+     - DB_USER=root
+     - DB_PASSWORD=password
     volumes:
      - .:/opt
 
@@ -26,7 +30,7 @@ services:
     volumes:
      - .:/opt
     environment:
-     - MYSQL_ROOT_PASSWORD=
-     - MYSQL_DATABASE=
-     - MYSQL_USER=
-     - MYSQL_PASSWORD=
+     - MYSQL_ROOT_PASSWORD=password
+     - MYSQL_DATABASE=app
+     - MYSQL_USER=dev
+     - MYSQL_PASSWORD=password

@@ -153,7 +153,9 @@ class ContainerFactory
 
             \BackToWin\Domain\User\Persistence\Writer::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateWriter::class),
 
-            \BackToWin\Domain\UserPurse\Persistence\Writer::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class)
+            \BackToWin\Domain\UserPurse\Persistence\Writer::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class),
+
+            \BackToWin\Domain\UserPurse\Persistence\Reader::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class)
         ];
     }
 

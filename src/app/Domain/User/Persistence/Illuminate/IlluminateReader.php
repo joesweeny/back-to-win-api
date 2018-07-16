@@ -75,7 +75,7 @@ class IlluminateReader implements Reader
     {
         return array_map(function ($row) {
             return Hydrator::fromRawData($row);
-        }, (array) $this->table()->orderBy('email')->get()->toArray());
+        }, (array) $this->table()->orderBy('created_at')->get()->toArray());
     }
 
     /**

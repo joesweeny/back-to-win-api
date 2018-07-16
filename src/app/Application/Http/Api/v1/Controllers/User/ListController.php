@@ -14,7 +14,7 @@ class ListController
     public function __invoke(): JsendResponse
     {
         return new JsendSuccessResponse([
-            'user' => $this->bus->execute(new ListUsersCommand())
+            'users' => $this->bus->execute(new ListUsersCommand())
         ]);
     }
 }

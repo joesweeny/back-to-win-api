@@ -35,7 +35,7 @@ class ListControllerIntegrationTest extends TestCase
         );
         sleep(1);
         $this->orchestrator->createUser(
-            (new User('f530caab-1767-4f0c-a669-331a7bf0fc85'))
+            (new User('0b854053-0cef-4160-973e-6a5390ec0617'))
                 ->setUsername('andreasweeny')
                 ->setEmail('andrea@andrea.com')
                 ->setPasswordHash(new PasswordHash('password'))
@@ -54,7 +54,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals('f530caab-1767-4f0c-a669-331a7bf0fc85', $json->data->users[0]->id);
         $this->assertEquals('joesweeny', $json->data->users[0]->username);
         $this->assertEquals('joe@joe.com', $json->data->users[0]->email);
-        $this->assertEquals('f530caab-1767-4f0c-a669-331a7bf0fc85', $json->data->users[1]->id);
+        $this->assertEquals('0b854053-0cef-4160-973e-6a5390ec0617', $json->data->users[1]->id);
         $this->assertEquals('andreasweeny', $json->data->users[1]->username);
         $this->assertEquals('andrea@andrea.com', $json->data->users[1]->email);
     }

@@ -1,15 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joesweeny
- * Date: 16/07/18
- * Time: 18:23
- */
 
 namespace BackToWin\Framework\Calculation;
 
+use MyCLabs\Enum\Enum;
 
-class Calculation
+/**
+ * @method static Calculation ADD()
+ * @method static Calculation SUBTRACT()
+ */
+class Calculation extends Enum
 {
-
+    const ADD = 'ADD';
+    const SUBTRACT = 'SUBTRACT';
 }

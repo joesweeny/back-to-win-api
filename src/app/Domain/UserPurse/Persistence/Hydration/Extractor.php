@@ -15,7 +15,7 @@ class Extractor
      * @throws UndefinedValueException
      * @return \stdClass
      */
-    public function purseToRawData(UserPurse $purse): \stdClass
+    public static function purseToRawData(UserPurse $purse): \stdClass
     {
         return (object) [
             'user_id' => $purse->getUserId()->toBinary(),
@@ -33,7 +33,7 @@ class Extractor
      * @throws UndefinedValueException
      * @return \stdClass
      */
-    public function transactionToRawData(UserPurseTransaction $transaction): \stdClass
+    public static function transactionToRawData(UserPurseTransaction $transaction): \stdClass
     {
         return (object) [
             'id' => $transaction->getId()->toBinary(),

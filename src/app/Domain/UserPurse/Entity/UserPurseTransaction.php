@@ -37,7 +37,7 @@ class UserPurseTransaction
 
     public function setCalculation(Calculation $calculation): self
     {
-        return $this->get('calculation', $calculation);
+        return $this->set('calculation', $calculation);
     }
 
     public function getCalculation(): Calculation

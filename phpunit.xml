@@ -14,11 +14,11 @@
         </testsuite>
 
         <testsuite name="Boundary">
-            <directory suffix="Test.php">./tests/Integration</directory>
+            <directory suffix="Test.php">./tests/Boundary</directory>
         </testsuite>
 
         <testsuite name="Domain">
-            <directory suffix="Test.php">./tests/Unit</directory>
+            <directory suffix="Test.php">./tests/Domain</directory>
         </testsuite>
     </testsuites>
 </phpunit>

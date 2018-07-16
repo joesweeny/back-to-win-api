@@ -112,12 +112,16 @@ class IlluminateReaderIntegrationTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
+        sleep(1);
+
         $this->writer->insert(
             (new User('fbeb2f20-b1a4-433f-8f83-bb6f83c01cfa'))
                 ->setUsername('andreasweeny')
                 ->setEmail('andrea@example.com')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
+
+        sleep(1);
 
         $this->writer->insert(
             (new User('77e2438d-a744-4590-9785-08917dcdeb75'))
@@ -129,7 +133,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $users = $this->reader->getUsers();
 
         $this->assertCount(3, $users);
-        $this->assertEquals('andrea@example.com', $users[0]->getEmail());
+        $this->assertEquals('joe@example.com', $users[0]->getEmail());
         foreach ($users as $user) {
             $this->assertInstanceOf(User::class, $user);
         }

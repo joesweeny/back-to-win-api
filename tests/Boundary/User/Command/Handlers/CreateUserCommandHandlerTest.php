@@ -26,9 +26,6 @@ class CreateUserCommandHandlerTest extends TestCase
             'password'
         );
 
-        $orchestrator->userExistsWithEmail(Argument::type(User::class))->shouldBeCalled()->willReturn(false);
-        $orchestrator->userExistsWithUsername(Argument::type(User::class))->shouldBeCalled()->willReturn(false);
-
         $orchestrator->createUser(Argument::that(function (User $user) {
             $this->assertEquals('joe@email.com', $user->getEmail());
             return true;
@@ -53,9 +50,9 @@ class CreateUserCommandHandlerTest extends TestCase
             'password'
         );
 
-        $orchestrator->userExistsWithEmail(Argument::type(User::class))->shouldBeCalled()->willReturn(true);
-
-        $orchestrator->createUser(Argument::type(User::class))->shouldNotBeCalled();
+        $orchestrator->createUser(Argument::type(User::class))->willThrow(
+            new UserCreationException('A user has already registered with this email address joe@email.com')
+        );
 
         $this->expectException(UserCreationException::class);
         $this->expectExceptionMessage('A user has already registered with this email address joe@email.com');

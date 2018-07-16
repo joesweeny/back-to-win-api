@@ -8,7 +8,7 @@ final class Extractor
 {
     /**
      * @param User $user
-     * @return User|\stdClass
+     * @return \stdClass
      * @throws \BackToWin\Framework\Exception\UndefinedException
      */
     public static function toRawData(User $user): \stdClass

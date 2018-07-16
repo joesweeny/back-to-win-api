@@ -57,7 +57,7 @@ class Dispatcher
 
             case FastRouteDispatcher::METHOD_NOT_ALLOWED:
             case FastRouteDispatcher::NOT_FOUND:
-                throw new NotFoundException('Page not found');
+                throw new NotFoundException('Invalid route');
 
             default:
                 throw new \RuntimeException("Unexpected dispatcher code returned: {$routeInfo[0]}");

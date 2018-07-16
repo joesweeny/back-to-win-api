@@ -30,7 +30,7 @@ class CreateControllerIntegrationTest extends TestCase
     {
         $request = new ServerRequest(
             'post',
-            '/api/v1/user',
+            '/api/user',
             [],
             '{"username":"joesweeny","email":"joe@email.com","password":"mypass"}'
         );
@@ -56,7 +56,7 @@ class CreateControllerIntegrationTest extends TestCase
 
         $request = new ServerRequest(
             'post',
-            '/api/v1/user',
+            '/api/user',
             [],
             '{"username":"joesweeny","email":"joe@email.com","password":"mypass"}'
         );
@@ -75,7 +75,7 @@ class CreateControllerIntegrationTest extends TestCase
 
     public function test_400_response_is_returned_if_request_body_is_missing()
     {
-        $request = new ServerRequest('post', '/api/v1/user', []);
+        $request = new ServerRequest('post', '/api/user', []);
 
         $response = $this->handle($this->container, $request);
 
@@ -90,7 +90,7 @@ class CreateControllerIntegrationTest extends TestCase
     {
         $request = new ServerRequest(
             'post',
-            '/api/v1/user',
+            '/api/user',
             [],
             '{"username":"joesweeny"}'
         );

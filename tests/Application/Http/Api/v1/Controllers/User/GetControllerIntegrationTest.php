@@ -41,7 +41,7 @@ class GetControllerIntegrationTest extends TestCase
     {
         $request = new ServerRequest(
             'get',
-            '/api/v1/user/f530caab-1767-4f0c-a669-331a7bf0fc85',
+            '/api/user/f530caab-1767-4f0c-a669-331a7bf0fc85',
             []
         );
 
@@ -59,7 +59,7 @@ class GetControllerIntegrationTest extends TestCase
     {
         $request = new ServerRequest(
             'get',
-            '/api/v1/user/93449e9d-4082-4305-8840-fa1673bcf915',
+            '/api/user/93449e9d-4082-4305-8840-fa1673bcf915',
             []
         );
 

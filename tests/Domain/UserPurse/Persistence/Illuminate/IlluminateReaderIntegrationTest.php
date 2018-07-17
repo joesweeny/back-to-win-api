@@ -42,11 +42,7 @@ class IlluminateReaderIntegrationTest extends TestCase
 
     public function test_user_purse_can_be_retrieved_from_the_database()
     {
-        $this->writer->insert(
-            (new UserPurse())
-                ->setUserId($id = Uuid::generate())
-                ->setTotal(new Money(500, new Currency('GBP')))
-        );
+        $this->writer->insert(new UserPurse($id = Uuid::generate(), new Money(500, new Currency('GBP'))));
 
         $fetched = $this->reader->getPurse($id);
 

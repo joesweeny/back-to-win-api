@@ -41,21 +41,13 @@ class IlluminateWriterIntegrationTest extends TestCase
 
     public function test_insert_increases_table_count()
     {
-        $this->writer->insert(
-            (new UserPurse())
-                ->setUserId(Uuid::generate())
-                ->setTotal(new Money(500, new Currency('GBP')))
-        );
+        $this->writer->insert(new UserPurse(Uuid::generate(), new Money(500, new Currency('GBP'))));
 
         $total = $this->connection->table('user_purse')->get();
 
         $this->assertCount(1, $total);
 
-        $this->writer->insert(
-            (new UserPurse())
-                ->setUserId(Uuid::generate())
-                ->setTotal(new Money(500, new Currency('GBP')))
-        );
+        $this->writer->insert(new UserPurse(Uuid::generate(), new Money(500, new Currency('GBP'))));
 
         $total = $this->connection->table('user_purse')->get();
 
@@ -64,11 +56,8 @@ class IlluminateWriterIntegrationTest extends TestCase
 
     public function test_update_updates_an_existing_record_in_the_database()
     {
-        $this->writer->insert(
-            (new UserPurse())
-                ->setUserId($id = Uuid::generate())
-                ->setTotal(new Money(500, new Currency('GBP')))
-        );
+        $this->writer->insert(new UserPurse($id = Uuid::generate(), new Money(500, new Currency('GBP'))));
+
 
         $purse = $this->connection->table('user_purse')->where('user_id', $id->toBinary())->first();
 
@@ -77,9 +66,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->assertEquals('GBP', $purse->currency);
 
         $this->writer->update(
-            (new UserPurse())
-                ->setUserId($id)
-                ->setTotal(new Money(2500, new Currency('GBP')))
+            (new UserPurse($id, new Money(2500, new Currency('GBP'))))
                 ->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $purse->created_at))
         );
 

@@ -5,9 +5,13 @@ namespace BackToWin\Domain\User;
 use BackToWin\Domain\User\Persistence\Reader;
 use BackToWin\Domain\User\Persistence\Writer;
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\Orchestrator;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Exception\UserCreationException;
 use BackToWin\Framework\Uuid\Uuid;
+use Money\Currency;
+use Money\Money;
 
 class UserOrchestrator
 {
@@ -19,11 +23,16 @@ class UserOrchestrator
      * @var Reader
      */
     private $reader;
+    /**
+     * @var Orchestrator
+     */
+    private $purseOrchestrator;
 
-    public function __construct(Writer $writer, Reader $reader)
+    public function __construct(Writer $writer, Reader $reader, Orchestrator $purseOrchestrator)
     {
         $this->writer = $writer;
         $this->reader = $reader;
+        $this->purseOrchestrator = $purseOrchestrator;
     }
 
     /**
@@ -41,7 +50,11 @@ class UserOrchestrator
             throw new UserCreationException("A user has already registered with this username {$user->getUsername()}");
         }
 
-        return $this->writer->insert($user);
+        $user = $this->writer->insert($user);
+
+        $this->purseOrchestrator->createUserPurse(new UserPurse($user->getId(), new Money(0, new Currency('GBP'))));
+
+        return $user;
     }
 
     /**

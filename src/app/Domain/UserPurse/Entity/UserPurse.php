@@ -12,23 +12,28 @@ class UserPurse
     use PrivateAttributesTrait,
         TimestampedTrait;
 
-    public function setUserId(Uuid $userId): self
+    /**
+     * @var Uuid
+     */
+    private $userId;
+    /**
+     * @var Money
+     */
+    private $money;
+
+    public function __construct(Uuid $userId, Money $money)
     {
-        return $this->set('user_id', $userId);
+        $this->userId = $userId;
+        $this->money = $money;
     }
 
     public function getUserId(): Uuid
     {
-        return $this->getOrFail('user_id');
-    }
-
-    public function setTotal(Money $money): self
-    {
-        return $this->set('total', $money);
+        return $this->userId;
     }
 
     public function getTotal(): Money
     {
-        return $this->getOrFail('total');
+        return $this->money;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace BackToWin\Domain\User;
 
+use BackToWin\Domain\UserPurse\Orchestrator;
 use BackToWin\Testing\Traits\RunsMigrations;
 use BackToWin\Testing\Traits\UsesContainer;
 use BackToWin\Domain\User\Entity\User;
@@ -10,6 +11,8 @@ use BackToWin\Framework\Password\PasswordHash;
 use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
+use Money\Currency;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class UserOrchestratorTest extends TestCase
@@ -172,5 +175,22 @@ class UserOrchestratorTest extends TestCase
         foreach ($users as $user) {
             $this->assertInstanceOf(User::class, $user);
         }
+    }
+
+    public function test_purse_is_created_for_user_when_a_user_is_created()
+    {
+        $purseOrchestrator = $this->container->get(Orchestrator::class);
+
+        $this->orchestrator->createUser(
+            $user = (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
+                ->setUsername('joesweeny')
+                ->setEmail('joe@example.com')
+                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+        );
+
+        $purse = $purseOrchestrator->getUserPurse($user->getId());
+
+        $this->assertEquals('dc5b6421-d452-4862-b741-d43383c3fe1d', $purse->getUserId());
+        $this->assertEquals(new Money(0, new Currency('GBP')), $purse->getTotal());
     }
 }

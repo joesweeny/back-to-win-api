@@ -19,11 +19,15 @@ class Hydrator
      */
     public static function hydratePurse(\stdClass $data): UserPurse
     {
-        return (new UserPurse)
-            ->setUserId(Uuid::createFromBinary($data->user_id))
-            ->setTotal(new Money($data->amount, new Currency($data->currency)))
-            ->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $data->created_at))
-            ->setLastModifiedDate(\DateTimeImmutable::createFromFormat('U', $data->updated_at));
+        $purse = new UserPurse(
+            Uuid::createFromBinary($data->user_id),
+            new Money($data->amount, new Currency($data->currency))
+        );
+
+        $purse->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $data->created_at))
+        ->setLastModifiedDate(\DateTimeImmutable::createFromFormat('U', $data->updated_at));
+
+        return $purse;
     }
 
     /**

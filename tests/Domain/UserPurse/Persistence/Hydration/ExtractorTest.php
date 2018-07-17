@@ -15,10 +15,10 @@ class ExtractorTest extends TestCase
     public function test_converts_user_purse_object_into_a_scalar_object()
     {
         $data = Extractor::purseToRawData(
-            (new UserPurse())
-                ->setUserId(new Uuid('c3dd46d3-f032-4a97-a1bb-e5603a6d3b21'))
-                ->setTotal(new Money(500, new Currency('GBP')))
-                ->setCreatedDate(new \DateTimeImmutable('2018-07-16 00:00:00'))
+            (new UserPurse(
+                new Uuid('c3dd46d3-f032-4a97-a1bb-e5603a6d3b21'),
+                new Money(500, new Currency('GBP'))
+            ))->setCreatedDate(new \DateTimeImmutable('2018-07-16 00:00:00'))
                 ->setLastModifiedDate(new \DateTimeImmutable('2018-07-16 00:00:00'))
         );
 

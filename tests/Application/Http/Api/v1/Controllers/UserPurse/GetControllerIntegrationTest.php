@@ -27,9 +27,10 @@ class GetControllerIntegrationTest extends TestCase
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->container->get(Writer::class)->insert(
-            (new UserPurse())
-                ->setUserId(new Uuid('511f27c9-58be-49a5-82f1-a8b8807c2075'))
-                ->setTotal(new Money(500, new Currency('GBP')))
+            new UserPurse(
+                new Uuid('511f27c9-58be-49a5-82f1-a8b8807c2075'),
+                new Money(500, new Currency('GBP'))
+            )
         );
     }
 

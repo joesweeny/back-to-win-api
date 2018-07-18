@@ -34,14 +34,25 @@ class Game
      * @var Money
      */
     private $min;
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $start;
 
-    public function __construct(Uuid $id, GameType $type, GameStatus $status, Money $max, Money $min)
-    {
+    public function __construct(
+        Uuid $id,
+        GameType $type,
+        GameStatus $status,
+        Money $max,
+        Money $min,
+        \DateTimeImmutable $start
+    ) {
         $this->id = $id;
         $this->type = $type;
         $this->status = $status;
         $this->max = $max;
         $this->min = $min;
+        $this->start = $start;
     }
 
     public function getId(): Uuid
@@ -67,5 +78,10 @@ class Game
     public function getMin(): Money
     {
         return $this->min;
+    }
+
+    public function getStartDateTime(): \DateTimeImmutable
+    {
+        return $this->start;
     }
 }

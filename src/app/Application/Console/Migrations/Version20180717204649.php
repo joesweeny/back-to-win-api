@@ -23,6 +23,7 @@ class Version20180717204649 extends AbstractMigration
         $table->addColumn('max', Type::INTEGER);
         $table->addColumn('min', Type::INTEGER);
         $table->addColumn('status', Type::STRING);
+        $table->addColumn('start', Type::INTEGER);
         $table->addColumn('created_at', Type::INTEGER);
         $table->addColumn('updated_at', Type::INTEGER);
         $table->setPrimaryKey(['id']);

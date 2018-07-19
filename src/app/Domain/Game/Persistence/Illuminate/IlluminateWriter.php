@@ -49,6 +49,8 @@ class IlluminateWriter implements Writer
             throw new NotFoundException("Unable to update Game {$game->getId()} as it does not exist");
         }
 
+        $game->setLastModifiedDate($this->clock->now());
+
         $this->table()->where('id', $game->getId()->toBinary())->update((array) Extractor::toRawData($game));
 
         return $game;

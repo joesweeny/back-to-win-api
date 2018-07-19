@@ -11,10 +11,6 @@ class GameQueryBuilder
     {
         $query = $query ?: new GameRepositoryQuery();
 
-        if (($id = $query->getWhereIdEquals()) !== null) {
-            $builder->where('id', $id->toBinary());
-        }
-
         if (($status = $query->getWhereStatusEquals()) !== null) {
             $builder->where('status', $status->getValue());
         }

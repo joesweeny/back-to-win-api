@@ -158,7 +158,9 @@ class ContainerFactory
 
             \BackToWin\Domain\UserPurse\Persistence\Reader::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class),
 
-            \BackToWin\Domain\Game\Persistence\Writer::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateWriter::class)
+            \BackToWin\Domain\Game\Persistence\Writer::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
+
+            \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class)
         ];
     }
 

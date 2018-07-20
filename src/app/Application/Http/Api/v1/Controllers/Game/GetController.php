@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Controllers\User;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use BackToWin\Boundary\User\Command\GetUserByIdCommand;
+use BackToWin\Boundary\Game\Command\GetByIdCommand;
 use BackToWin\Framework\Controller\ControllerService;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Jsend\JsendError;
@@ -15,21 +15,17 @@ class GetController
 {
     use ControllerService;
 
-    /**
-     * @param string $id
-     * @return JsendResponse
-     */
     public function __invoke(string $id): JsendResponse
     {
         try {
-            $user = $this->bus->execute(new GetUserByIdCommand($id));
+            $game = $this->bus->execute(new GetByIdCommand($id));
 
             return new JsendSuccessResponse([
-               'user' => $user
+                'game' => $game
             ]);
         } catch (NotFoundException | InvalidUuidStringException $e) {
             return (new JsendFailResponse([
-                new JsendError("User with ID {$id} does not exist")
+                new JsendError("Game with ID {$id} does not exist")
             ]))->withStatus(404);
         }
     }

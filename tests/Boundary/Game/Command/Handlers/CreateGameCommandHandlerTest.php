@@ -39,7 +39,7 @@ class CreateGameCommandHandlerTest extends TestCase
     public function test_handle_creates_a_new_game_and_returns_a_scalar_object_containing_game_data()
     {
         $command = new CreateGameCommand(
-            'WINNER_TAKES_ALL',
+            'GENERAL_KNOWLEDGE',
             'CREATED',
             'GBP',
             50,
@@ -49,7 +49,7 @@ class CreateGameCommandHandlerTest extends TestCase
         );
 
         $this->orchestrator->createGame(Argument::that(function (Game $game) {
-            $this->assertEquals(GameType::WINNER_TAKES_ALL(), $game->getType());
+            $this->assertEquals(GameType::GENERAL_KNOWLEDGE(), $game->getType());
             $this->assertEquals(GameStatus::CREATED(), $game->getStatus());
             $this->assertEquals(new Money(50, new Currency('GBP')), $game->getMax());
             $this->assertEquals(new Money(10, new Currency('GBP')), $game->getMin());
@@ -61,4 +61,9 @@ class CreateGameCommandHandlerTest extends TestCase
 
         $this->handler->handle($command);
     }
+
+//    public function test_game_creation_exception_is_thrown_if_passing_an_incorrect_game_type()
+//    {
+//
+//    }
 }

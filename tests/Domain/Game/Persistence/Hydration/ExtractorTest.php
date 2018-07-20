@@ -16,7 +16,7 @@ class ExtractorTest extends TestCase
     {
         $game = new Game(
             new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
-            GameType::WINNER_TAKES_ALL(),
+            GameType::GENERAL_KNOWLEDGE(),
             GameStatus::CREATED(),
             new Money(50, new Currency('GBP')),
             new Money(10, new Currency('GBP')),
@@ -30,7 +30,7 @@ class ExtractorTest extends TestCase
         $data = Extractor::toRawData($game);
 
         $this->assertEquals('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2', Uuid::createFromBinary($data->id));
-        $this->assertEquals('WINNER_TAKES_ALL', $data->type);
+        $this->assertEquals('GENERAL_KNOWLEDGE', $data->type);
         $this->assertEquals('CREATED', $data->status);
         $this->assertEquals('GBP', $data->currency);
         $this->assertEquals(50, $data->max);

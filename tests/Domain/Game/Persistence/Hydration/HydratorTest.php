@@ -16,7 +16,7 @@ class HydratorTest extends TestCase
         $game = Hydrator::fromRawData(
             (object) [
                 'id' => (new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'))->toBinary(),
-                'type' => 'WINNER_TAKES_ALL',
+                'type' => 'GENERAL_KNOWLEDGE',
                 'status' => 'IN_PLAY',
                 'currency' => 'GBP',
                 'max' => 50,
@@ -29,7 +29,7 @@ class HydratorTest extends TestCase
         );
 
         $this->assertEquals('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2', $game->getId());
-        $this->assertEquals(GameType::WINNER_TAKES_ALL(), $game->getType());
+        $this->assertEquals(GameType::GENERAL_KNOWLEDGE(), $game->getType());
         $this->assertEquals(GameStatus::IN_PLAY(), $game->getStatus());
         $this->assertEquals(new Money(50, new Currency('GBP')), $game->getMax());
         $this->assertEquals(new Money(10, new Currency('GBP')), $game->getMin());

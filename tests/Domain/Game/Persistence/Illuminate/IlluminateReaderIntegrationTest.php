@@ -46,7 +46,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 new Uuid('7967168d-6608-4397-b24d-9e02b5426269'),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -58,7 +58,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $fetched = $this->reader->getById(new Uuid('7967168d-6608-4397-b24d-9e02b5426269'));
 
         $this->assertEquals('7967168d-6608-4397-b24d-9e02b5426269', $fetched->getId());
-        $this->assertEquals(GameType::WINNER_TAKES_ALL(), $fetched->getType());
+        $this->assertEquals(GameType::GENERAL_KNOWLEDGE(), $fetched->getType());
         $this->assertEquals(GameStatus::CREATED(), $fetched->getStatus());
         $this->assertEquals(new Money(50, new Currency('GBP')), $fetched->getMax());
         $this->assertEquals(new Money(10, new Currency('GBP')), $fetched->getMin());
@@ -78,7 +78,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -90,7 +90,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CANCELLED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -102,7 +102,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -125,7 +125,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -137,7 +137,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CANCELLED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -149,7 +149,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),

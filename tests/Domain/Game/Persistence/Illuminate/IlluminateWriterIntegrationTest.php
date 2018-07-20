@@ -45,7 +45,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -61,7 +61,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -80,7 +80,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->writer->insert(
             new Game(
                 $id = Uuid::generate(),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -91,7 +91,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
         $fetched = $this->connection->table('game')->where('id', $id->toBinary())->first();
 
-        $this->assertEquals('WINNER_TAKES_ALL', $fetched->type);
+        $this->assertEquals('GENERAL_KNOWLEDGE', $fetched->type);
         $this->assertEquals('CREATED', $fetched->status);
         $this->assertEquals(50, $fetched->max);
         $this->assertEquals(1531872000, $fetched->start);
@@ -100,7 +100,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->writer->update(
             (new Game(
                 $id,
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::COMPLETED(),
                 new Money(500, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
@@ -111,7 +111,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
         $fetched = $this->connection->table('game')->where('id', $id->toBinary())->first();
 
-        $this->assertEquals('WINNER_TAKES_ALL', $fetched->type);
+        $this->assertEquals('GENERAL_KNOWLEDGE', $fetched->type);
         $this->assertEquals('COMPLETED', $fetched->status);
         $this->assertEquals(500, $fetched->max);
         $this->assertEquals(1531872000, $fetched->start);
@@ -125,7 +125,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->writer->update(
             (new Game(
                 new Uuid('7967168d-6608-4397-b24d-9e02b5426269'),
-                GameType::WINNER_TAKES_ALL(),
+                GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::COMPLETED(),
                 new Money(500, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),

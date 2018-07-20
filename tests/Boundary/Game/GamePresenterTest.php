@@ -16,7 +16,7 @@ class GamePresenterTest extends TestCase
     {
         $game = new Game(
             new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
-            GameType::WINNER_TAKES_ALL(),
+            GameType::GENERAL_KNOWLEDGE(),
             GameStatus::CREATED(),
             new Money(50, new Currency('GBP')),
             new Money(10, new Currency('GBP')),
@@ -30,7 +30,7 @@ class GamePresenterTest extends TestCase
         $dto = (new GamePresenter())->toDto($game);
 
         $this->assertEquals('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2', $dto->id);
-        $this->assertEquals('WINNER_TAKES_ALL', $dto->type);
+        $this->assertEquals('GENERAL_KNOWLEDGE', $dto->type);
         $this->assertEquals('CREATED', $dto->status);
         $this->assertEquals('GBP', $dto->currency);
         $this->assertEquals(50, $dto->max);

@@ -5,9 +5,9 @@ namespace BackToWin\Domain\Game\Enum;
 use MyCLabs\Enum\Enum;
 
 /**
- * @method static GameType WINNER_TAKES_ALL()
+ * @method static GameType GENERAL_KNOWLEDGE()
  */
 class GameType extends Enum
 {
-    const WINNER_TAKES_ALL = 'WINNER_TAKES_ALL';
+    const GENERAL_KNOWLEDGE = 'GENERAL_KNOWLEDGE';
 }

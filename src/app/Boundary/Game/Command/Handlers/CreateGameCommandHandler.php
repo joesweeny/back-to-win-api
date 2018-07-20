@@ -5,6 +5,7 @@ namespace BackToWin\Boundary\Game\Command\Handlers;
 use BackToWin\Boundary\Game\Command\CreateGameCommand;
 use BackToWin\Boundary\Game\GamePresenter;
 use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Orchestrator;
 use BackToWin\Framework\Uuid\Uuid;
 
@@ -41,7 +42,7 @@ class CreateGameCommandHandler
         return new Game(
             Uuid::generate(),
             $command->getType(),
-            $command->getStatus(),
+            GameStatus::CREATED(),
             $command->getMax(),
             $command->getMin(),
             $command->getStartDateTime(),

@@ -2,17 +2,31 @@
 
 namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
+use BackToWin\Application\Http\Api\v1\Validation\Game\RequestValidator;
 use BackToWin\Boundary\Game\Command\CreateGameCommand;
-use BackToWin\Framework\Controller\ControllerService;
 use BackToWin\Framework\Jsend\JsendError;
 use BackToWin\Framework\Jsend\JsendFailResponse;
 use BackToWin\Framework\Jsend\JsendResponse;
 use BackToWin\Framework\Jsend\JsendSuccessResponse;
+use Chief\CommandBus;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CreateController
 {
-    use ControllerService;
+    /**
+     * @var RequestValidator
+     */
+    private $validator;
+    /**
+     * @var CommandBus
+     */
+    private $bus;
+
+    public function __construct(CommandBus $bus, RequestValidator $validator)
+    {
+        $this->bus = $bus;
+        $this->validator = $validator;
+    }
 
     public function __invoke(ServerRequestInterface $request): JsendResponse
     {
@@ -24,9 +38,19 @@ class CreateController
             ]);
         }
 
+        $errors = $this->validator->validate($body);
+
+        if (!empty($errors)) {
+            return new JsendFailResponse(
+                array_map(function (string $error) {
+                    return new JsendError($error);
+                }, $errors)
+            );
+        }
+
         try {
             $command = $this->hydrateCommand($body);
-        } catch (\UnexpectedValueException | \InvalidArgumentException $e) {
+        } catch (\UnexpectedValueException $e) {
             return new JsendFailResponse([
                 new JsendError($e->getMessage())
             ]);
@@ -47,7 +71,6 @@ class CreateController
     {
         return new CreateGameCommand(
             $data->type,
-            $data->status,
             $data->currency,
             $data->max,
             $data->min,

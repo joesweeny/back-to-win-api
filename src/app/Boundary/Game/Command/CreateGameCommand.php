@@ -14,10 +14,7 @@ class CreateGameCommand implements Command
      * @var GameType
      */
     private $type;
-    /**
-     * @var GameStatus
-     */
-    private $status;
+
     /**
      * @var Currency
      */
@@ -41,7 +38,6 @@ class CreateGameCommand implements Command
 
     public function __construct(
         string $type,
-        string $status,
         string $currency,
         int $max,
         int $min,
@@ -50,7 +46,6 @@ class CreateGameCommand implements Command
     ) {
 
         $this->type = new GameType($type);
-        $this->status = new GameStatus($status);
         $this->currency = new Currency($currency);
         $this->max = $max;
         $this->min = $min;
@@ -61,11 +56,6 @@ class CreateGameCommand implements Command
     public function getType(): GameType
     {
         return $this->type;
-    }
-
-    public function getStatus(): GameStatus
-    {
-        return $this->status;
     }
 
     public function getMax(): Money

@@ -34,6 +34,10 @@ class CreateGameCommand implements Command
      * @var \DateTimeImmutable
      */
     private $start;
+    /**
+     * @var int
+     */
+    private $players;
 
     public function __construct(
         string $type,
@@ -41,7 +45,8 @@ class CreateGameCommand implements Command
         string $currency,
         int $max,
         int $min,
-        string $start
+        string $start,
+        int $players
     ) {
 
         $this->type = new GameType($type);
@@ -50,6 +55,7 @@ class CreateGameCommand implements Command
         $this->max = $max;
         $this->min = $min;
         $this->start = new \DateTimeImmutable($start);
+        $this->players = $players;
     }
 
     public function getType(): GameType
@@ -75,5 +81,10 @@ class CreateGameCommand implements Command
     public function getStartDateTime(): \DateTimeImmutable
     {
         return $this->start;
+    }
+
+    public function getPlayers(): int
+    {
+        return $this->players;
     }
 }

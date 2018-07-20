@@ -56,7 +56,8 @@ class CreateGameCommandHandler
             $command->getStatus(),
             $command->getMax(),
             $command->getMin(),
-            $command->getStartDateTime()
+            $command->getStartDateTime(),
+            $command->getPlayers()
         );
     }
 }

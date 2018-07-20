@@ -3,7 +3,6 @@
 namespace BackToWin\Boundary\Game\Command\Handlers;
 
 use BackToWin\Boundary\Game\Command\CreateGameCommand;
-use BackToWin\Boundary\Game\Exception\GameCreationException;
 use BackToWin\Boundary\Game\GamePresenter;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Orchestrator;
@@ -28,26 +27,15 @@ class CreateGameCommandHandler
 
     /**
      * @param CreateGameCommand $command
-     * @throws GameCreationException
      * @return \stdClass
      */
     public function handle(CreateGameCommand $command): \stdClass
     {
-        try {
-            $game = $this->orchestrator->createGame($this->hydrateGameObject($command));
+        $game = $this->orchestrator->createGame($this->hydrateGameObject($command));
 
-            return $this->presenter->toDto($game);
-        } catch (\UnexpectedValueException | \InvalidArgumentException $e) {
-            throw new GameCreationException("Game creation failed with message: {$e->getMessage()}");
-        }
+        return $this->presenter->toDto($game);
     }
 
-    /**
-     * @param CreateGameCommand $command
-     * @throws \UnexpectedValueException
-     * @throws \InvalidArgumentException
-     * @return Game
-     */
     private function hydrateGameObject(CreateGameCommand $command): Game
     {
         return new Game(

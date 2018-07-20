@@ -8,7 +8,6 @@ use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\Game\Orchestrator;
-use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
@@ -61,9 +60,4 @@ class CreateGameCommandHandlerTest extends TestCase
 
         $this->handler->handle($command);
     }
-
-//    public function test_game_creation_exception_is_thrown_if_passing_an_incorrect_game_type()
-//    {
-//
-//    }
 }

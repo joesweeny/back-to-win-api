@@ -22,6 +22,7 @@ class GamePresenter
             'max' => (int) $game->getMax()->getAmount(),
             'min' => (int) $game->getMin()->getAmount(),
             'start' => $game->getStartDateTime()->format(\DATE_ATOM),
+            'players' => $game->getPlayers(),
             'created_at' => $game->getCreatedDate()->format(\DATE_ATOM),
             'updated_at' => $game->getLastModifiedDate()->format(\DATE_ATOM)
         ];

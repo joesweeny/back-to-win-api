@@ -20,7 +20,8 @@ class ExtractorTest extends TestCase
             GameStatus::CREATED(),
             new Money(50, new Currency('GBP')),
             new Money(10, new Currency('GBP')),
-            new \DateTimeImmutable('2018-07-18 00:00:00')
+            new \DateTimeImmutable('2018-07-18 00:00:00'),
+            4
         );
 
         $game->setCreatedDate(new \DateTimeImmutable('2018-07-18 00:00:00'))
@@ -35,6 +36,7 @@ class ExtractorTest extends TestCase
         $this->assertEquals(50, $data->max);
         $this->assertEquals(10, $data->min);
         $this->assertEquals(1531872000, $data->start);
+        $this->assertEquals(4, $data->players);
         $this->assertEquals(1531872000, $data->created_at);
         $this->assertEquals(1531872000, $data->updated_at);
     }

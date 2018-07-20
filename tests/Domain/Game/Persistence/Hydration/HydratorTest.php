@@ -22,6 +22,7 @@ class HydratorTest extends TestCase
                 'max' => 50,
                 'min' => 10,
                 'start' => 1531872000,
+                'players' => 4,
                 'created_at' => 1531872000,
                 'updated_at' => 1531872000,
             ]
@@ -33,6 +34,7 @@ class HydratorTest extends TestCase
         $this->assertEquals(new Money(50, new Currency('GBP')), $game->getMax());
         $this->assertEquals(new Money(10, new Currency('GBP')), $game->getMin());
         $this->assertEquals(new \DateTimeImmutable('2018-07-18 00:00:00'), $game->getStartDateTime());
+        $this->assertEquals(4, $game->getPlayers());
         $this->assertEquals(new \DateTimeImmutable('2018-07-18 00:00:00'), $game->getCreatedDate());
         $this->assertEquals(new \DateTimeImmutable('2018-07-18 00:00:00'), $game->getLastModifiedDate());
     }

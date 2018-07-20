@@ -22,6 +22,7 @@ class Extractor
             'min' => (int) $game->getMin()->getAmount(),
             'status' => $game->getStatus()->getValue(),
             'start' => $game->getStartDateTime()->getTimestamp(),
+            'players' => $game->getPlayers(),
             'created_at' => $game->getCreatedDate()->getTimestamp(),
             'updated_at' => $game->getLastModifiedDate()->getTimestamp()
         ];

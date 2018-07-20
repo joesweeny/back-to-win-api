@@ -38,6 +38,10 @@ class Game
      * @var \DateTimeImmutable
      */
     private $start;
+    /**
+     * @var int
+     */
+    private $players;
 
     public function __construct(
         Uuid $id,
@@ -45,7 +49,8 @@ class Game
         GameStatus $status,
         Money $max,
         Money $min,
-        \DateTimeImmutable $start
+        \DateTimeImmutable $start,
+        int $players
     ) {
         $this->id = $id;
         $this->type = $type;
@@ -53,6 +58,7 @@ class Game
         $this->max = $max;
         $this->min = $min;
         $this->start = $start;
+        $this->players = $players;
     }
 
     public function getId(): Uuid
@@ -83,5 +89,10 @@ class Game
     public function getStartDateTime(): \DateTimeImmutable
     {
         return $this->start;
+    }
+
+    public function getPlayers(): int
+    {
+        return $this->players;
     }
 }

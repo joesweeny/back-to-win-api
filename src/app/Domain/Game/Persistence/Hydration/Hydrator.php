@@ -19,7 +19,8 @@ class Hydrator
             new GameStatus($data->status),
             new Money($data->max, new Currency($data->currency)),
             new Money($data->min, new Currency($data->currency)),
-            \DateTimeImmutable::createFromFormat('U', $data->start)
+            \DateTimeImmutable::createFromFormat('U', $data->start),
+            $data->players
         );
 
         $game->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $data->created_at))

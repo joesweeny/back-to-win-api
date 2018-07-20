@@ -50,7 +50,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -62,6 +63,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->assertEquals(new Money(50, new Currency('GBP')), $fetched->getMax());
         $this->assertEquals(new Money(10, new Currency('GBP')), $fetched->getMin());
         $this->assertEquals(new \DateTimeImmutable('2018-07-18 00:00:00'), $fetched->getStartDateTime());
+        $this->assertEquals(4, $fetched->getPlayers());
     }
 
     public function test_exception_is_thrown_if_attempting_to_retrieve_a_game_that_does_not_exist()
@@ -80,7 +82,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -91,7 +94,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CANCELLED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -102,7 +106,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -124,7 +129,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -135,7 +141,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CANCELLED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -146,7 +153,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 

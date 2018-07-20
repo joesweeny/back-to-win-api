@@ -49,7 +49,8 @@ class IlluminateWriterIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -64,7 +65,8 @@ class IlluminateWriterIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -82,7 +84,8 @@ class IlluminateWriterIntegrationTest extends TestCase
                 GameStatus::CREATED(),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             )
         );
 
@@ -92,6 +95,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->assertEquals('CREATED', $fetched->status);
         $this->assertEquals(50, $fetched->max);
         $this->assertEquals(1531872000, $fetched->start);
+        $this->assertEquals(4, $fetched->players);
 
         $this->writer->update(
             (new Game(
@@ -100,7 +104,8 @@ class IlluminateWriterIntegrationTest extends TestCase
                 GameStatus::COMPLETED(),
                 new Money(500, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                2
             ))->setCreatedDate(new \DateTimeImmutable())
         );
 
@@ -110,6 +115,7 @@ class IlluminateWriterIntegrationTest extends TestCase
         $this->assertEquals('COMPLETED', $fetched->status);
         $this->assertEquals(500, $fetched->max);
         $this->assertEquals(1531872000, $fetched->start);
+        $this->assertEquals(2, $fetched->players);
     }
 
     public function test_exception_is_thrown_if_attempting_to_update_a_game_that_does_not_exist()
@@ -123,7 +129,8 @@ class IlluminateWriterIntegrationTest extends TestCase
                 GameStatus::COMPLETED(),
                 new Money(500, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00')
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                4
             ))->setCreatedDate(new \DateTimeImmutable())
         );
     }

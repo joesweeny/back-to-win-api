@@ -23,7 +23,7 @@ class CreateController
                 new JsendError('Unable to parse request body')
             ]);
         }
-        
+
         try {
             $command = $this->hydrateCommand($body);
         } catch (\UnexpectedValueException | \InvalidArgumentException $e) {

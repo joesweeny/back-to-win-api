@@ -2,7 +2,9 @@
 
 namespace BackToWin\Boundary\Game\Command;
 
-class ListGamesCommand
+use Chief\Command;
+
+class ListGamesCommand implements Command
 {
 
 }

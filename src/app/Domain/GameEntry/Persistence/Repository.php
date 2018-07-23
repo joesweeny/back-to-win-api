@@ -2,6 +2,7 @@
 
 namespace BackToWin\Domain\GameEntry\Persistence;
 
+use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
@@ -22,7 +23,7 @@ interface Repository
      *
      * @param Uuid $gameId
      * @throws NotFoundException
-     * @return array
+     * @return array|GameEntry[]
      */
     public function get(Uuid $gameId): array;
 }

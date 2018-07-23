@@ -21,6 +21,7 @@ class Version20180723202425 extends AbstractMigration
         $table->addColumn('game_id', Type::BINARY);
         $table->addColumn('user_id', Type::BINARY);
         $table->addColumn('timestamp', Type::INTEGER);
+        $table->setPrimaryKey(['id']);
         $table->addIndex(['game_id', 'user_id']);
     }
 

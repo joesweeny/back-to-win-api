@@ -161,7 +161,9 @@ class ContainerFactory
 
             \BackToWin\Domain\Game\Persistence\Writer::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
 
-            \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class)
+            \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class),
+
+            \BackToWin\Domain\GameEntry\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class)
         ];
     }
 

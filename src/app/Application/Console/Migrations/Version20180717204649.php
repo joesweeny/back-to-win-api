@@ -20,6 +20,7 @@ class Version20180717204649 extends AbstractMigration
         $table->addColumn('id', Type::BINARY)->setLength(16);
         $table->addColumn('type', Type::STRING);
         $table->addColumn('currency', Type::STRING);
+        $table->addColumn('buy_in', Type::INTEGER);
         $table->addColumn('max', Type::INTEGER);
         $table->addColumn('min', Type::INTEGER);
         $table->addColumn('status', Type::STRING);

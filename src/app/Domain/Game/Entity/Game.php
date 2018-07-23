@@ -42,11 +42,16 @@ class Game
      * @var int
      */
     private $players;
+    /**
+     * @var Money
+     */
+    private $buyIn;
 
     public function __construct(
         Uuid $id,
         GameType $type,
         GameStatus $status,
+        Money $buyIn,
         Money $max,
         Money $min,
         \DateTimeImmutable $start,
@@ -55,6 +60,7 @@ class Game
         $this->id = $id;
         $this->type = $type;
         $this->status = $status;
+        $this->buyIn = $buyIn;
         $this->max = $max;
         $this->min = $min;
         $this->start = $start;
@@ -74,6 +80,11 @@ class Game
     public function getStatus(): GameStatus
     {
         return $this->status;
+    }
+    
+    public function getBuyIn(): Money
+    {
+        return $this->buyIn;
     }
 
     public function getMax(): Money

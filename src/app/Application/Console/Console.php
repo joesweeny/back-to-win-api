@@ -2,6 +2,7 @@
 
 namespace BackToWin\Application\Console;
 
+use BackToWin\Application\Console\Command\GameCreateCommand;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Finder\GlobFinder;
@@ -54,6 +55,8 @@ class Console
         ]));
 
         $app->addCommands([
+            $this->container->get(GameCreateCommand::class),
+            
             new \Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand(),
             new \Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand(),
             new \Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand(),

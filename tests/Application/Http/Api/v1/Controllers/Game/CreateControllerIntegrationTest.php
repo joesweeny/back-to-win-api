@@ -28,6 +28,7 @@ class CreateControllerIntegrationTest extends TestCase
         $data = (object) [
             'type' => 'GENERAL_KNOWLEDGE',
             'currency' => 'GBP',
+            'buy_in' => 500,
             'max' => 50,
             'min' => 10,
             'start' => '2018-12-03T12:00:00+01:00',
@@ -60,6 +61,7 @@ class CreateControllerIntegrationTest extends TestCase
         $data = (object) [
             'type' => 'SUPER_FUNKY_QUIZ',
             'currency' => 'GBP',
+            'buy_in' => 500,
             'max' => 50,
             'min' => 10,
             'start' => '2018-12-03T12:00:00+01:00',
@@ -88,6 +90,7 @@ class CreateControllerIntegrationTest extends TestCase
     {
         $data = (object) [
             'currency' => 'GBP',
+            'buy_in' => 500,
             'max' => 50,
             'min' => 10,
             'players' => 4

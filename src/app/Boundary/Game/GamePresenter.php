@@ -19,6 +19,7 @@ class GamePresenter
             'type' => $game->getType()->getValue(),
             'status' => $game->getStatus()->getValue(),
             'currency' => $game->getMax()->getCurrency()->getCode(),
+            'buy_in' => (int) $game->getBuyIn()->getAmount(),
             'max' => (int) $game->getMax()->getAmount(),
             'min' => (int) $game->getMin()->getAmount(),
             'start' => $game->getStartDateTime()->format(\DATE_ATOM),

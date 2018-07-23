@@ -72,6 +72,7 @@ class CreateController
         return new CreateGameCommand(
             $data->type,
             $data->currency,
+            $data->buy_in,
             $data->max,
             $data->min,
             $data->start,

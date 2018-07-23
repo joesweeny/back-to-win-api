@@ -17,6 +17,10 @@ class RequestValidator
         }
 
         if (!isset($body->max)) {
+            $errors[] = "Required field 'buy_in' is missing";
+        }
+
+        if (!isset($body->max)) {
             $errors[] = "Required field 'max' is missing";
         }
 

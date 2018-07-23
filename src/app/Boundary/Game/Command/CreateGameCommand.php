@@ -35,18 +35,23 @@ class CreateGameCommand implements Command
      * @var int
      */
     private $players;
+    /**
+     * @var int
+     */
+    private $buyIn;
 
     public function __construct(
         string $type,
         string $currency,
+        int $buyIn,
         int $max,
         int $min,
         string $start,
         int $players
     ) {
-
         $this->type = new GameType($type);
         $this->currency = new Currency($currency);
+        $this->buyIn = $buyIn;
         $this->max = $max;
         $this->min = $min;
         $this->start = new \DateTimeImmutable($start);
@@ -56,6 +61,11 @@ class CreateGameCommand implements Command
     public function getType(): GameType
     {
         return $this->type;
+    }
+
+    public function getBuyIn(): Money
+    {
+        return new Money($this->buyIn, $this->currency);
     }
 
     public function getMax(): Money

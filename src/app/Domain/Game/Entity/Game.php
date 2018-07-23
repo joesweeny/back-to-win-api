@@ -81,7 +81,7 @@ class Game
     {
         return $this->status;
     }
-    
+
     public function getBuyIn(): Money
     {
         return $this->buyIn;

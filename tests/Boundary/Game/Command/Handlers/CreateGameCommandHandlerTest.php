@@ -39,8 +39,8 @@ class CreateGameCommandHandlerTest extends TestCase
     {
         $command = new CreateGameCommand(
             'GENERAL_KNOWLEDGE',
-            'CREATED',
             'GBP',
+            500,
             50,
             10,
             '2018-07-18T00:00:00+00:00',
@@ -50,6 +50,7 @@ class CreateGameCommandHandlerTest extends TestCase
         $this->orchestrator->createGame(Argument::that(function (Game $game) {
             $this->assertEquals(GameType::GENERAL_KNOWLEDGE(), $game->getType());
             $this->assertEquals(GameStatus::CREATED(), $game->getStatus());
+            $this->assertEquals(new Money(500, new Currency('GBP')), $game->getBuyIn());
             $this->assertEquals(new Money(50, new Currency('GBP')), $game->getMax());
             $this->assertEquals(new Money(10, new Currency('GBP')), $game->getMin());
             $this->assertEquals(4, $game->getPlayers());

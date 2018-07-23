@@ -47,6 +47,7 @@ class IlluminateWriterIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -63,6 +64,7 @@ class IlluminateWriterIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -82,6 +84,7 @@ class IlluminateWriterIntegrationTest extends TestCase
                 $id = Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -93,6 +96,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
         $this->assertEquals('GENERAL_KNOWLEDGE', $fetched->type);
         $this->assertEquals('CREATED', $fetched->status);
+        $this->assertEquals(500, $fetched->buy_in);
         $this->assertEquals(50, $fetched->max);
         $this->assertEquals(1531872000, $fetched->start);
         $this->assertEquals(4, $fetched->players);
@@ -102,6 +106,7 @@ class IlluminateWriterIntegrationTest extends TestCase
                 $id,
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::COMPLETED(),
+                new Money(5000, new Currency('GBP')),
                 new Money(500, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -113,6 +118,7 @@ class IlluminateWriterIntegrationTest extends TestCase
 
         $this->assertEquals('GENERAL_KNOWLEDGE', $fetched->type);
         $this->assertEquals('COMPLETED', $fetched->status);
+        $this->assertEquals(5000, $fetched->buy_in);
         $this->assertEquals(500, $fetched->max);
         $this->assertEquals(1531872000, $fetched->start);
         $this->assertEquals(2, $fetched->players);
@@ -127,6 +133,7 @@ class IlluminateWriterIntegrationTest extends TestCase
                 new Uuid('7967168d-6608-4397-b24d-9e02b5426269'),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::COMPLETED(),
+                new Money(5000, new Currency('GBP')),
                 new Money(500, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),

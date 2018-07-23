@@ -17,6 +17,7 @@ class Hydrator
             Uuid::createFromBinary($data->id),
             new GameType($data->type),
             new GameStatus($data->status),
+            new Money($data->buy_in, new Currency($data->currency)),
             new Money($data->max, new Currency($data->currency)),
             new Money($data->min, new Currency($data->currency)),
             \DateTimeImmutable::createFromFormat('U', $data->start),

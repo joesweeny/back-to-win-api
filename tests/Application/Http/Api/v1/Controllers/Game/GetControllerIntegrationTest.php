@@ -33,6 +33,7 @@ class GetControllerIntegrationTest extends TestCase
                 new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -54,6 +55,7 @@ class GetControllerIntegrationTest extends TestCase
         $this->assertEquals('GENERAL_KNOWLEDGE', $json->game->type);
         $this->assertEquals('CREATED', $json->game->status);
         $this->assertEquals('GBP', $json->game->currency);
+        $this->assertEquals(500, $json->game->buy_in);
         $this->assertEquals(50, $json->game->max);
         $this->assertEquals(10, $json->game->min);
         $this->assertEquals('2018-07-18T00:00:00+00:00', $json->game->start);

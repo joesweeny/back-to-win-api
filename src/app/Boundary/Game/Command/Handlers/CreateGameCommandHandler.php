@@ -43,6 +43,7 @@ class CreateGameCommandHandler
             Uuid::generate(),
             $command->getType(),
             GameStatus::CREATED(),
+            $command->getBuyIn(),
             $command->getMax(),
             $command->getMin(),
             $command->getStartDateTime(),

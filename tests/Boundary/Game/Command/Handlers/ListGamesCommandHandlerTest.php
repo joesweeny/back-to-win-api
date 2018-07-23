@@ -35,6 +35,7 @@ class ListGamesCommandHandlerTest extends TestCase
             new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
             GameType::GENERAL_KNOWLEDGE(),
             GameStatus::CREATED(),
+            new Money(500, new Currency('GBP')),
             new Money(50, new Currency('GBP')),
             new Money(10, new Currency('GBP')),
             new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -48,6 +49,7 @@ class ListGamesCommandHandlerTest extends TestCase
             new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
             GameType::GENERAL_KNOWLEDGE(),
             GameStatus::COMPLETED(),
+            new Money(15000, new Currency('GBP')),
             new Money(5000, new Currency('GBP')),
             new Money(100, new Currency('GBP')),
             new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -65,6 +67,7 @@ class ListGamesCommandHandlerTest extends TestCase
         $this->assertEquals('GENERAL_KNOWLEDGE', $games[0]->type);
         $this->assertEquals('CREATED', $games[0]->status);
         $this->assertEquals('GBP', $games[0]->currency);
+        $this->assertEquals(500, $games[0]->buy_in);
         $this->assertEquals(50, $games[0]->max);
         $this->assertEquals(10, $games[0]->min);
         $this->assertEquals(4, $games[0]->players);
@@ -76,6 +79,7 @@ class ListGamesCommandHandlerTest extends TestCase
         $this->assertEquals('GENERAL_KNOWLEDGE', $games[1]->type);
         $this->assertEquals('COMPLETED', $games[1]->status);
         $this->assertEquals('GBP', $games[1]->currency);
+        $this->assertEquals(15000, $games[1]->buy_in);
         $this->assertEquals(5000, $games[1]->max);
         $this->assertEquals(100, $games[1]->min);
         $this->assertEquals(4, $games[1]->players);

@@ -18,6 +18,7 @@ class Extractor
             'id' => $game->getId()->toBinary(),
             'type' => $game->getType()->getValue(),
             'currency' => $game->getMax()->getCurrency()->getCode(),
+            'buy_in' => (int) $game->getBuyIn()->getAmount(),
             'max' => (int) $game->getMax()->getAmount(),
             'min' => (int) $game->getMin()->getAmount(),
             'status' => $game->getStatus()->getValue(),

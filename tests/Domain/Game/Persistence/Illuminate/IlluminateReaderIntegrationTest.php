@@ -48,6 +48,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 new Uuid('7967168d-6608-4397-b24d-9e02b5426269'),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -60,6 +61,7 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->assertEquals('7967168d-6608-4397-b24d-9e02b5426269', $fetched->getId());
         $this->assertEquals(GameType::GENERAL_KNOWLEDGE(), $fetched->getType());
         $this->assertEquals(GameStatus::CREATED(), $fetched->getStatus());
+        $this->assertEquals(new Money(500, new Currency('GBP')), $fetched->getBuyIn());
         $this->assertEquals(new Money(50, new Currency('GBP')), $fetched->getMax());
         $this->assertEquals(new Money(10, new Currency('GBP')), $fetched->getMin());
         $this->assertEquals(new \DateTimeImmutable('2018-07-18 00:00:00'), $fetched->getStartDateTime());
@@ -80,6 +82,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -92,6 +95,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CANCELLED(),
+                new Money(5000, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -104,6 +108,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -127,6 +132,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -139,6 +145,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CANCELLED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),
@@ -151,6 +158,7 @@ class IlluminateReaderIntegrationTest extends TestCase
                 Uuid::generate(),
                 GameType::GENERAL_KNOWLEDGE(),
                 GameStatus::CREATED(),
+                new Money(500, new Currency('GBP')),
                 new Money(50, new Currency('GBP')),
                 new Money(10, new Currency('GBP')),
                 new \DateTimeImmutable('2018-07-18 00:00:00'),

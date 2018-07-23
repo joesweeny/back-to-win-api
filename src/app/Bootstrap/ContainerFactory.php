@@ -85,7 +85,8 @@ class ContainerFactory
                 return $router
                     ->addRoutes($container->get(\BackToWin\Application\Http\App\Routes\RouteManager::class))
                     ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class))
-                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class));
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\Game\RouteManager::class));
 
 
             }),
@@ -156,7 +157,11 @@ class ContainerFactory
 
             \BackToWin\Domain\UserPurse\Persistence\Writer::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class),
 
-            \BackToWin\Domain\UserPurse\Persistence\Reader::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class)
+            \BackToWin\Domain\UserPurse\Persistence\Reader::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class),
+
+            \BackToWin\Domain\Game\Persistence\Writer::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
+
+            \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class)
         ];
     }
 

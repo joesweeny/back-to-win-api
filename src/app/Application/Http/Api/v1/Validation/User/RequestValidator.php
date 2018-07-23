@@ -4,9 +4,6 @@ namespace BackToWin\Application\Http\Api\v1\Validation\User;
 
 class RequestValidator
 {
-    /**
-     * @inheritdoc
-     */
     public function validate(\stdClass $body): array
     {
         $errors = [];

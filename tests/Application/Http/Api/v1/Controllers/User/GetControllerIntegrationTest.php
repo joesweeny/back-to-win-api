@@ -74,4 +74,21 @@ class GetControllerIntegrationTest extends TestCase
             $jsend->data->errors[0]->message
         );
     }
+
+    public function test_404_response_is_returned_if_id_provided_is_not_a_valid_uuid_string()
+    {
+        $request = new ServerRequest(
+            'get',
+            '/api/user/1',
+            []
+        );
+
+        $response = $this->handle($this->container, $request);
+
+        $jsend = json_decode($response->getBody()->getContents());
+
+        $this->assertEquals('fail', $jsend->status);
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals('User with ID 1 does not exist', $jsend->data->errors[0]->message);
+    }
 }

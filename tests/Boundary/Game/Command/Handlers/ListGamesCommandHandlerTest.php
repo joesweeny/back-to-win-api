@@ -61,6 +61,26 @@ class ListGamesCommandHandlerTest extends TestCase
 
         $games = $this->handler->handle(new ListGamesCommand());
 
-        dd($games);
+        $this->assertEquals('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2', $games[0]->id);
+        $this->assertEquals('GENERAL_KNOWLEDGE', $games[0]->type);
+        $this->assertEquals('CREATED', $games[0]->status);
+        $this->assertEquals('GBP', $games[0]->currency);
+        $this->assertEquals(50, $games[0]->max);
+        $this->assertEquals(10, $games[0]->min);
+        $this->assertEquals(4, $games[0]->players);
+        $this->assertEquals('2018-07-18T00:00:00+00:00', $games[0]->start);
+        $this->assertEquals('2018-07-18T00:00:00+00:00', $games[0]->created_at);
+        $this->assertEquals('2018-07-18T00:00:00+00:00', $games[0]->updated_at);
+
+        $this->assertEquals('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2', $games[1]->id);
+        $this->assertEquals('GENERAL_KNOWLEDGE', $games[1]->type);
+        $this->assertEquals('COMPLETED', $games[1]->status);
+        $this->assertEquals('GBP', $games[1]->currency);
+        $this->assertEquals(5000, $games[1]->max);
+        $this->assertEquals(100, $games[1]->min);
+        $this->assertEquals(4, $games[1]->players);
+        $this->assertEquals('2018-07-18T00:00:00+00:00', $games[1]->start);
+        $this->assertEquals('2018-07-25T00:00:00+00:00', $games[1]->created_at);
+        $this->assertEquals('2018-07-25T00:00:00+00:00', $games[1]->updated_at);
     }
 }

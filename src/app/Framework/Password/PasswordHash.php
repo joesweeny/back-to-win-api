@@ -10,11 +10,11 @@ class PasswordHash
 
     /**
      * PasswordHash constructor.
-     * @param $hash
+     * @param string $hash
      */
-    public function __construct($hash)
+    public function __construct(string $hash)
     {
-        if (empty($hash)) {
+        if (!$hash) {
             throw new \InvalidArgumentException('Password hash cannot be empty');
         }
 

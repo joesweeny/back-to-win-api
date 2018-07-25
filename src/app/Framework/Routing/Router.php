@@ -37,7 +37,7 @@ class Router implements DelegateInterface
      */
     public function process(RequestInterface $request)
     {
-        $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
+        $dispatcher = \FastRoute\simpleDispatcher(function (RouteCollector $r) {
             foreach ($this->mappers as $mapper) {
                 $mapper->map($r);
             }

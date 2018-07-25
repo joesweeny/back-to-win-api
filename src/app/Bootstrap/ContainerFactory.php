@@ -29,7 +29,7 @@ use PSR7Session\Time\SystemCurrentTime;
 
 class ContainerFactory
 {
-    /** @var Config */
+    /** @var Config|null */
     private $config;
 
     public function create(Config $config = null): ContainerInterface
@@ -81,14 +81,11 @@ class ContainerFactory
 
 
             Router::class => \DI\decorate(function (Router $router, ContainerInterface $container) {
-                // @todo Add RouteManagers here
                 return $router
                     ->addRoutes($container->get(\BackToWin\Application\Http\App\Routes\RouteManager::class))
                     ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class))
                     ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
                     ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\Game\RouteManager::class));
-
-
             }),
 
             CommandBus::class => \DI\factory(function (ContainerInterface $container) {
@@ -208,5 +205,4 @@ class ContainerFactory
             }),
         ];
     }
-
 }

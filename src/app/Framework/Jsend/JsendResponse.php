@@ -28,7 +28,7 @@ class JsendResponse extends JsonResponse
      * @internal You should use new JsendFailResponse, JsendErrorResponse, or JsendSuccessResponse instead
      * @throws \InvalidArgumentException
      */
-    public function __construct($data, string $status = 'success', array $headers = [], $encodingOptions = self::DEFAULT_JSON_FLAGS)
+    public function __construct($data, string $status = 'success', array $headers = [], int $encodingOptions = self::DEFAULT_JSON_FLAGS)
     {
         $this->jsendStatus = $status;
         $this->jsendData = $data;
@@ -69,7 +69,7 @@ class JsendResponse extends JsonResponse
     }
 
     /**
-     * @param $data
+     * @param mixed $data
      * @param array $headers
      * @param int $encodingOptions
      * @return JsendResponse
@@ -82,7 +82,7 @@ class JsendResponse extends JsonResponse
     }
 
     /**
-     * @param $data
+     * @param mixed $data
      * @param array $headers
      * @param int $encodingOptions
      * @return JsendResponse

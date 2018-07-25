@@ -20,12 +20,12 @@ class Hydrator
             new Money($data->buy_in, new Currency($data->currency)),
             new Money($data->max, new Currency($data->currency)),
             new Money($data->min, new Currency($data->currency)),
-            \DateTimeImmutable::createFromFormat('U', $data->start),
+            (new \DateTimeImmutable())->setTimestamp($data->start),
             $data->players
         );
 
-        $game->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $data->created_at))
-            ->setLastModifiedDate(\DateTimeImmutable::createFromFormat('U', $data->updated_at));
+        $game->setCreatedDate((new \DateTimeImmutable())->setTimestamp($data->created_at))
+            ->setLastModifiedDate((new \DateTimeImmutable())->setTimestamp($data->updated_at));
 
         return $game;
     }

@@ -24,8 +24,8 @@ class Hydrator
             new Money($data->amount, new Currency($data->currency))
         );
 
-        $purse->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $data->created_at))
-        ->setLastModifiedDate(\DateTimeImmutable::createFromFormat('U', $data->updated_at));
+        $purse->setCreatedDate((new \DateTimeImmutable())->setTimestamp($data->created_at))
+            ->setLastModifiedDate((new \DateTimeImmutable())->setTimestamp($data->updated_at));
 
         return $purse;
     }
@@ -42,7 +42,7 @@ class Hydrator
             ->setUserId(Uuid::createFromBinary($data->user_id))
             ->setTotal(new Money($data->amount, new Currency($data->currency)))
             ->setCalculation(new Calculation($data->calculation))
-            ->setCreatedDate(\DateTimeImmutable::createFromFormat('U', $data->timestamp));
+            ->setCreatedDate((new \DateTimeImmutable())->setTimestamp($data->timestamp));
 
         if ($data->description !== null) {
             $transaction->setDescription($data->description);

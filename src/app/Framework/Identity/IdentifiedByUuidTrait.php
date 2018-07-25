@@ -30,7 +30,7 @@ trait IdentifiedByUuidTrait
      */
     private function setId($id)
     {
-        return $this->set('id', new Uuid($id));
+        return $this->set('id', $id instanceof Uuid ? $id : new Uuid($id));
     }
 
     /**

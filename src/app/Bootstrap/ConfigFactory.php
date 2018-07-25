@@ -38,10 +38,10 @@ class ConfigFactory
      * var exists, then read the contents of that file to get the value.
      *
      * @param string $key
-     * @param $default
+     * @param string|null $default
      * @return mixed|null
      */
-    private static function fromEnv(string $key, $default = null)
+    private static function fromEnv(string $key, string $default = null)
     {
         if ($val = getenv($key)) {
             return $val;
@@ -59,7 +59,6 @@ class ConfigFactory
     /**
      * @param ContainerInterface $container
      * @return Config
-     * @throws \Psr\Container\ContainerExceptionInterface
      */
     public static function fromContainer(ContainerInterface $container): Config
     {

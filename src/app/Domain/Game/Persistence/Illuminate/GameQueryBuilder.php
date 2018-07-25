@@ -11,12 +11,12 @@ class GameQueryBuilder
     {
         $query = $query ?: new GameRepositoryQuery();
 
-        if (($status = $query->getWhereStatusEquals()) !== null) {
-            $builder->where('status', $status->getValue());
+        if ($query->getWhereStatusEquals() !== null) {
+            $builder->where('status', $query->getWhereStatusEquals()->getValue());
         }
 
-        if (($type = $query->getWhereTypeEquals()) !== null) {
-            $builder->where('type', $type->getValue());
+        if ($query->getWhereTypeEquals() !== null) {
+            $builder->where('type', $query->getWhereTypeEquals()->getValue());
         }
 
         return $builder;

@@ -14,7 +14,7 @@ class OutputBuffer
      * @param callable $callback
      * @return string
      */
-    public static function capture(callable $callback)
+    public static function capture(callable $callback): string
     {
         ob_start();
 
@@ -24,6 +24,6 @@ class OutputBuffer
 
         ob_end_clean();
 
-        return $content;
+        return $content ?: '';
     }
 }

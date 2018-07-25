@@ -38,5 +38,4 @@ class RequestValidator
 
         return $errors;
     }
-
 }

@@ -93,7 +93,7 @@ class UserOrchestrator
      */
     public function deleteUser(User $user)
     {
-       $this->writer->delete($user);
+        $this->writer->delete($user);
     }
 
     public function userExistsWithEmail(User $user): bool

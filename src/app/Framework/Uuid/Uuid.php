@@ -12,7 +12,7 @@ class Uuid implements \JsonSerializable
      */
     private $inner;
     /**
-     * @param $string
+     * @param string $string
      */
     public function __construct($string)
     {
@@ -47,10 +47,10 @@ class Uuid implements \JsonSerializable
     }
 
     /**
-     * @param $bits
+     * @param mixed $bits
      * @return Uuid
      */
-    public static function createFromBinary($bits)
+    public static function createFromBinary($bits): Uuid
     {
         return new Uuid(BaseUuid::fromBytes($bits));
     }

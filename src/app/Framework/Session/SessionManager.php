@@ -11,7 +11,7 @@ class SessionManager
     /**
      * @param ServerRequestInterface $request
      * @param string $key
-     * @param $value
+     * @param mixed $value
      */
     public function set(ServerRequestInterface $request, string $key, $value)
     {

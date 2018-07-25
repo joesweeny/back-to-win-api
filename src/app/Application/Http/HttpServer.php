@@ -32,9 +32,7 @@ class HttpServer
      *
      * @param ServerRequestInterface $request
      * @return ResponseInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \InvalidArgumentException
-     * @throws \Psr\Container\ContainerExceptionInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

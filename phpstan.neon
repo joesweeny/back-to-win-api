@@ -1,0 +1,4 @@
+parameters:
+	excludes_analyse:
+		- %rootDir%/../../../../src/app/Framework/Uuid/Uuid
+		- %rootDir%/../../../../src/app/Framework/Routing/Dispatcher

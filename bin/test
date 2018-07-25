@@ -1,3 +1,4 @@
 #!/bin/bash
 
-php src/vendor/bin/phpunit $@
+php /opt/src/vendor/bin/phpstan analyse -c /opt/phpstan.neon /opt/src/app/ -l 7 && \
+    /opt/src/vendor/bin/phpunit $@

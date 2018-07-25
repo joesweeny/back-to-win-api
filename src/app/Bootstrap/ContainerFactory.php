@@ -29,7 +29,7 @@ use PSR7Session\Time\SystemCurrentTime;
 
 class ContainerFactory
 {
-    /** @var Config */
+    /** @var Config|null */
     private $config;
 
     public function create(Config $config = null): ContainerInterface

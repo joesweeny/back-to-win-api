@@ -34,3 +34,7 @@ services:
      - MYSQL_DATABASE=app
      - MYSQL_USER=dev
      - MYSQL_PASSWORD=password
+
+  redis:
+    image: 'redis:4'
+

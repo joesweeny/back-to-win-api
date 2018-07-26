@@ -4,19 +4,18 @@ namespace BackToWin\Domain\Bank;
 
 use BackToWin\Domain\Bank\Exception\BankingException;
 use BackToWin\Framework\Uuid\Uuid;
-use Money\Currency;
 use Money\Money;
 
 interface Bank
 {
     /**
-     * Create a new User bank account reckon in the chosen currency
+     * Create a new User bank account in virtual bank with opening balance
      *
      * @param Uuid $userId
      * @throws BankingException
-     * @param Currency $currency
+     * @param Money $money
      */
-    public function openAccount(Uuid $userId, Currency $currency): void;
+    public function openAccount(Uuid $userId, Money $money): void;
     /**
      * Add money to a Users virtual bank account
      *

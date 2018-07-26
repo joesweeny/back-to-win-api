@@ -1,15 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joesweeny
- * Date: 26/07/18
- * Time: 22:16
- */
 
 namespace BackToWin\Testing\Traits;
 
+use BackToWin\Bootstrap\Config;
+use Interop\Container\ContainerInterface;
+use Predis\Client;
 
 trait UsesTestRedisDatabase
 {
+    protected function setRedisDatabase(ContainerInterface $container): ContainerInterface
+    {
+        $container->get(Config::class)->set('redis.default.database', 15);
 
+        $container->get(Client::class)->flushdb();
+
+        return $container;
+    }
+
+    protected function flushRedisDatabase(ContainerInterface $container)
+    {
+        $container->get(Client::class)->flushdb();
+    }
 }

@@ -22,6 +22,7 @@ use BackToWin\Framework\Routing\Router;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Predis\Client;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use PSR7Session\Http\SessionMiddleware;
@@ -203,6 +204,12 @@ class ContainerFactory
                 $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 return $pdo;
             }),
+
+            Client::class => \DI\factory(function (ContainerInterface $container) {
+                $config = $container->get(Config::class);
+
+                return new Client($config->get('redis.default'));
+            })
         ];
     }
 }

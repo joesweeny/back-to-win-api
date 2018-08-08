@@ -31,7 +31,7 @@ class RedisBank implements Bank
             throw new BankingException("Cannot open bank account for User {$userId} - already exists");
         }
 
-        $this->client->set((string) $userId, json_encode($money->jsonSerialize()));
+        $this->insert($userId, $money);
     }
 
     /**
@@ -39,7 +39,14 @@ class RedisBank implements Bank
      */
     public function deposit(Uuid $userId, Money $money): void
     {
-        // TODO: Implement deposit() method.
+        $balance = $this->getBalance($userId);
+
+        if (!$balance->isSameCurrency($money)) {
+            throw new BankingException(
+                "Cannot deposit money as account currency does not match deposit currency for User {$userId}");
+        }
+
+        $this->insert($userId, $newBalance = $balance->add($money));
     }
 
     /**
@@ -47,7 +54,18 @@ class RedisBank implements Bank
      */
     public function withdraw(Uuid $userId, Money $money): void
     {
-        // TODO: Implement withdraw() method.
+        $balance = $this->getBalance($userId);
+
+        if (!$balance->isSameCurrency($money)) {
+            throw new BankingException(
+                "Cannot withdraw money as account currency does not match deposit currency for User {$userId}");
+        }
+
+        if ($money->greaterThan($balance)) {
+            throw new BankingException("Cannot withdraw money due to insufficient funds: User {$userId}");
+        }
+
+        $this->insert($userId, $newBalance = $balance->subtract($money));
     }
 
     /**
@@ -66,5 +84,10 @@ class RedisBank implements Bank
         }
 
         return new Money($value->amount, new Currency($value->currency));
+    }
+
+    private function insert(Uuid $userId, Money $money)
+    {
+        $this->client->set((string) $userId, json_encode($money->jsonSerialize()));
     }
 }

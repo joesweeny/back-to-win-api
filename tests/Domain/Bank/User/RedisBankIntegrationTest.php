@@ -2,6 +2,8 @@
 
 namespace BackToWin\Domain\Bank\User;
 
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Bank\Bank;
 use BackToWin\Domain\Bank\Exception\BankingException;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\UsesContainer;
@@ -24,7 +26,8 @@ class RedisBankIntegrationTest extends TestCase
     public function setUp()
     {
         $this->container  = $this->setRedisDatabase($this->createContainer());
-        $this->bank = $this->container->get(RedisBank::class);
+        $this->container->get(Config::class)->set('bank.bank-driver', 'redis');
+        $this->bank = $this->container->get(Bank::class);
     }
 
     public function test_bank_account_can_be_opened_and_balance_retrievd()

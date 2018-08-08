@@ -38,7 +38,7 @@ class ConfigFactory
             ],
 
             'bank' => [
-                'bank_driver' => self::fromEnv('BANK_DRIVER') ?: 'redis'
+                'bank_driver' => self::fromEnv('BANK_DRIVER')
             ]
         ]);
     }

@@ -2,6 +2,8 @@
 
 namespace BackToWin\Bootstrap;
 
+use BackToWin\Domain\Bank\Bank;
+use BackToWin\Domain\Bank\User\RedisBank;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
@@ -139,7 +141,22 @@ class ContainerFactory
                 }
             }),
 
-            Clock::class => \DI\object(SystemClock::class)
+            Clock::class => \DI\object(SystemClock::class),
+
+            Client::class => \DI\factory(function (ContainerInterface $container) {
+                $config = $container->get(Config::class);
+
+                return new Client($config->get('redis.default'));
+            }),
+
+            Bank::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($bank = $container->get(Config::class)->get('bank.bank-driver')) {
+                    case 'redis':
+                        return new RedisBank($container->get(Client::class));
+                    default:
+                        throw new \UnexpectedValueException("Bank '$bank' not recognised");
+                }
+            }),
         ];
     }
 
@@ -204,12 +221,6 @@ class ContainerFactory
                 $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 return $pdo;
             }),
-
-            Client::class => \DI\factory(function (ContainerInterface $container) {
-                $config = $container->get(Config::class);
-
-                return new Client($config->get('redis.default'));
-            })
         ];
     }
 }

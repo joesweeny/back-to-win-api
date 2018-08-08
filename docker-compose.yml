@@ -9,6 +9,7 @@ services:
      - DB_DSN=mysql:host=mysql;dbname=app
      - DB_USER=root
      - DB_PASSWORD=password
+     - BANK_DRIVER=redis
     volumes:
      - .:/opt
 

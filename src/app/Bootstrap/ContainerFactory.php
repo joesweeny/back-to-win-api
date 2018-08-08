@@ -2,6 +2,8 @@
 
 namespace BackToWin\Bootstrap;
 
+use BackToWin\Domain\Bank\Bank;
+use BackToWin\Domain\Bank\User\RedisBank;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
@@ -22,6 +24,7 @@ use BackToWin\Framework\Routing\Router;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Predis\Client;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use PSR7Session\Http\SessionMiddleware;
@@ -138,7 +141,22 @@ class ContainerFactory
                 }
             }),
 
-            Clock::class => \DI\object(SystemClock::class)
+            Clock::class => \DI\object(SystemClock::class),
+
+            Client::class => \DI\factory(function (ContainerInterface $container) {
+                $config = $container->get(Config::class);
+
+                return new Client($config->get('redis.default'));
+            }),
+
+            Bank::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($bank = $container->get(Config::class)->get('bank.bank-driver')) {
+                    case 'redis':
+                        return new RedisBank($container->get(Client::class));
+                    default:
+                        throw new \UnexpectedValueException("Bank '$bank' not recognised");
+                }
+            }),
         ];
     }
 

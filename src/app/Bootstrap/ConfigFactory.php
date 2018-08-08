@@ -27,6 +27,18 @@ class ConfigFactory
                  * Which psr/log implementation to use. Options: monolog, null
                  */
                 'logger' => self::fromEnv('LOG_LOGGER') ?: 'null'
+            ],
+
+            'redis' => [
+                'default' => [
+                    'host'     => self::fromEnv('REDIS_HOST') ?: 'redis',
+                    'port'     => 6379,
+                    'database' => self::fromEnv('REDIS_DATABASE') ?: 0
+                ],
+            ],
+
+            'bank' => [
+                'bank_driver' => self::fromEnv('BANK_DRIVER')
             ]
         ]);
     }

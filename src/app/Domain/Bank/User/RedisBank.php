@@ -43,7 +43,8 @@ class RedisBank implements Bank
 
         if (!$balance->isSameCurrency($money)) {
             throw new BankingException(
-                "Cannot deposit money as account currency does not match deposit currency for User {$userId}");
+                "Cannot deposit money as account currency does not match deposit currency for User {$userId}"
+            );
         }
 
         $this->insert($userId, $newBalance = $balance->add($money));
@@ -58,7 +59,8 @@ class RedisBank implements Bank
 
         if (!$balance->isSameCurrency($money)) {
             throw new BankingException(
-                "Cannot withdraw money as account currency does not match deposit currency for User {$userId}");
+                "Cannot withdraw money as account currency does not match deposit currency for User {$userId}"
+            );
         }
 
         if ($money->greaterThan($balance)) {

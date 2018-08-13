@@ -31,8 +31,9 @@ interface Bank
      * @param Uuid $userId
      * @throws BankingException
      * @param Money $money
+     * @return Money
      */
-    public function withdraw(Uuid $userId, Money $money): void;
+    public function withdraw(Uuid $userId, Money $money): Money;
 
     /**
      * Get the current balance of a Users virtual bank account

@@ -53,7 +53,7 @@ class RedisBank implements Bank
     /**
      * @inheritdoc
      */
-    public function withdraw(Uuid $userId, Money $money): void
+    public function withdraw(Uuid $userId, Money $money): Money
     {
         $balance = $this->getBalance($userId);
 

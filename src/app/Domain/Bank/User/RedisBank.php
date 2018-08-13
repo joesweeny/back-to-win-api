@@ -68,6 +68,8 @@ class RedisBank implements Bank
         }
 
         $this->insert($userId, $newBalance = $balance->subtract($money));
+
+        return $money;
     }
 
     /**

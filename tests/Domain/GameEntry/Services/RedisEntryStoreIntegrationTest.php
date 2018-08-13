@@ -100,4 +100,10 @@ class RedisEntryStoreIntegrationTest extends TestCase
         $this->expectExceptionMessage('Game a4a7128b-6fc6-4480-845e-cc86a0a69890 record does not exist');
         $this->store->getFeeTotal(new Uuid('a4a7128b-6fc6-4480-845e-cc86a0a69890'));
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        $this->flushRedisDatabase($this->container);
+    }
 }

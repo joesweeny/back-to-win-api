@@ -71,8 +71,12 @@ class GameManager
             );
         }
 
-        if (!$balance->greaterThan($entryFee)) {
-            throw new GameEntryException("User {$user->getId()} does not have enough funds to enter Game {$gameId}");
+        try {
+            if (!$balance->greaterThan($entryFee)) {
+                throw new GameEntryException("User {$user->getId()} does not have enough funds to enter Game {$gameId}");
+            }
+        } catch (\InvalidArgumentException $e) {
+            throw new GameEntryException("User {$user->getId()} cannot enter Game {$gameId} due to currency mismatch");
         }
     }
 }

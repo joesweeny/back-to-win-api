@@ -13,10 +13,11 @@ interface Repository
      * Insert a new GameEntry record into the database
      *
      * @param Uuid $gameId
-     * @throws GameEntryException
      * @param Uuid $userId
+     * @throws GameEntryException
+     * @return GameEntry
      */
-    public function insert(Uuid $gameId, Uuid $userId): void;
+    public function insert(Uuid $gameId, Uuid $userId): GameEntry;
 
     /**
      * Return an array of GameEntry objects for a specific game

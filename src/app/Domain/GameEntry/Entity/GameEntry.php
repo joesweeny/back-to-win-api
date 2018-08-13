@@ -2,14 +2,15 @@
 
 namespace BackToWin\Domain\GameEntry\Entity;
 
+use BackToWin\Framework\Entity\PrivateAttributesTrait;
+use BackToWin\Framework\Entity\TimestampedTrait;
 use BackToWin\Framework\Uuid\Uuid;
 
 class GameEntry
 {
-    /**
-     * @var int
-     */
-    private $id;
+    use PrivateAttributesTrait,
+        TimestampedTrait;
+
     /**
      * @var Uuid
      */
@@ -19,16 +20,10 @@ class GameEntry
      */
     private $userId;
 
-    public function __construct(int $id, Uuid $gameId, Uuid $userId)
+    public function __construct(Uuid $gameId, Uuid $userId)
     {
-        $this->id = $id;
         $this->gameId = $gameId;
         $this->userId = $userId;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getGameId(): Uuid

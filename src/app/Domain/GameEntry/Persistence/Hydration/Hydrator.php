@@ -15,10 +15,9 @@ class Hydrator
      */
     public static function fromRawData(\stdClass $data): GameEntry
     {
-        return new GameEntry(
-            $data->id,
+        return (new GameEntry(
             Uuid::createFromBinary($data->game_id),
             Uuid::createFromBinary($data->user_id)
-        );
+        ))->setCreatedDate((new \DateTimeImmutable())->setTimestamp($data->timestamp));
     }
 }

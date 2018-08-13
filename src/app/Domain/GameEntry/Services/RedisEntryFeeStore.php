@@ -2,7 +2,6 @@
 
 namespace BackToWin\Domain\GameEntry\Services;
 
-use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
 use BackToWin\Framework\Uuid\Uuid;
@@ -26,31 +25,13 @@ class RedisEntryFeeStore implements EntryFeeStore
     /**
      * @inheritdoc
      */
-    public function create(Game $game): void
-    {
-        if ($this->exists($game->getId())) {
-            throw new EntryFeeStoreException("Entry fee store record already exists for {$game->getId()}");
-        }
-
-        $this->client->set((string) $game->getId(), null);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function enter(GameEntry $entry, Money $fee): void
     {
-        if (!$this->client->exists($key = (string) $entry->getGameId())) {
-            throw new EntryFeeStoreException(
-                "Cannot enter fee for User {$entry->getUserId()} as Game {$entry->getGameId()} record does not exist"
-            );
-        }
+        $record = (string) $entry->getUserId() . '.' . json_encode($fee->jsonSerialize());
 
-        $game = $this->get($entry->getGameId());
-
-        $record = (string) $entry->getGameId() . json_encode($fee->jsonSerialize());
-
-        $this->client->set($key, $game ? $game . ':' . $record : $record);
+        $this->exists($entry->getGameId())
+            ? $this->update($entry->getGameId(), $record)
+            : $this->create($entry->getGameId(), $record);
     }
 
     /**
@@ -58,34 +39,46 @@ class RedisEntryFeeStore implements EntryFeeStore
      */
     public function getFeeTotal(Uuid $gameId): Money
     {
-        if (!$this->client->exists($key = (string) $gameId)) {
+        if (!$gameRecord = $this->get($gameId)) {
             throw new EntryFeeStoreException("Game {$gameId} record does not exist");
         }
 
-        $total = 0;
+        $money = array_map(function (string $record){
+            $money = json_decode(explode('.', $record)[1]);
 
-        array_map(function (array $money) use (&$total) {
-            $total += $money['money'];
-        }, $value = explode(':', $this->get($gameId)));
+            return new Money($money->amount, new Currency($money->currency));
+        }, explode('/', $gameRecord));
 
-        return new Money($total, new Currency($value[0]['currency']));
+        $total = new Money(0, $money[0]->getCurrency());
+
+        foreach ($money as $object) {
+            $total = $total->add($object);
+        }
+
+        return $total;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function delete(Uuid $gameId): void
+    private function exists(Uuid $gameId): bool
     {
-        $this->client->del([(string) $gameId]);
-    }
-
-    private function exists(Uuid $gameId): string
-    {
-        return $this->client->exists((string) $gameId);
+        return (bool) $this->client->exists((string) $gameId);
     }
 
     private function get(Uuid $gameId): ?string
     {
         return $this->client->get((string) $gameId);
+    }
+
+    private function create(Uuid $gameId, string $record)
+    {
+        $this->client->set((string) $gameId, $record);
+    }
+
+    private function update(Uuid $gameId, string $record)
+    {
+        if (!$existing = $this->get($gameId)) {
+            throw new EntryFeeStoreException("Cannot update record for Game {$gameId} - record does not exist");
+        }
+
+        $this->client->set((string) $gameId, $existing . '/' . $record);
     }
 }

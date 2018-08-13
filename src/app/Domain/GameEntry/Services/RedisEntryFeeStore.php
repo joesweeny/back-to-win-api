@@ -43,7 +43,7 @@ class RedisEntryFeeStore implements EntryFeeStore
             throw new EntryFeeStoreException("Game {$gameId} record does not exist");
         }
 
-        $money = array_map(function (string $record){
+        $money = array_map(function (string $record) {
             $money = json_decode(explode('.', $record)[1]);
 
             return new Money($money->amount, new Currency($money->currency));

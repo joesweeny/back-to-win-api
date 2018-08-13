@@ -2,11 +2,11 @@
 
 namespace BackToWin\Domain\GameEntry\Persistence\Illuminate;
 
+use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Hydration\Hydrator;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
 use BackToWin\Framework\DateTime\Clock;
-use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
@@ -31,17 +31,19 @@ class IlluminateRepository implements Repository
     /**
      * @inheritdoc
      */
-    public function insert(Uuid $gameId, Uuid $userId): void
+    public function insert(Uuid $gameId, Uuid $userId): GameEntry
     {
         if ($this->table()->where('game_id', $gameId->toBinary())->where('user_id', $userId->toBinary())->exists()) {
             throw new GameEntryException("User {$userId} has already entered game {$gameId}");
         }
 
-        $this->table()->insert([
+        $this->table()->insert($data = [
             'game_id' => $gameId->toBinary(),
             'user_id' => $userId->toBinary(),
             'timestamp' => $this->clock->now()->getTimestamp()
         ]);
+
+        return Hydrator::fromRawData((object) $data);
     }
 
     /**

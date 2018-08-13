@@ -10,6 +10,7 @@ services:
      - DB_USER=root
      - DB_PASSWORD=password
      - BANK_DRIVER=redis
+     - ENTRY_FEE_STORE_DRIVER=redis
     volumes:
      - .:/opt
 

@@ -37,11 +37,8 @@ class IlluminateRepositoryIntegrationTest extends TestCase
         $gameId = new Uuid('70801f67-75a4-4c09-bb22-d6287f7d15e5');
         $userId = new Uuid('6ef8adcc-2b22-46ea-970f-a5d41ed110b3');
 
-        $this->repository->insert($gameId, $userId);
+        $entry = $this->repository->insert($gameId, $userId);
 
-        $entry = $this->repository->get($gameId)[0];
-
-        $this->assertEquals(1, $entry->getId());
         $this->assertEquals('70801f67-75a4-4c09-bb22-d6287f7d15e5', $entry->getGameId());
         $this->assertEquals('6ef8adcc-2b22-46ea-970f-a5d41ed110b3', $entry->getUserId());
     }

@@ -4,6 +4,8 @@ namespace BackToWin\Bootstrap;
 
 use BackToWin\Domain\Bank\Bank;
 use BackToWin\Domain\Bank\User\RedisBank;
+use BackToWin\Domain\GameEntry\Services\EntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
@@ -157,6 +159,15 @@ class ContainerFactory
                         throw new \UnexpectedValueException("Bank '$bank' not recognised");
                 }
             }),
+
+            EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
+                    case 'redis':
+                        return new RedisEntryFeeStore($container->get(Client::class));
+                    default:
+                        throw new \UnexpectedValueException("Entry fee store '$store' not recognised");
+                }
+            })
         ];
     }
 

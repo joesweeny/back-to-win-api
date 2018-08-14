@@ -26,7 +26,7 @@ class EnterGameCommand implements Command
     {
         return $this->gameId;
     }
-    
+
     public function getUserId(): Uuid
     {
         return $this->userId;

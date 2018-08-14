@@ -2,7 +2,6 @@
 
 namespace BackToWin\Boundary\Game\Command;
 
-use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
 use Chief\Command;
 use Money\Currency;

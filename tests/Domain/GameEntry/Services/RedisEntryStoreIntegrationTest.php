@@ -101,6 +101,21 @@ class RedisEntryStoreIntegrationTest extends TestCase
         $this->store->getFeeTotal(new Uuid('a4a7128b-6fc6-4480-845e-cc86a0a69890'));
     }
 
+    public function test_record_is_deleted_once_retrieving_fee_total()
+    {
+        $gameId = new Uuid('a4a7128b-6fc6-4480-845e-cc86a0a69890');
+
+        for ($i = 0; $i < 4; $i++) {
+            $this->store->enter(new GameEntry($gameId, Uuid::generate()), new Money(1000, new Currency('GBP')));
+        }
+
+        $total = $this->store->getFeeTotal($gameId);
+
+        $this->assertEquals(new Money(4000, new Currency('GBP')), $total);
+
+        $this->assertNull($this->client->get((string) $gameId));
+    }
+
     protected function tearDown()
     {
         parent::tearDown();

@@ -2,15 +2,13 @@
 
 namespace BackToWin\Domain\GameEntry;
 
-use BackToWin\Domain\Bank\Bank;
+use BackToWin\Domain\Bank\BankManager;
 use BackToWin\Domain\Bank\Exception\BankingException;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
 use BackToWin\Domain\GameEntry\Services\EntryFeeStore;
 use BackToWin\Domain\User\Entity\User;
-use BackToWin\Framework\Uuid\Uuid;
-use Money\Money;
 
 class GameManager
 {
@@ -19,18 +17,18 @@ class GameManager
      */
     private $repository;
     /**
-     * @var Bank
-     */
-    private $bank;
-    /**
      * @var EntryFeeStore
      */
     private $feeStore;
+    /**
+     * @var BankManager
+     */
+    private $bankManager;
 
-    public function __construct(Repository $repository, Bank $bank, EntryFeeStore $feeStore)
+    public function __construct(Repository $repository, BankManager $bankManager, EntryFeeStore $feeStore)
     {
         $this->repository = $repository;
-        $this->bank = $bank;
+        $this->bankManager = $bankManager;
         $this->feeStore = $feeStore;
     }
 
@@ -42,41 +40,20 @@ class GameManager
      */
     public function addUserToGame(Game $game, User $user): void
     {
-        if (count($this->repository->get($game->getId())) === $game->getPlayers()) {
+        if (count($this->repository->get($game->getId())) >= $game->getPlayers()) {
             throw new GameEntryException("Game {$game->getId()} has reached full capacity");
         }
 
-        $this->checkBalance($game->getId(), $user, $entryFee = $game->getBuyIn());
-
-        $entry = $this->repository->insert($game->getId(), $user->getId());
-
-        $this->feeStore->enter($entry, $this->bank->withdraw($user->getId(), $entryFee));
-    }
-
-    /**
-     * @param Uuid $gameId
-     * @param User $user
-     * @param Money $entryFee
-     * @throws GameEntryException
-     */
-    private function checkBalance(Uuid $gameId, User $user, Money $entryFee): void
-    {
         try {
-            $balance = $this->bank->getBalance($user->getId());
+            $entryFee = $this->bankManager->withdraw($user, $game->getBuyIn());
         } catch (BankingException $e) {
             throw new GameEntryException(
-                "Game entry has failed for User {$user->getId()} with exception: {$e->getMessage()}",
-                0,
-                $e
+                "User {$user->getId()} cannot enter Game {$game->getId()}. Message: {$e->getMessage()}"
             );
         }
 
-        try {
-            if (!$balance->greaterThan($entryFee)) {
-                throw new GameEntryException("User {$user->getId()} does not have enough funds to enter Game {$gameId}");
-            }
-        } catch (\InvalidArgumentException $e) {
-            throw new GameEntryException("User {$user->getId()} cannot enter Game {$gameId} due to currency mismatch");
-        }
+        $entry = $this->repository->insert($game->getId(), $user->getId());
+
+        $this->feeStore->enter($entry, $entryFee);
     }
 }

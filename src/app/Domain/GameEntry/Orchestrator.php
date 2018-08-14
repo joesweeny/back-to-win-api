@@ -55,10 +55,13 @@ class Orchestrator
      */
     public function enterGame(Uuid $gameId, Uuid $userId): void
     {
-        $this->manager->addUserToGame(
-            $game = $this->gameOrchestrator->getGameById($gameId),
-            $user = $this->userOrchestrator->getUserById($userId)
-        );
+        $game = $this->gameOrchestrator->getGameById($gameId);
+
+        if ($game->getStatus()->getValue() !== 'CREATED') {
+            throw new GameEntryException("Cannot enter Game {$game->getId()} as game status is {$game->getStatus()}");
+        }
+
+        $this->manager->addUserToGame($game, $user = $this->userOrchestrator->getUserById($userId));
 
         $purse = $this->purseOrchestrator->getUserPurse($user->getId());
 

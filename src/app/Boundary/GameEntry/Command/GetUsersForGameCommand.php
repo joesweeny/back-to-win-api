@@ -16,7 +16,7 @@ class GetUsersForGameCommand implements Command
     {
         $this->gameId = new Uuid($gameId);
     }
-    
+
     public function getGameId(): Uuid
     {
         return $this->gameId;

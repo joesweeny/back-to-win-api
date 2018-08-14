@@ -63,11 +63,9 @@ class RedisBank implements Bank
             );
         }
 
-        if ($money->greaterThan($balance)) {
-            throw new BankingException("Cannot withdraw money due to insufficient funds: User {$userId}");
-        }
+        $newBalance = $balance->subtract($money);
 
-        $this->insert($userId, $newBalance = $balance->subtract($money));
+        $this->insert($userId, $newBalance);
 
         return $money;
     }

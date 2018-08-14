@@ -83,13 +83,16 @@ class RedisBankIntegrationTest extends TestCase
         $this->bank->withdraw($id, new Money(5500, new Currency('EUR')));
     }
 
-    public function test_exception_is_thrown_if_attempting_to_withdraw_money_with_insufficient_funds()
+    public function test_withdraw_money_with_insufficient_funds_puts_account_in_negative_balance()
     {
         $this->bank->openAccount($id = Uuid::generate(), new Money(1000, new Currency('GBP')));
 
-        $this->expectException(BankingException::class);
-        $this->expectExceptionMessage("Cannot withdraw money due to insufficient funds: User {$id}");
         $this->bank->withdraw($id, new Money(5500, new Currency('GBP')));
+
+        $balance = $this->bank->getBalance($id);
+
+        $this->assertEquals(new Money(-4500, new Currency('GBP')), $balance);
+
     }
 
     protected function tearDown()

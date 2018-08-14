@@ -29,8 +29,8 @@ interface Bank
      * Subtract money from a Users virtual bank account
      *
      * @param Uuid $userId
-     * @throws BankingException
      * @param Money $money
+     * @throws BankingException
      * @return Money
      */
     public function withdraw(Uuid $userId, Money $money): Money;

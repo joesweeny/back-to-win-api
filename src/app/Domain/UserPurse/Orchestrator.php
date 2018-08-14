@@ -3,6 +3,7 @@
 namespace BackToWin\Domain\UserPurse;
 
 use BackToWin\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
 use BackToWin\Domain\UserPurse\Persistence\Reader;
 use BackToWin\Domain\UserPurse\Persistence\Writer;
 use BackToWin\Framework\Exception\NotFoundException;
@@ -38,5 +39,20 @@ class Orchestrator
     public function getUserPurse(Uuid $userId): UserPurse
     {
         return $this->reader->getPurse($userId);
+    }
+
+    /**
+     * @param UserPurse $purse
+     * @throws NotFoundException
+     * @return void
+     */
+    public function updateUserPurse(UserPurse $purse): void
+    {
+        $this->writer->update($purse);
+    }
+
+    public function createTransaction(UserPurseTransaction $transaction): void
+    {
+        $this->writer->insertTransaction($transaction);
     }
 }

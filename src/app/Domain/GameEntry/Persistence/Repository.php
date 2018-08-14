@@ -27,4 +27,13 @@ interface Repository
      * @return array|GameEntry[]
      */
     public function get(Uuid $gameId): array;
+
+    /**
+     * Confirm that a User/Game record exists in the database
+     *
+     * @param Uuid $gameId
+     * @param Uuid $userId
+     * @return bool
+     */
+    public function exists(Uuid $gameId, Uuid $userId): bool;
 }

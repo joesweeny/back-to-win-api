@@ -79,4 +79,19 @@ class IlluminateRepositoryIntegrationTest extends TestCase
         $this->assertEquals('4802f8bc-7f4d-441d-a433-98e568cfbfd9', $entries[1]->getUserId());
         $this->assertEquals('c2011328-303f-4764-a01e-8c686b5756a3', $entries[2]->getUserId());
     }
+
+    public function test_exists_returns_true_if_user_has_entered_game()
+    {
+        $gameId = new Uuid('70801f67-75a4-4c09-bb22-d6287f7d15e5');
+        $userId = new Uuid('6ef8adcc-2b22-46ea-970f-a5d41ed110b3');
+
+        $this->repository->insert($gameId, $userId);
+
+        $this->assertTrue($this->repository->exists($gameId, $userId));
+    }
+
+    public function test_exists_returns_false_if_user_has_not_entered_a_game()
+    {
+        $this->assertFalse($this->repository->exists(Uuid::generate(), Uuid::generate()));
+    }
 }

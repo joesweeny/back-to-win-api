@@ -4,6 +4,7 @@ namespace BackToWin\Domain\Bank;
 
 use BackToWin\Domain\Bank\Exception\BankingException;
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
 class BankManager
@@ -35,6 +36,11 @@ class BankManager
         }
 
         return $this->bank->withdraw($user->getId(), $money);
+    }
+
+    public function deposit(Uuid $userId, Money $money)
+    {
+        $this->bank->deposit($userId, $money);
     }
 
     private function hasSufficientFunds(Money $balance, Money $money): bool

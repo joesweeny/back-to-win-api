@@ -3,7 +3,10 @@
 namespace BackToWin\Domain\GameEntry;
 
 use BackToWin\Domain\Game\Orchestrator as GameOrchestrator;
+use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\GameEntry\Persistence\Repository;
+use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Domain\UserPurse\Entity\UserPurse;
 use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
@@ -31,17 +34,23 @@ class Orchestrator
      * @var PurseOrchestrator
      */
     private $purseOrchestrator;
+    /**
+     * @var Repository
+     */
+    private $repository;
 
     public function __construct(
         GameOrchestrator $gameOrchestrator,
         UserOrchestrator $userOrchestrator,
         PurseOrchestrator $purseOrchestrator,
-        GameManager $manager
+        GameManager $manager,
+        Repository $repository
     ) {
         $this->gameOrchestrator = $gameOrchestrator;
         $this->userOrchestrator = $userOrchestrator;
         $this->manager = $manager;
         $this->purseOrchestrator = $purseOrchestrator;
+        $this->repository = $repository;
     }
 
     /**
@@ -74,6 +83,17 @@ class Orchestrator
         );
 
         $this->purseOrchestrator->updateUserPurse($this->subtractFromPurse($purse, $game->getBuyIn()));
+    }
+
+    /**
+     * @param Uuid $gameId
+     * @return array|User[]
+     */
+    public function getUsersForGame(Uuid $gameId): array
+    {
+        return array_map(function (GameEntry $entry) {
+            return $this->userOrchestrator->getUserById($entry->getUserId());
+        }, $this->repository->get($gameId));
     }
 
     private function subtractFromPurse(UserPurse $purse, Money $money): UserPurse

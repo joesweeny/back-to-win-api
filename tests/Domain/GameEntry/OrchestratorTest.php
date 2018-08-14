@@ -6,6 +6,7 @@ use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\GameEntry\Persistence\Repository;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Domain\UserPurse\Entity\UserPurse;
@@ -28,6 +29,8 @@ class OrchestratorTest extends TestCase
     private $purseOrchestrator;
     /** @var  GameManager */
     private $manager;
+    /** @var  Repository */
+    private $repository;
 
     public function setUp()
     {
@@ -35,11 +38,13 @@ class OrchestratorTest extends TestCase
         $this->userOrchestrator = $this->prophesize(UserOrchestrator::class);
         $this->purseOrchestrator = $this->prophesize(\BackToWin\Domain\UserPurse\Orchestrator::class);
         $this->manager = $this->prophesize(GameManager::class);
+        $this->repository = $this->prophesize(Repository::class);
         $this->orchestrator = new Orchestrator(
             $this->gameOrchestrator->reveal(),
             $this->userOrchestrator->reveal(),
             $this->purseOrchestrator->reveal(),
-            $this->manager->reveal()
+            $this->manager->reveal(),
+            $this->repository->reveal()
         );
     }
 

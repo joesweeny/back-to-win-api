@@ -38,6 +38,12 @@ class BankManager
         return $this->bank->withdraw($user->getId(), $money);
     }
 
+    /**
+     * @param Uuid $userId
+     * @param Money $money
+     * @throws BankingException
+     * @return void
+     */
     public function deposit(Uuid $userId, Money $money)
     {
         $this->bank->deposit($userId, $money);
@@ -45,6 +51,7 @@ class BankManager
 
     private function hasSufficientFunds(Money $balance, Money $money): bool
     {
+        // Throw BankException if currencies are not the same
         return $balance->greaterThan($money);
     }
 }

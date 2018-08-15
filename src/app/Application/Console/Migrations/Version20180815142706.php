@@ -22,7 +22,7 @@ class Version20180815142706 extends AbstractMigration
         $table->addColumn('currency', Type::STRING);
         $table->addColumn('amount', Type::INTEGER);
         $table->addColumn('timestamp', Type::INTEGER);
-        $table->addIndex(['game_id', 'currency']);
+        $table->addIndex(['id', 'game_id', 'currency']);
     }
 
     /**

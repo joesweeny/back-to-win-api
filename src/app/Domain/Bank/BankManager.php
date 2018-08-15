@@ -49,9 +49,18 @@ class BankManager
         $this->bank->deposit($userId, $money);
     }
 
+    /**
+     * @param Money $balance
+     * @param Money $money
+     * @return bool
+     * @throws BankingException
+     */
     private function hasSufficientFunds(Money $balance, Money $money): bool
     {
-        // Throw BankException if currencies are not the same
-        return $balance->greaterThan($money);
+        try{
+            return $balance->greaterThan($money);
+        } catch (\InvalidArgumentException $e) {
+            throw new BankingException($e->getMessage());
+        }
     }
 }

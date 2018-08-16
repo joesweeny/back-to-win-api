@@ -6,6 +6,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
       context: ./
     environment:
+     - ADMIN_BANK_DRIVER=redis
      - DB_DSN=mysql:host=mysql;dbname=app
      - DB_USER=root
      - DB_PASSWORD=password

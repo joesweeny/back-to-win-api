@@ -2,6 +2,7 @@
 
 namespace BackToWin\Domain\Admin\Bank\Persistence;
 
+use BackToWin\Domain\Admin\Bank\Exception\RepositoryDuplicationException;
 use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
@@ -12,6 +13,8 @@ interface Repository
      *
      * @param Uuid $gameId
      * @param Money $money
+     * @throws RepositoryDuplicationException
+     * @return void
      */
     public function insert(Uuid $gameId, Money $money): void;
 }

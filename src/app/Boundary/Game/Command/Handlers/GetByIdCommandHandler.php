@@ -4,13 +4,13 @@ namespace BackToWin\Boundary\Game\Command\Handlers;
 
 use BackToWin\Boundary\Game\Command\GetByIdCommand;
 use BackToWin\Boundary\Game\GamePresenter;
-use BackToWin\Domain\Game\Orchestrator;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Framework\Exception\NotFoundException;
 
 class GetByIdCommandHandler
 {
     /**
-     * @var Orchestrator
+     * @var GameOrchestrator
      */
     private $orchestrator;
     /**
@@ -18,7 +18,7 @@ class GetByIdCommandHandler
      */
     private $presenter;
 
-    public function __construct(Orchestrator $orchestrator, GamePresenter $presenter)
+    public function __construct(GameOrchestrator $orchestrator, GamePresenter $presenter)
     {
         $this->orchestrator = $orchestrator;
         $this->presenter = $presenter;

@@ -5,7 +5,7 @@ namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Domain\Game\Orchestrator;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\RunsMigrations;
 use BackToWin\Testing\Traits\UsesContainer;
@@ -24,13 +24,13 @@ class ListControllerIntegrationTest extends TestCase
 
     /** @var  ContainerInterface */
     private $container;
-    /** @var  Orchestrator */
+    /** @var  GameOrchestrator */
     private $orchestrator;
 
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
-        $this->orchestrator = $this->container->get(Orchestrator::class);
+        $this->orchestrator = $this->container->get(GameOrchestrator::class);
     }
     
     public function test_200_response_is_returned_containing_an_array_of_game_data()

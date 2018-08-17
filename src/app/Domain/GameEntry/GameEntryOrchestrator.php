@@ -53,6 +53,8 @@ class GameEntryOrchestrator
     }
 
     /**
+     * Check whether a User can enter a Game
+     *
      * @param Game $game
      * @param Uuid $userId
      * @throws GameEntryException

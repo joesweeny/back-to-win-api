@@ -5,15 +5,15 @@ namespace BackToWin\Boundary\GameEntry\Command\Handlers;
 use BackToWin\Boundary\Game\GamePresenter;
 use BackToWin\Boundary\GameEntry\Command\GetUsersForGameCommand;
 use BackToWin\Boundary\User\UserPresenter;
-use BackToWin\Domain\Game\Orchestrator as GameOrchestrator;
-use BackToWin\Domain\GameEntry\Orchestrator;
+use BackToWin\Domain\Game\GameOrchestrator as GameOrchestrator;
+use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
 
 class GetUsersForGameCommandHandler
 {
     /**
-     * @var Orchestrator
+     * @var GameEntryOrchestrator
      */
     private $orchestrator;
     /**
@@ -30,7 +30,7 @@ class GetUsersForGameCommandHandler
     private $userPresenter;
 
     public function __construct(
-        Orchestrator $orchestrator,
+        GameEntryOrchestrator $orchestrator,
         GameOrchestrator $gameOrchestrator,
         GamePresenter $gamePresenter,
         UserPresenter $userPresenter

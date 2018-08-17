@@ -24,7 +24,7 @@ class GameManagerTest extends TestCase
     private $repository;
     /** @var  EntryFeeStore */
     private $feeStore;
-    /** @var  GameManager */
+    /** @var  GameEntryManager */
     private $manager;
     /** @var  BankManager */
     private $bankManager;
@@ -34,7 +34,7 @@ class GameManagerTest extends TestCase
         $this->repository = $this->prophesize(Repository::class);
         $this->bankManager = $this->prophesize(BankManager::class);
         $this->feeStore = $this->prophesize(EntryFeeStore::class);
-        $this->manager = new GameManager(
+        $this->manager = new GameEntryManager(
             $this->repository->reveal(),
             $this->bankManager->reveal(),
             $this->feeStore->reveal()

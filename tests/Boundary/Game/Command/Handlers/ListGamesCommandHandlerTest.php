@@ -7,7 +7,7 @@ use BackToWin\Boundary\Game\GamePresenter;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Domain\Game\Orchestrator;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
@@ -15,14 +15,14 @@ use PHPUnit\Framework\TestCase;
 
 class ListGamesCommandHandlerTest extends TestCase
 {
-    /** @var  Orchestrator */
+    /** @var  GameOrchestrator */
     private $orchestrator;
     /** @var  ListGamesCommandHandler */
     private $handler;
 
     public function setUp()
     {
-        $this->orchestrator = $this->prophesize(Orchestrator::class);
+        $this->orchestrator = $this->prophesize(GameOrchestrator::class);
         $this->handler = new ListGamesCommandHandler(
             $this->orchestrator->reveal(),
             new GamePresenter()

@@ -1,22 +1,28 @@
 <?php
 
-namespace BackToWin\Boundary\GameEntry\Command\Handlers;
+namespace BackToWin\Boundary\Game\Command\Handlers;
 
-use BackToWin\Boundary\GameEntry\Command\EnterGameCommand;
+use BackToWin\Boundary\Game\Command\EnterGameCommand;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\Orchestrator;
+use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Framework\Exception\NotFoundException;
 
 class EnterGameCommandHandler
 {
     /**
-     * @var Orchestrator
+     * @var GameOrchestrator
      */
-    private $orchestrator;
+    private $gameOrchestrator;
+    /**
+     * @var UserOrchestrator
+     */
+    private $userOrchestrator;
 
-    public function __construct(Orchestrator $orchestrator)
+    public function __construct(GameOrchestrator $gameOrchestrator, UserOrchestrator $userOrchestrator)
     {
-        $this->orchestrator = $orchestrator;
+        $this->gameOrchestrator = $gameOrchestrator;
+        $this->userOrchestrator = $userOrchestrator;
     }
 
     /**
@@ -25,8 +31,10 @@ class EnterGameCommandHandler
      * @throws GameEntryException
      * @return void
      */
-    public function handle(EnterGameCommand $command)
+    public function handle(EnterGameCommand $command): void
     {
-        $this->orchestrator->enterGame($command->getGameId(), $command->getUserId());
+        $user = $this->userOrchestrator->getUserById($command->getUserId());
+
+        $this->gameOrchestrator->addUserToGame($command->getGameId(), $user);
     }
 }

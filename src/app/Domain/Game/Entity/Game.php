@@ -77,6 +77,13 @@ class Game
         return $this->type;
     }
 
+    public function setStatus(GameStatus $status): Game
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
     public function getStatus(): GameStatus
     {
         return $this->status;

@@ -3,12 +3,14 @@
 namespace BackToWin\Domain\Game;
 
 use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
+use BackToWin\Domain\GameResult\GameResultOrchestrator;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
@@ -28,15 +30,21 @@ class GameOrchestrator
      * @var GameEntryOrchestrator
      */
     private $entryOrchestrator;
+    /**
+     * @var GameResultOrchestrator
+     */
+    private $resultOrchestrator;
 
     public function __construct(
         Reader $reader,
         Writer $writer,
-        GameEntryOrchestrator $entryOrchestrator
+        GameEntryOrchestrator $entryOrchestrator,
+        GameResultOrchestrator $resultOrchestrator
     ) {
         $this->reader = $reader;
         $this->writer = $writer;
         $this->entryOrchestrator = $entryOrchestrator;
+        $this->resultOrchestrator = $resultOrchestrator;
     }
 
     public function createGame(Game $game): Game
@@ -81,7 +89,6 @@ class GameOrchestrator
     {
         $game = $this->reader->getById($gameId);
 
-        // Check User was in Game
         if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
             throw new GameSettlementException("Unable to settle as User {$user->getId()} did not enter Game {$gameId}");
         }
@@ -95,7 +102,8 @@ class GameOrchestrator
         // - Delete EntryFeeStore record
 
         // Set GameStatus to COMPLETED
-
+        $this->writer->update($game->setStatus(GameStatus::COMPLETED()));
         // Add GameResult record
+        $this->resultOrchestrator->saveGameWinner($gameId, $user->getId());
     }
 }

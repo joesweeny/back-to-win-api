@@ -25,4 +25,12 @@ interface EntryFeeStore
      * @return Money
      */
     public function getFeeTotal(Uuid $gameId): Money;
+
+    /**
+     * Delete a record from the store
+     *
+     * @param Uuid $gameId
+     * @return void
+     */
+    public function delete(Uuid $gameId): void;
 }

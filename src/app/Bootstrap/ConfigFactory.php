@@ -44,6 +44,12 @@ class ConfigFactory
                     'store-driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER')
                 ]
             ],
+
+            'admin' => [
+                'bank' => [
+                    'driver' => self::fromEnv('ADMIN_BANK_DRIVER')
+                ]
+            ]
         ]);
     }
 

@@ -55,9 +55,12 @@ class RedisEntryFeeStore implements EntryFeeStore
             $total = $total->add($object);
         }
 
-        $this->client->del([(string) $gameId]);
-
         return $total;
+    }
+
+    public function delete(Uuid $gameId): void
+    {
+        $this->client->del([(string) $gameId]);
     }
 
     private function exists(Uuid $gameId): bool

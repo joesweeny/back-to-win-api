@@ -1,9 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Services;
+namespace BackToWin\Domain\GameEntry\Services\EntryFee\Redis;
 
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
 use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;

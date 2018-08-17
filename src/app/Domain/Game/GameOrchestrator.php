@@ -3,6 +3,7 @@
 namespace BackToWin\Domain\Game;
 
 use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
@@ -12,6 +13,7 @@ use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
+use Money\Money;
 
 class GameOrchestrator
 {
@@ -79,10 +81,28 @@ class GameOrchestrator
             throw new GameEntryException("Cannot enter Game {$game->getId()} as game status is {$game->getStatus()}");
         }
 
-        $this->entryOrchestrator->checkEligibility($game, $user->getId());
+        $this->entryOrchestrator->addGameEntry($game, $user);
+    }
 
-        $this->entryManager->handleGameEntryFee($game, $user);
+    public function settleGame(Uuid $gameId, User $user, Money $winnings)
+    {
+        $game = $this->reader->getById($gameId);
 
-        $this->entryOrchestrator->addGameEntry($game, $user->getId());
+        // Check User was in Game
+        if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
+            throw new GameSettlementException("Unable to settle as User {$user->getId()} did not enter Game {$gameId}");
+        }
+
+        // GameSettler class to:
+        // - Get total from entry fee pot
+        // - Divide money
+        // - Put winnings in User bank
+        // - Add UserPurseTransaction and update UserPurse
+        // - Update Admin funds/transaction
+        // - Delete EntryFeeStore record
+        
+        // Set GameStatus to COMPLETED
+
+        // Add GameResult record
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Services;
+namespace BackToWin\Domain\GameEntry\Services\EntryFee;
 
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;

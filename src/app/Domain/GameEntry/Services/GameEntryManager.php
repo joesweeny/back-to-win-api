@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry;
+namespace BackToWin\Domain\GameEntry\Services;
 
 use BackToWin\Domain\Bank\BankManager;
 use BackToWin\Domain\Bank\Exception\BankingException;
@@ -8,7 +8,6 @@ use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\Services\EntryFeeStore;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
 use BackToWin\Domain\UserPurse\UserPurseOrchestrator;

@@ -3,9 +3,9 @@
 namespace BackToWin\Domain\GameEntry\Persistence\Illuminate;
 
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
 use BackToWin\Framework\DateTime\FixedClock;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\RunsMigrations;
 use BackToWin\Testing\Traits\UsesContainer;
@@ -50,7 +50,7 @@ class IlluminateRepositoryIntegrationTest extends TestCase
 
         $this->repository->insert($gameId, $userId);
 
-        $this->expectException(GameEntryException::class);
+        $this->expectException(RepositoryDuplicationException::class);
         $this->expectExceptionMessage(
             'User 6ef8adcc-2b22-46ea-970f-a5d41ed110b3 has already entered game 70801f67-75a4-4c09-bb22-d6287f7d15e5'
         );

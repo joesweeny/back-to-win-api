@@ -17,12 +17,12 @@ class Version20180815142706 extends AbstractMigration
     public function up(Schema $schema)
     {
         $table = $schema->createTable('admin_bank_transaction');
-        $table->addColumn('id', Type::INTEGER)->setAutoincrement(true);
         $table->addColumn('game_id', Type::BINARY);
         $table->addColumn('currency', Type::STRING);
         $table->addColumn('amount', Type::INTEGER);
         $table->addColumn('timestamp', Type::INTEGER);
-        $table->addIndex(['id', 'game_id', 'currency']);
+        $table->setPrimaryKey(['game_id']);
+        $table->addIndex(['currency']);
     }
 
     /**

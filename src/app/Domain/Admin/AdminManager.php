@@ -4,7 +4,7 @@ namespace BackToWin\Domain\Admin;
 
 use BackToWin\Domain\Admin\Bank\Bank;
 use BackToWin\Domain\Admin\Bank\Exception\BankingException;
-use BackToWin\Domain\Admin\Bank\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Domain\Admin\Bank\Persistence\Repository;
 use BackToWin\Domain\Admin\Exception\AdminException;
 use BackToWin\Framework\Uuid\Uuid;

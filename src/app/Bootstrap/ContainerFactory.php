@@ -152,7 +152,7 @@ class ContainerFactory
             }),
 
             Bank::class => \DI\factory(function (ContainerInterface $container) {
-                switch ($bank = $container->get(Config::class)->get('bank.bank-driver')) {
+                switch ($bank = $container->get(Config::class)->get('bank.driver')) {
                     case 'redis':
                         return new RedisBank($container->get(Client::class));
                     default:

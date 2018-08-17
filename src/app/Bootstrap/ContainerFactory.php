@@ -160,6 +160,15 @@ class ContainerFactory
                 }
             }),
 
+            \BackToWin\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
+                    case 'redis':
+                        return new \BackToWin\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
+                    default:
+                        throw new \UnexpectedValueException("Admin bank '$bank' not recognised");
+                }
+            }),
+
             EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
                     case 'redis':

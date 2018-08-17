@@ -46,7 +46,9 @@ class ConfigFactory
             ],
 
             'admin' => [
-                'user-id' => self::fromEnv('ADMIN_USER_ID')
+                'bank' => [
+                    'driver' => self::fromEnv('ADMIN_BANK_DRIVER')
+                ]
             ]
         ]);
     }

@@ -14,7 +14,7 @@ use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Predis\Client;
 
-class RedisEntryStoreIntegrationTest extends TestCase
+class RedisEntryFeeStoreIntegrationTest extends TestCase
 {
     use UsesContainer,
         UsesTestRedisDatabase;
@@ -101,7 +101,7 @@ class RedisEntryStoreIntegrationTest extends TestCase
         $this->store->getFeeTotal(new Uuid('a4a7128b-6fc6-4480-845e-cc86a0a69890'));
     }
 
-    public function test_record_is_deleted_once_retrieving_fee_total()
+    public function test_record_can_be_deleted_from_the_store()
     {
         $gameId = new Uuid('a4a7128b-6fc6-4480-845e-cc86a0a69890');
 
@@ -112,6 +112,8 @@ class RedisEntryStoreIntegrationTest extends TestCase
         $total = $this->store->getFeeTotal($gameId);
 
         $this->assertEquals(new Money(4000, new Currency('GBP')), $total);
+
+        $this->store->delete($gameId);
 
         $this->assertNull($this->client->get((string) $gameId));
     }

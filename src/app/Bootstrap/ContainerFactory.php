@@ -160,6 +160,15 @@ class ContainerFactory
                 }
             }),
 
+            \BackToWin\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
+                    case 'redis':
+                        return new \BackToWin\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
+                    default:
+                        throw new \UnexpectedValueException("Admin bank '$bank' not recognised");
+                }
+            }),
+
             EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
                     case 'redis':
@@ -189,7 +198,11 @@ class ContainerFactory
 
             \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class),
 
-            \BackToWin\Domain\GameEntry\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class)
+            \BackToWin\Domain\GameEntry\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class),
+
+            \BackToWin\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\BackToWin\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
+
+            \BackToWin\Domain\GameResult\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
         ];
     }
 

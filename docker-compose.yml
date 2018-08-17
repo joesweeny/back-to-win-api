@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
       context: ./
     environment:
-     - ADMIN_USER_ID=38d14274-f589-4555-97f5-29698b4b847f
+     - ADMIN_BANK_DRIVER=redis
      - BANK_DRIVER=redis
      - DB_DSN=mysql:host=mysql;dbname=app
      - DB_USER=root

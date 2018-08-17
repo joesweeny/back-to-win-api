@@ -57,4 +57,21 @@ class IlluminateRepositoryIntegrationTest extends TestCase
 
         $this->repository->insert($id, new Money(1000, new Currency('GBP')));
     }
+
+    public function test_delete_only_deletes_record_for_game_id_provided()
+    {
+        $this->repository->insert($id1 = Uuid::generate(), new Money(1000, new Currency('GBP')));
+
+        $this->repository->insert($id2 = Uuid::generate(), new Money(1000, new Currency('GBP')));
+
+        $total = $this->connection->table('admin_bank_transaction')->get();
+
+        $this->assertCount(2, $total);
+
+        $this->repository->delete($id1);
+
+        $total = $this->connection->table('admin_bank_transaction')->get();
+
+        $this->assertCount(1, $total);
+    }
 }

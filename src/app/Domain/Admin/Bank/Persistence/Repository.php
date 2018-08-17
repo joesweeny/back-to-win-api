@@ -17,4 +17,10 @@ interface Repository
      * @return void
      */
     public function insert(Uuid $gameId, Money $money): void;
+
+    /**
+     * @param Uuid $gameId
+     * @return void
+     */
+    public function delete(Uuid $gameId): void;
 }

@@ -5,6 +5,7 @@ namespace BackToWin\Domain\Admin\Bank\Persistence\Illuminate;
 use BackToWin\Domain\Admin\Bank\Exception\RepositoryDuplicationException;
 use BackToWin\Domain\Admin\Bank\Persistence\Repository;
 use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
@@ -32,7 +33,7 @@ class IlluminateRepository implements Repository
      */
     public function insert(Uuid $gameId, Money $money): void
     {
-        if ($this->table()->where('game_id', $gameId->toBinary())->exists()) {
+        if ($this->whereGameIdEquals($gameId)->exists()) {
             throw new RepositoryDuplicationException("Record for Game {$gameId} already exists");
         }
 
@@ -44,8 +45,21 @@ class IlluminateRepository implements Repository
         ]);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function delete(Uuid $gameId): void
+    {
+        $this->whereGameIdEquals($gameId)->delete();
+    }
+
     private function table(): Builder
     {
         return $this->connection->table('admin_bank_transaction');
+    }
+
+    private function whereGameIdEquals(Uuid $gameId): Builder
+    {
+        return $this->table()->where('game_id', $gameId->toBinary());
     }
 }

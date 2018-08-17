@@ -74,11 +74,9 @@ class GameEntryOrchestratorTest extends TestCase
             new GameEntry($game->getId(), Uuid::generate())
         ]);
 
-        $this->repository->insert($game->getId(), $id = Uuid::generate())->shouldNotBeCalled();
-
         $this->expectException(GameEntryException::class);
         $this->expectExceptionMessage('Game has reached full capacity');
-        $this->orchestrator->addGameEntry($game, $id);
+        $this->orchestrator->checkEligibility($game, Uuid::generate());
     }
 
     public function test_exception_is_thrown_if_user_has_already_entered_the_game()
@@ -99,10 +97,8 @@ class GameEntryOrchestratorTest extends TestCase
             new GameEntry($game->getId(), Uuid::generate())
         ]);
 
-        $this->repository->insert($game->getId(), $id = Uuid::generate())->shouldNotBeCalled();
-
         $this->expectException(GameEntryException::class);
         $this->expectExceptionMessage('User has already entered Game');
-        $this->orchestrator->addGameEntry($game, $userId);
+        $this->orchestrator->checkEligibility($game, $userId);
     }
 }

@@ -44,7 +44,7 @@ class GetUsersForGameCommandHandler
     /**
      * @param GetUsersForGameCommand $command
      * @throws NotFoundException
-     * @return array|\stdClass[]
+     * @return array
      */
     public function handle(GetUsersForGameCommand $command): array
     {

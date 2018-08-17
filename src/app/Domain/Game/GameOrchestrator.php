@@ -8,7 +8,6 @@ use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\GameEntryManager;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
@@ -29,21 +28,15 @@ class GameOrchestrator
      * @var GameEntryOrchestrator
      */
     private $entryOrchestrator;
-    /**
-     * @var GameEntryManager
-     */
-    private $entryManager;
 
     public function __construct(
         Reader $reader,
         Writer $writer,
-        GameEntryOrchestrator $entryOrchestrator,
-        GameEntryManager $entryManager
+        GameEntryOrchestrator $entryOrchestrator
     ) {
         $this->reader = $reader;
         $this->writer = $writer;
         $this->entryOrchestrator = $entryOrchestrator;
-        $this->entryManager = $entryManager;
     }
 
     public function createGame(Game $game): Game
@@ -100,7 +93,7 @@ class GameOrchestrator
         // - Add UserPurseTransaction and update UserPurse
         // - Update Admin funds/transaction
         // - Delete EntryFeeStore record
-        
+
         // Set GameStatus to COMPLETED
 
         // Add GameResult record

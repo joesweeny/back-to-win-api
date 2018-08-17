@@ -67,7 +67,7 @@ class GameEntryOrchestrator
      * @throws GameEntryException
      * @return void
      */
-    public function checkEntryEligibility(Game $game, Uuid $userId): void
+    private function checkEntryEligibility(Game $game, Uuid $userId): void
     {
         $this->checkCapacity($game);
 

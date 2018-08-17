@@ -4,8 +4,8 @@ namespace BackToWin\Bootstrap;
 
 use BackToWin\Domain\Bank\Bank;
 use BackToWin\Domain\Bank\User\RedisBank;
-use BackToWin\Domain\GameEntry\Services\EntryFeeStore;
-use BackToWin\Domain\GameEntry\Services\RedisEntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;

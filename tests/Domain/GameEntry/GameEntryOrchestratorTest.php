@@ -8,6 +8,8 @@ use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
+use BackToWin\Domain\GameEntry\Services\GameEntryManager;
+use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
@@ -22,14 +24,18 @@ class GameEntryOrchestratorTest extends TestCase
     private $repository;
     /** @var  UserOrchestrator */
     private $userOrchestrator;
+    /** @var  GameEntryManager */
+    private $manager;
 
     public function setUp()
     {
         $this->repository = $this->prophesize(Repository::class);
         $this->userOrchestrator = $this->prophesize(UserOrchestrator::class);
+        $this->manager = $this->prophesize(GameEntryManager::class);
         $this->orchestrator = new GameEntryOrchestrator(
             $this->repository->reveal(),
-            $this->userOrchestrator->reveal()
+            $this->userOrchestrator->reveal(),
+            $this->manager->reveal()
         );
     }
 
@@ -46,14 +52,18 @@ class GameEntryOrchestratorTest extends TestCase
             4
         );
 
+        $user = new User();
+
         $this->repository->get($game->getId())->willReturn([
            new GameEntry($game->getId(), Uuid::generate()),
            new GameEntry($game->getId(), Uuid::generate())
         ]);
 
-        $this->repository->insert($game->getId(), $id = Uuid::generate())->shouldBeCalled();
+        $this->manager->handleGameEntryFee($game, $user)->shouldBeCalled();
 
-        $this->orchestrator->addGameEntry($game, $id);
+        $this->repository->insert($game->getId(), $user->getId())->shouldBeCalled();
+
+        $this->orchestrator->addGameEntry($game, $user);
     }
 
     public function test_exception_is_thrown_if_game_has_reached_capacity()
@@ -76,7 +86,7 @@ class GameEntryOrchestratorTest extends TestCase
 
         $this->expectException(GameEntryException::class);
         $this->expectExceptionMessage('Game has reached full capacity');
-        $this->orchestrator->checkEligibility($game, Uuid::generate());
+        $this->orchestrator->addGameEntry($game, new User());
     }
 
     public function test_exception_is_thrown_if_user_has_already_entered_the_game()
@@ -99,6 +109,6 @@ class GameEntryOrchestratorTest extends TestCase
 
         $this->expectException(GameEntryException::class);
         $this->expectExceptionMessage('User has already entered Game');
-        $this->orchestrator->checkEligibility($game, $userId);
+        $this->orchestrator->addGameEntry($game, new User($userId));
     }
 }

@@ -5,6 +5,7 @@ namespace BackToWin\Domain\GameEntry\Persistence;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Framework\Uuid\Uuid;
 
 interface Repository
@@ -14,7 +15,7 @@ interface Repository
      *
      * @param Uuid $gameId
      * @param Uuid $userId
-     * @throws GameEntryException
+     * @throws RepositoryDuplicationException
      * @return GameEntry
      */
     public function insert(Uuid $gameId, Uuid $userId): GameEntry;

@@ -2,7 +2,7 @@
 
 namespace BackToWin\Domain\Admin\Bank\Persistence\Illuminate;
 
-use BackToWin\Domain\Admin\Bank\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Domain\Admin\Bank\Persistence\Repository;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\RunsMigrations;

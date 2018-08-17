@@ -2,7 +2,7 @@
 
 namespace BackToWin\Domain\Admin\Bank\Persistence;
 
-use BackToWin\Domain\Admin\Bank\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 

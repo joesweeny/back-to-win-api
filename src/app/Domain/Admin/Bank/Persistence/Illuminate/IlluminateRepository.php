@@ -2,10 +2,9 @@
 
 namespace BackToWin\Domain\Admin\Bank\Persistence\Illuminate;
 
-use BackToWin\Domain\Admin\Bank\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Domain\Admin\Bank\Persistence\Repository;
 use BackToWin\Framework\DateTime\Clock;
-use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;

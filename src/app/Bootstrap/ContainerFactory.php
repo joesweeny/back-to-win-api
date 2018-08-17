@@ -201,6 +201,8 @@ class ContainerFactory
             \BackToWin\Domain\GameEntry\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class),
 
             \BackToWin\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\BackToWin\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
+
+            \BackToWin\Domain\GameResult\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
         ];
     }
 

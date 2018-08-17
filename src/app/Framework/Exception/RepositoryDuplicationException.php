@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Admin\Bank\Exception;
+namespace BackToWin\Framework\Exception;
 
 class RepositoryDuplicationException extends \Exception
 {

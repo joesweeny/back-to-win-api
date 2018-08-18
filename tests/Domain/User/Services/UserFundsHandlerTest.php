@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry;
+namespace BackToWin\Domain\User\Services;
 
 use BackToWin\Domain\Bank\BankManager;
 use BackToWin\Domain\Bank\Exception\BankingException;
@@ -10,8 +10,8 @@ use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use BackToWin\Domain\GameEntry\Services\UserFundsHandler;
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
 use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
 use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
@@ -20,12 +20,12 @@ use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
-class GameEntryManagerTest extends TestCase
+class UserFundsHandlerTest extends TestCase
 {
     /** @var  EntryFeeStore */
     private $feeStore;
     /** @var  UserFundsHandler */
-    private $manager;
+    private $handler;
     /** @var  BankManager */
     private $bankManager;
     /** @var UserPurseOrchestrator */
@@ -36,7 +36,7 @@ class GameEntryManagerTest extends TestCase
         $this->bankManager = $this->prophesize(BankManager::class);
         $this->feeStore = $this->prophesize(EntryFeeStore::class);
         $this->purseOrchestrator = $this->prophesize(UserPurseOrchestrator::class);
-        $this->manager = new UserFundsHandler(
+        $this->handler = new UserFundsHandler(
             $this->bankManager->reveal(),
             $this->feeStore->reveal(),
             $this->purseOrchestrator->reveal()
@@ -58,9 +58,15 @@ class GameEntryManagerTest extends TestCase
             $entryFee
         )->shouldBeCalled();
 
+        $this->purseOrchestrator->getUserPurse($user->getId())->willReturn(
+            $purse = new UserPurse($user->getId(), new Money(1000, new Currency('GBP')))
+        );
+
+        $this->purseOrchestrator->updateUserPurse($purse->subtractMoney($entryFee))->shouldBeCalled();
+
         $this->purseOrchestrator->createTransaction(Argument::type(UserPurseTransaction::class))->shouldBeCalled();
 
-        $this->manager->handleGameEntryFee($game, $user);
+        $this->handler->handleGameEntryFee($game, $user);
     }
 
     public function test_exception_is_thrown_if_issue_with_withdrawing_funds()
@@ -83,7 +89,7 @@ class GameEntryManagerTest extends TestCase
             "User {$user->getId()} cannot enter Game {$game->getId()}. Message: {$e->getMessage()}"
         );
 
-        $this->manager->handleGameEntryFee($game, $user);
+        $this->handler->handleGameEntryFee($game, $user);
     }
 
     private function createGame(): Game

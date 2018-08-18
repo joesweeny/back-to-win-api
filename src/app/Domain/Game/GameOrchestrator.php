@@ -8,13 +8,10 @@ use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
-use BackToWin\Domain\Game\Services\GameKeeper;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameResult\GameResultOrchestrator;
-use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
-use Money\Money;
 
 class GameOrchestrator
 {
@@ -30,21 +27,12 @@ class GameOrchestrator
      * @var GameResultOrchestrator
      */
     private $resultOrchestrator;
-    /**
-     * @var GameKeeper
-     */
-    private $keeper;
 
-    public function __construct(
-        Reader $reader,
-        Writer $writer,
-        GameKeeper $keeper,
-        GameResultOrchestrator $resultOrchestrator
-    ) {
+    public function __construct(Reader $reader, Writer $writer, GameResultOrchestrator $resultOrchestrator)
+    {
         $this->reader = $reader;
         $this->writer = $writer;
         $this->resultOrchestrator = $resultOrchestrator;
-        $this->keeper = $keeper;
     }
 
     public function createGame(Game $game): Game

@@ -22,7 +22,7 @@ interface Reader
      * is provided then all Game records are returned
      *
      * @param GameRepositoryQuery|null $query
-     * @return array
+     * @return array|Game[]
      */
     public function get(GameRepositoryQuery $query = null): array;
 }

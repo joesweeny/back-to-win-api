@@ -6,7 +6,7 @@ use BackToWin\Domain\GameResult\Persistence\Repository;
 use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Framework\Uuid\Uuid;
 
-class Orchestrator
+class GameResultOrchestrator
 {
     /**
      * @var Repository

@@ -38,7 +38,7 @@ class ConfigFactory
             ],
 
             'bank' => [
-                'bank_driver' => self::fromEnv('BANK_DRIVER'),
+                'driver' => self::fromEnv('BANK_DRIVER'),
 
                 'entry-fee' => [
                     'store-driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER')

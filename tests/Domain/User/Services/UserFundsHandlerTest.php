@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry;
+namespace BackToWin\Domain\User\Services;
 
 use BackToWin\Domain\Bank\BankManager;
 use BackToWin\Domain\Bank\Exception\BankingException;
@@ -9,71 +9,64 @@ use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\Persistence\Repository;
-use BackToWin\Domain\GameEntry\Services\EntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
-class GameManagerTest extends TestCase
+class UserFundsHandlerTest extends TestCase
 {
-    /** @var  Repository */
-    private $repository;
     /** @var  EntryFeeStore */
     private $feeStore;
-    /** @var  GameManager */
-    private $manager;
+    /** @var  UserFundsHandler */
+    private $handler;
     /** @var  BankManager */
     private $bankManager;
+    /** @var UserPurseOrchestrator */
+    private $purseOrchestrator;
 
     public function setUp()
     {
-        $this->repository = $this->prophesize(Repository::class);
         $this->bankManager = $this->prophesize(BankManager::class);
         $this->feeStore = $this->prophesize(EntryFeeStore::class);
-        $this->manager = new GameManager(
-            $this->repository->reveal(),
+        $this->purseOrchestrator = $this->prophesize(UserPurseOrchestrator::class);
+        $this->handler = new UserFundsHandler(
             $this->bankManager->reveal(),
-            $this->feeStore->reveal()
+            $this->feeStore->reveal(),
+            $this->purseOrchestrator->reveal()
         );
     }
 
-    public function test_user_is_added_to_game_if_entry_limit_has_not_been_reached_and_user_has_enough_funds()
+    public function test_user_is_added_to_game_if_user_has_enough_funds()
     {
         $game = $this->createGame();
 
         $user = new User('57f08f28-dc80-4adb-bc6b-1cfff1b73d6c');
-
-        $this->repository->get($game->getId())->willReturn(['Game', 'Game']);
 
         $this->bankManager->withdraw($user, $game->getBuyIn())->willReturn(
             $entryFee = new Money(500, new Currency('GBP'))
         );
 
-        $this->repository->insert($game->getId(), $user->getId())->willReturn(
-            $entry = new GameEntry($game->getId(), $user->getId())
+        $this->feeStore->enter(
+            new GameEntry($game->getId(), $user->getId()),
+            $entryFee
+        )->shouldBeCalled();
+
+        $this->purseOrchestrator->getUserPurse($user->getId())->willReturn(
+            $purse = new UserPurse($user->getId(), new Money(1000, new Currency('GBP')))
         );
 
-        $this->feeStore->enter($entry, $entryFee)->shouldBeCalled();
+        $this->purseOrchestrator->updateUserPurse($purse->subtractMoney($entryFee))->shouldBeCalled();
 
-        $this->manager->addUserToGame($game, $user);
-    }
+        $this->purseOrchestrator->createTransaction(Argument::type(UserPurseTransaction::class))->shouldBeCalled();
 
-    public function test_exception_is_thrown_if_game_has_reached_capacity()
-    {
-        $game = $this->createGame();
-
-        $user = new User('57f08f28-dc80-4adb-bc6b-1cfff1b73d6c');
-
-        $this->repository->get($game->getId())->willReturn(['Game', 'Game', 'Game', 'Game', 'Game']);
-
-        $this->expectException(GameEntryException::class);
-        $this->expectExceptionMessage('Game a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2 has reached full capacity');
-
-        $this->manager->addUserToGame($game, $user);
+        $this->handler->handleGameEntryFee($game, $user);
     }
 
     public function test_exception_is_thrown_if_issue_with_withdrawing_funds()
@@ -82,22 +75,21 @@ class GameManagerTest extends TestCase
 
         $user = new User('57f08f28-dc80-4adb-bc6b-1cfff1b73d6c');
 
-        $this->repository->get($game->getId())->willReturn(['Game', 'Game']);
-
         $this->bankManager->withdraw($user, $game->getBuyIn())->willThrow(
             $e = new BankingException('No funds mate')
         );
 
-        $this->repository->insert($game->getId(), $user->getId())->shouldNotBeCalled();
-
         $this->feeStore->enter(Argument::type(GameEntry::class), Argument::type(Money::class))->shouldNotBeCalled();
+
+        $this->purseOrchestrator->createTransaction(Argument::type(UserPurseTransaction::class))->shouldNotBeCalled();
+
 
         $this->expectException(GameEntryException::class);
         $this->expectExceptionMessage(
             "User {$user->getId()} cannot enter Game {$game->getId()}. Message: {$e->getMessage()}"
         );
 
-        $this->manager->addUserToGame($game, $user);
+        $this->handler->handleGameEntryFee($game, $user);
     }
 
     private function createGame(): Game

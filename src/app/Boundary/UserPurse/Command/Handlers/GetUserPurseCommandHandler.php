@@ -4,13 +4,13 @@ namespace BackToWin\Boundary\UserPurse\Command\Handlers;
 
 use BackToWin\Boundary\UserPurse\Command\GetUserPurseCommand;
 use BackToWin\Boundary\UserPurse\UserPursePresenter;
-use BackToWin\Domain\UserPurse\Orchestrator;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
 use BackToWin\Framework\Exception\NotFoundException;
 
 class GetUserPurseCommandHandler
 {
     /**
-     * @var Orchestrator
+     * @var UserPurseOrchestrator
      */
     private $orchestrator;
     /**
@@ -18,7 +18,7 @@ class GetUserPurseCommandHandler
      */
     private $presenter;
 
-    public function __construct(Orchestrator $orchestrator, UserPursePresenter $presenter)
+    public function __construct(UserPurseOrchestrator $orchestrator, UserPursePresenter $presenter)
     {
         $this->orchestrator = $orchestrator;
         $this->presenter = $presenter;

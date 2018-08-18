@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Boundary\GameEntry\Command;
+namespace BackToWin\Boundary\Game\Command;
 
 use BackToWin\Framework\Uuid\Uuid;
 use Chief\Command;

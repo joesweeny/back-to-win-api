@@ -1,10 +1,11 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Services;
+namespace BackToWin\Domain\GameEntry\Services\EntryFee\Redis;
 
 use BackToWin\Bootstrap\Config;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\UsesContainer;
 use BackToWin\Testing\Traits\UsesTestRedisDatabase;

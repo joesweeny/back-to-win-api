@@ -3,9 +3,9 @@
 namespace BackToWin\Domain\GameEntry\Persistence\Illuminate;
 
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
 use BackToWin\Framework\DateTime\FixedClock;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\RunsMigrations;
 use BackToWin\Testing\Traits\UsesContainer;
@@ -50,7 +50,7 @@ class IlluminateRepositoryIntegrationTest extends TestCase
 
         $this->repository->insert($gameId, $userId);
 
-        $this->expectException(GameEntryException::class);
+        $this->expectException(RepositoryDuplicationException::class);
         $this->expectExceptionMessage(
             'User 6ef8adcc-2b22-46ea-970f-a5d41ed110b3 has already entered game 70801f67-75a4-4c09-bb22-d6287f7d15e5'
         );
@@ -78,5 +78,20 @@ class IlluminateRepositoryIntegrationTest extends TestCase
         $this->assertEquals('6ef8adcc-2b22-46ea-970f-a5d41ed110b3', $entries[0]->getUserId());
         $this->assertEquals('4802f8bc-7f4d-441d-a433-98e568cfbfd9', $entries[1]->getUserId());
         $this->assertEquals('c2011328-303f-4764-a01e-8c686b5756a3', $entries[2]->getUserId());
+    }
+
+    public function test_exists_returns_true_if_user_has_entered_game()
+    {
+        $gameId = new Uuid('70801f67-75a4-4c09-bb22-d6287f7d15e5');
+        $userId = new Uuid('6ef8adcc-2b22-46ea-970f-a5d41ed110b3');
+
+        $this->repository->insert($gameId, $userId);
+
+        $this->assertTrue($this->repository->exists($gameId, $userId));
+    }
+
+    public function test_exists_returns_false_if_user_has_not_entered_a_game()
+    {
+        $this->assertFalse($this->repository->exists(Uuid::generate(), Uuid::generate()));
     }
 }

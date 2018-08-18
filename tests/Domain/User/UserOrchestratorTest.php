@@ -2,7 +2,7 @@
 
 namespace BackToWin\Domain\User;
 
-use BackToWin\Domain\UserPurse\Orchestrator;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
 use BackToWin\Testing\Traits\RunsMigrations;
 use BackToWin\Testing\Traits\UsesContainer;
 use BackToWin\Domain\User\Entity\User;
@@ -179,7 +179,7 @@ class UserOrchestratorTest extends TestCase
 
     public function test_purse_is_created_for_user_when_a_user_is_created()
     {
-        $purseOrchestrator = $this->container->get(Orchestrator::class);
+        $purseOrchestrator = $this->container->get(UserPurseOrchestrator::class);
 
         $this->orchestrator->createUser(
             $user = (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))

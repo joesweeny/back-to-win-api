@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Admin;
+namespace BackToWin\Domain\Admin\Bank\Services;
 
 use BackToWin\Domain\Admin\Bank\Bank;
 use BackToWin\Domain\Admin\Bank\Exception\BankingException;
@@ -13,14 +13,14 @@ use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-class AdminManagerTest extends TestCase
+class FundsHandlerTest extends TestCase
 {
     /** @var  Repository */
     private $repository;
     /** @var  Bank */
     private $bank;
-    /** @var  AdminManager */
-    private $manager;
+    /** @var  FundsHandler */
+    private $handler;
     /** @var  LoggerInterface */
     private $logger;
 
@@ -29,7 +29,7 @@ class AdminManagerTest extends TestCase
         $this->repository = $this->prophesize(Repository::class);
         $this->bank = $this->prophesize(Bank::class);
         $this->logger = $this->prophesize(LoggerInterface::class);
-        $this->manager = new AdminManager(
+        $this->handler = new FundsHandler(
             $this->repository->reveal(),
             $this->bank->reveal(),
             $this->logger->reveal()
@@ -45,7 +45,7 @@ class AdminManagerTest extends TestCase
 
         $this->bank->deposit($id, $money)->shouldBeCalled();
 
-        $this->manager->addSettledGameFunds($id, $money);
+        $this->handler->addSettledGameFunds($id, $money);
 
         $this->addToAssertionCount(1);
     }
@@ -66,7 +66,7 @@ class AdminManagerTest extends TestCase
         $this->expectException(AdminException::class);
         $this->expectExceptionMessage("Unable to adds funds. Message: {$e->getMessage()}");
 
-        $this->manager->addSettledGameFunds($id, $money);
+        $this->handler->addSettledGameFunds($id, $money);
     }
 
     public function test_banking_exception_is_caught_and_admin_exception_thrown_if_unable_to_deposit_funds()
@@ -87,6 +87,6 @@ class AdminManagerTest extends TestCase
         $this->expectException(AdminException::class);
         $this->expectExceptionMessage("Unable to adds funds. Message: {$e->getMessage()}");
 
-        $this->manager->addSettledGameFunds($id, $money);
+        $this->handler->addSettledGameFunds($id, $money);
     }
 }

@@ -6,7 +6,7 @@ use BackToWin\Domain\User\Persistence\Reader;
 use BackToWin\Domain\User\Persistence\Writer;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Orchestrator;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Exception\UserCreationException;
 use BackToWin\Framework\Uuid\Uuid;
@@ -24,11 +24,11 @@ class UserOrchestrator
      */
     private $reader;
     /**
-     * @var Orchestrator
+     * @var UserPurseOrchestrator
      */
     private $purseOrchestrator;
 
-    public function __construct(Writer $writer, Reader $reader, Orchestrator $purseOrchestrator)
+    public function __construct(Writer $writer, Reader $reader, UserPurseOrchestrator $purseOrchestrator)
     {
         $this->writer = $writer;
         $this->reader = $reader;

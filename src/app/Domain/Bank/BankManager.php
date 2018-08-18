@@ -4,6 +4,7 @@ namespace BackToWin\Domain\Bank;
 
 use BackToWin\Domain\Bank\Exception\BankingException;
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
 class BankManager
@@ -37,8 +38,29 @@ class BankManager
         return $this->bank->withdraw($user->getId(), $money);
     }
 
+    /**
+     * @param Uuid $userId
+     * @param Money $money
+     * @throws BankingException
+     * @return void
+     */
+    public function deposit(Uuid $userId, Money $money)
+    {
+        $this->bank->deposit($userId, $money);
+    }
+
+    /**
+     * @param Money $balance
+     * @param Money $money
+     * @return bool
+     * @throws BankingException
+     */
     private function hasSufficientFunds(Money $balance, Money $money): bool
     {
-        return $balance->greaterThan($money);
+        try {
+            return $balance->greaterThan($money);
+        } catch (\InvalidArgumentException $e) {
+            throw new BankingException($e->getMessage());
+        }
     }
 }

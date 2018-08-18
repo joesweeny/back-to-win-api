@@ -36,4 +36,30 @@ class UserPurse
     {
         return $this->money;
     }
+
+    /**
+     * @param Money $money
+     * @return UserPurse
+     * @throws \InvalidArgumentException
+     * @return UserPurse
+     */
+    public function addMoney(Money $money): UserPurse
+    {
+        $this->money = $this->money->add($money);
+
+        return $this;
+    }
+
+    /**
+     * @param Money $money
+     * @return UserPurse
+     * @throws \InvalidArgumentException
+     * @return UserPurse
+     */
+    public function subtractMoney(Money $money): UserPurse
+    {
+        $this->money = $this->money->subtract($money);
+
+        return $this;
+    }
 }

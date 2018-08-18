@@ -9,7 +9,7 @@ use BackToWin\Domain\UserPurse\Persistence\Writer;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
 
-class Orchestrator
+class UserPurseOrchestrator
 {
     /**
      * @var Reader

@@ -5,12 +5,12 @@ namespace BackToWin\Boundary\Game\Command\Handlers;
 use BackToWin\Boundary\Game\Command\ListGamesCommand;
 use BackToWin\Boundary\Game\GamePresenter;
 use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Orchestrator;
+use BackToWin\Domain\Game\GameOrchestrator;
 
 class ListGamesCommandHandler
 {
     /**
-     * @var Orchestrator
+     * @var GameOrchestrator
      */
     private $orchestrator;
     /**
@@ -18,7 +18,7 @@ class ListGamesCommandHandler
      */
     private $presenter;
 
-    public function __construct(Orchestrator $orchestrator, GamePresenter $presenter)
+    public function __construct(GameOrchestrator $orchestrator, GamePresenter $presenter)
     {
         $this->orchestrator = $orchestrator;
         $this->presenter = $presenter;

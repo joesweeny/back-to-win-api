@@ -4,8 +4,8 @@ namespace BackToWin\Bootstrap;
 
 use BackToWin\Domain\Bank\Bank;
 use BackToWin\Domain\Bank\User\RedisBank;
-use BackToWin\Domain\GameEntry\Services\EntryFeeStore;
-use BackToWin\Domain\GameEntry\Services\RedisEntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
@@ -152,7 +152,7 @@ class ContainerFactory
             }),
 
             Bank::class => \DI\factory(function (ContainerInterface $container) {
-                switch ($bank = $container->get(Config::class)->get('bank.bank-driver')) {
+                switch ($bank = $container->get(Config::class)->get('bank.driver')) {
                     case 'redis':
                         return new RedisBank($container->get(Client::class));
                     default:

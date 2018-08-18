@@ -5,7 +5,7 @@ namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Domain\Game\Orchestrator;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
 use BackToWin\Testing\Traits\RunsMigrations;
 use BackToWin\Testing\Traits\UsesContainer;
@@ -28,7 +28,7 @@ class GetControllerIntegrationTest extends TestCase
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
-        $this->container->get(Orchestrator::class)->createGame(
+        $this->container->get(GameOrchestrator::class)->createGame(
             new Game(
                 new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
                 GameType::GENERAL_KNOWLEDGE(),

@@ -22,6 +22,7 @@ interface EntryFeeStore
      * Return the total value for Game
      *
      * @param Uuid $gameId
+     * @throws EntryFeeStoreException
      * @return Money
      */
     public function getFeeTotal(Uuid $gameId): Money;

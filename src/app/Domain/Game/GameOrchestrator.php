@@ -10,7 +10,6 @@ use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
 use BackToWin\Domain\Game\Services\GameKeeper;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\GameResult\GameResultOrchestrator;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
@@ -90,28 +89,27 @@ class GameOrchestrator
         $this->keeper->processUserGameEntry($game, $user);
     }
 
-    public function settleGame(Uuid $gameId, User $user, Money $winnings)
+    /**
+     * @param Uuid $gameId
+     * @param User $user
+     * @param Money $winningTotal
+     * @throws GameSettlementException
+     * @return void
+     */
+    public function settleGame(Uuid $gameId, User $user, Money $winningTotal): void
     {
         $game = $this->reader->getById($gameId);
 
-        // Perform Game status check
-
-        // Move this check inside GameKeeper
-        if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
-            throw new GameSettlementException("Unable to settle as User {$user->getId()} did not enter Game {$gameId}");
+        if ($game->getStatus()->getValue() !== 'CREATED') {
+            throw new GameSettlementException(
+                "Cannot settle Game {$game->getId()} as game status is {$game->getStatus()}"
+            );
         }
 
-        // GameSettler class to:
-        // - Get total from entry fee pot
-        // - Divide money
-        // - Put winnings in User bank
-        // - Add UserPurseTransaction and update UserPurse
-        // - Update Admin funds/transaction
-        // - Delete EntryFeeStore record
+        $this->keeper->processGameSettlement($game, $user, $winningTotal);
 
-        // Set GameStatus to COMPLETED
         $this->writer->update($game->setStatus(GameStatus::COMPLETED()));
-        // Add GameResult record
+
         $this->resultOrchestrator->saveGameWinner($gameId, $user->getId());
     }
 }

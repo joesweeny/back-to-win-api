@@ -2,11 +2,14 @@
 
 namespace BackToWin\Domain\Game\Services;
 
+use BackToWin\Domain\Admin\Bank\Services\FundsHandler;
 use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\User\Services\UserFundsHandler;
 use BackToWin\Domain\User\Entity\User;
+use Money\Money;
 
 class GameKeeper
 {
@@ -18,11 +21,19 @@ class GameKeeper
      * @var UserFundsHandler
      */
     private $fundsHandler;
+    /**
+     * @var FundsHandler
+     */
+    private $handler;
 
-    public function __construct(GameEntryOrchestrator $entryOrchestrator, UserFundsHandler $fundsHandler)
-    {
+    public function __construct(
+        GameEntryOrchestrator $entryOrchestrator,
+        UserFundsHandler $fundsHandler,
+        FundsHandler $handler
+    ) {
         $this->entryOrchestrator = $entryOrchestrator;
         $this->fundsHandler = $fundsHandler;
+        $this->handler = $handler;
     }
 
     /**
@@ -41,5 +52,27 @@ class GameKeeper
         $this->fundsHandler->handleGameEntryFee($game, $user);
 
         $this->entryOrchestrator->addGameEntry($game, $user);
+    }
+
+    /**
+     * Settle Game by releasing and distributing funds and recording relevant transactions
+     *
+     * @param Game $game
+     * @param User $user
+     * @param Money $winningTotal
+     * @throws GameSettlementException
+     */
+    public function processGameSettlement(Game $game, User $user, Money $winningTotal)
+    {
+        // Check User entered Game
+        if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
+            throw new GameSettlementException(
+                "Unable to settle as User {$user->getId()} did not enter Game {$game->getId()}"
+            );
+        }
+        // Handle awarding of funds via UserFundsHandler
+        $money = $this->fundsHandler->settleGameWinnings($game->getId(), $user->getId(), $winningTotal);
+        // Process paying the remainder to Admin bank
+        $this->handler->addSettledGameFunds($game->getId(), $money);
     }
 }

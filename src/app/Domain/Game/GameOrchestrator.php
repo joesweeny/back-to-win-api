@@ -8,6 +8,7 @@ use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
+use BackToWin\Domain\Game\Services\GameKeeper;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\GameResult\GameResultOrchestrator;
@@ -27,24 +28,24 @@ class GameOrchestrator
      */
     private $writer;
     /**
-     * @var GameEntryOrchestrator
-     */
-    private $entryOrchestrator;
-    /**
      * @var GameResultOrchestrator
      */
     private $resultOrchestrator;
+    /**
+     * @var GameKeeper
+     */
+    private $keeper;
 
     public function __construct(
         Reader $reader,
         Writer $writer,
-        GameEntryOrchestrator $entryOrchestrator,
+        GameKeeper $keeper,
         GameResultOrchestrator $resultOrchestrator
     ) {
         $this->reader = $reader;
         $this->writer = $writer;
-        $this->entryOrchestrator = $entryOrchestrator;
         $this->resultOrchestrator = $resultOrchestrator;
+        $this->keeper = $keeper;
     }
 
     public function createGame(Game $game): Game
@@ -62,6 +63,10 @@ class GameOrchestrator
         return $this->reader->getById($gameId);
     }
 
+    /**
+     * @param GameRepositoryQuery|null $query
+     * @return array|Game[]
+     */
     public function getGames(GameRepositoryQuery $query = null): array
     {
         return $this->reader->get($query);
@@ -82,13 +87,16 @@ class GameOrchestrator
             throw new GameEntryException("Cannot enter Game {$game->getId()} as game status is {$game->getStatus()}");
         }
 
-        $this->entryOrchestrator->addGameEntry($game, $user);
+        $this->keeper->processUserGameEntry($game, $user);
     }
 
     public function settleGame(Uuid $gameId, User $user, Money $winnings)
     {
         $game = $this->reader->getById($gameId);
 
+        // Perform Game status check
+
+        // Move this check inside GameKeeper
         if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
             throw new GameSettlementException("Unable to settle as User {$user->getId()} did not enter Game {$gameId}");
         }

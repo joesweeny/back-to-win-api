@@ -19,7 +19,7 @@ class AdminManagerTest extends TestCase
     private $repository;
     /** @var  Bank */
     private $bank;
-    /** @var  AdminManager */
+    /** @var  FundsHandler */
     private $manager;
     /** @var  LoggerInterface */
     private $logger;
@@ -29,7 +29,7 @@ class AdminManagerTest extends TestCase
         $this->repository = $this->prophesize(Repository::class);
         $this->bank = $this->prophesize(Bank::class);
         $this->logger = $this->prophesize(LoggerInterface::class);
-        $this->manager = new AdminManager(
+        $this->manager = new FundsHandler(
             $this->repository->reveal(),
             $this->bank->reveal(),
             $this->logger->reveal()

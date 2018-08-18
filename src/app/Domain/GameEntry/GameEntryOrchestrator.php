@@ -6,7 +6,6 @@ use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
-use BackToWin\Domain\GameEntry\Services\GameEntryManager;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
@@ -21,16 +20,11 @@ class GameEntryOrchestrator
      * @var UserOrchestrator
      */
     private $userOrchestrator;
-    /**
-     * @var GameEntryManager
-     */
-    private $manager;
 
-    public function __construct(Repository $repository, UserOrchestrator $userOrchestrator, GameEntryManager $manager)
+    public function __construct(Repository $repository, UserOrchestrator $userOrchestrator)
     {
         $this->repository = $repository;
         $this->userOrchestrator = $userOrchestrator;
-        $this->manager = $manager;
     }
 
     /**
@@ -41,10 +35,6 @@ class GameEntryOrchestrator
      */
     public function addGameEntry(Game $game, User $user): void
     {
-        $this->checkEntryEligibility($game, $user->getId());
-
-        $this->manager->handleGameEntryFee($game, $user);
-
         $this->repository->insert($game->getId(), $user->getId());
     }
 
@@ -67,24 +57,12 @@ class GameEntryOrchestrator
      * @throws GameEntryException
      * @return void
      */
-    private function checkEntryEligibility(Game $game, Uuid $userId): void
+    public function checkEntryEligibility(Game $game, Uuid $userId): void
     {
         $this->checkCapacity($game);
 
         if ($this->isUserInGame($game, $userId)) {
             throw new GameEntryException('User has already entered Game');
-        }
-    }
-
-    /**
-     * @param Game $game
-     * @throws GameEntryException
-     * @return void
-     */
-    private function checkCapacity(Game $game): void
-    {
-        if (count($this->repository->get($game->getId())) >= $game->getPlayers()) {
-            throw new GameEntryException('Game has reached full capacity');
         }
     }
 
@@ -102,5 +80,17 @@ class GameEntryOrchestrator
         }
 
         return false;
+    }
+
+    /**
+     * @param Game $game
+     * @throws GameEntryException
+     * @return void
+     */
+    private function checkCapacity(Game $game): void
+    {
+        if (count($this->repository->get($game->getId())) >= $game->getPlayers()) {
+            throw new GameEntryException('Game has reached full capacity');
+        }
     }
 }

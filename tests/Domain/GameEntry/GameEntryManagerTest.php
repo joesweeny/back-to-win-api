@@ -10,7 +10,7 @@ use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use BackToWin\Domain\GameEntry\Services\GameEntryManager;
+use BackToWin\Domain\GameEntry\Services\UserFundsHandler;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
 use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
@@ -24,7 +24,7 @@ class GameEntryManagerTest extends TestCase
 {
     /** @var  EntryFeeStore */
     private $feeStore;
-    /** @var  GameEntryManager */
+    /** @var  UserFundsHandler */
     private $manager;
     /** @var  BankManager */
     private $bankManager;
@@ -36,7 +36,7 @@ class GameEntryManagerTest extends TestCase
         $this->bankManager = $this->prophesize(BankManager::class);
         $this->feeStore = $this->prophesize(EntryFeeStore::class);
         $this->purseOrchestrator = $this->prophesize(UserPurseOrchestrator::class);
-        $this->manager = new GameEntryManager(
+        $this->manager = new UserFundsHandler(
             $this->bankManager->reveal(),
             $this->feeStore->reveal(),
             $this->purseOrchestrator->reveal()

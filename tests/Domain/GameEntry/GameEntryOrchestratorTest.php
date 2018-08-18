@@ -8,7 +8,7 @@ use BackToWin\Domain\Game\Enum\GameType;
 use BackToWin\Domain\GameEntry\Entity\GameEntry;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\Persistence\Repository;
-use BackToWin\Domain\GameEntry\Services\GameEntryManager;
+use BackToWin\Domain\GameEntry\Services\UserFundsHandler;
 use BackToWin\Domain\User\Entity\User;
 use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Framework\Uuid\Uuid;
@@ -24,14 +24,14 @@ class GameEntryOrchestratorTest extends TestCase
     private $repository;
     /** @var  UserOrchestrator */
     private $userOrchestrator;
-    /** @var  GameEntryManager */
+    /** @var  UserFundsHandler */
     private $manager;
 
     public function setUp()
     {
         $this->repository = $this->prophesize(Repository::class);
         $this->userOrchestrator = $this->prophesize(UserOrchestrator::class);
-        $this->manager = $this->prophesize(GameEntryManager::class);
+        $this->manager = $this->prophesize(UserFundsHandler::class);
         $this->orchestrator = new GameEntryOrchestrator(
             $this->repository->reveal(),
             $this->userOrchestrator->reveal(),

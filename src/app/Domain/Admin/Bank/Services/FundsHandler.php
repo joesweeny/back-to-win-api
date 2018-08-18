@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Admin;
+namespace BackToWin\Domain\Admin\Bank\Services;
 
 use BackToWin\Domain\Admin\Bank\Bank;
 use BackToWin\Domain\Admin\Bank\Exception\BankingException;
@@ -11,7 +11,7 @@ use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 use Psr\Log\LoggerInterface;
 
-class AdminManager
+class FundsHandler
 {
     /**
      * @var Repository

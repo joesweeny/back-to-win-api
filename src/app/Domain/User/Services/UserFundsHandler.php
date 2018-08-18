@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Services;
+namespace BackToWin\Domain\User\Services;
 
 use BackToWin\Domain\Bank\BankManager;
 use BackToWin\Domain\Bank\Exception\BankingException;
@@ -14,7 +14,7 @@ use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
 use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
 use BackToWin\Framework\Calculation\Calculation;
 
-class GameEntryManager
+class UserFundsHandler
 {
     /**
      * @var EntryFeeStore

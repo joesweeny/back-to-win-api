@@ -57,7 +57,7 @@ class BankManager
      */
     private function hasSufficientFunds(Money $balance, Money $money): bool
     {
-        try{
+        try {
             return $balance->greaterThan($money);
         } catch (\InvalidArgumentException $e) {
             throw new BankingException($e->getMessage());

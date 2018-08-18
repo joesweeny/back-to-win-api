@@ -61,18 +61,18 @@ class GameKeeper
      * @param User $user
      * @param Money $winningTotal
      * @throws GameSettlementException
+     * @return void
      */
-    public function processGameSettlement(Game $game, User $user, Money $winningTotal)
+    public function processGameSettlement(Game $game, User $user, Money $winningTotal): void
     {
-        // Check User entered Game
         if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
             throw new GameSettlementException(
                 "Unable to settle as User {$user->getId()} did not enter Game {$game->getId()}"
             );
         }
-        // Handle awarding of funds via UserFundsHandler
+
         $money = $this->fundsHandler->settleGameWinnings($game->getId(), $user->getId(), $winningTotal);
-        // Process paying the remainder to Admin bank
+
         $this->handler->addSettledGameFunds($game->getId(), $money);
     }
 }

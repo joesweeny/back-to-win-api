@@ -5,10 +5,12 @@ namespace BackToWin\Domain\Game\Services;
 use BackToWin\Domain\Admin\Bank\Services\FundsHandler;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Exception\GameSettlementException;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\User\Services\UserFundsHandler;
 use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
 class GameKeeper
@@ -25,28 +27,35 @@ class GameKeeper
      * @var FundsHandler
      */
     private $handler;
+    /**
+     * @var GameOrchestrator
+     */
+    private $gameOrchestrator;
 
     public function __construct(
+        GameOrchestrator $gameOrchestrator,
         GameEntryOrchestrator $entryOrchestrator,
         UserFundsHandler $fundsHandler,
         FundsHandler $handler
     ) {
+        $this->gameOrchestrator = $gameOrchestrator;
         $this->entryOrchestrator = $entryOrchestrator;
         $this->fundsHandler = $fundsHandler;
         $this->handler = $handler;
     }
 
     /**
-     * Check that a User is eligible to join a Game, if so use handler class to process funds withdrawal
+     * Use the relevant Orchestrator and subclasses to process the entry of a User into a Game
      *
-     * @param Game $game
+     * @param Uuid $gameId
      * @param User $user
      * @throws GameEntryException
-     * @throws \RuntimeException
      * @return void
      */
-    public function processUserGameEntry(Game $game, User $user): void
+    public function processUserGameEntry(Uuid $gameId, User $user): void
     {
+        $game = $this->gameOrchestrator->getGameToEnter($gameId);
+
         $this->entryOrchestrator->checkEntryEligibility($game, $user->getId());
 
         $this->fundsHandler->handleGameEntryFee($game, $user);
@@ -55,17 +64,19 @@ class GameKeeper
     }
 
     /**
-     * Settle Game by releasing and distributing funds and recording relevant transactions
+     * Use the relevant Orchestrator and subclasses to process the settlement of a Game
      *
-     * @param Game $game
+     * @param Uuid $gameId
      * @param User $user
      * @param Money $winningTotal
      * @throws GameSettlementException
      * @return void
      */
-    public function processGameSettlement(Game $game, User $user, Money $winningTotal): void
+    public function processGameSettlement(Uuid $gameId, User $user, Money $winningTotal): void
     {
-        if ($this->entryOrchestrator->isUserInGame($game, $user->getId())) {
+        $game = $this->gameOrchestrator->getGameToSettle($gameId);
+
+        if (!$this->entryOrchestrator->isUserInGame($game, $user->getId())) {
             throw new GameSettlementException(
                 "Unable to settle as User {$user->getId()} did not enter Game {$game->getId()}"
             );

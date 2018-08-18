@@ -73,12 +73,11 @@ class GameOrchestrator
 
     /**
      * @param Uuid $gameId
-     * @param User $user
      * @throws GameEntryException
      * @throws \RuntimeException
-     * @return void
+     * @return Game
      */
-    public function addUserToGame(Uuid $gameId, User $user): void
+    public function getGameToEnter(Uuid $gameId): Game
     {
         $game = $this->reader->getById($gameId);
 
@@ -86,17 +85,15 @@ class GameOrchestrator
             throw new GameEntryException("Cannot enter Game {$game->getId()} as game status is {$game->getStatus()}");
         }
 
-        $this->keeper->processUserGameEntry($game, $user);
+        return $game;
     }
 
     /**
      * @param Uuid $gameId
-     * @param User $user
-     * @param Money $winningTotal
      * @throws GameSettlementException
-     * @return void
+     * @return Game
      */
-    public function settleGame(Uuid $gameId, User $user, Money $winningTotal): void
+    public function getGameToSettle(Uuid $gameId): Game
     {
         $game = $this->reader->getById($gameId);
 
@@ -106,10 +103,13 @@ class GameOrchestrator
             );
         }
 
-        $this->keeper->processGameSettlement($game, $user, $winningTotal);
+        return $game;
+    }
 
+    public function completeGame(Game $game, Uuid $userId): void
+    {
         $this->writer->update($game->setStatus(GameStatus::COMPLETED()));
 
-        $this->resultOrchestrator->saveGameWinner($gameId, $user->getId());
+        $this->resultOrchestrator->saveGameWinner($game->getId(), $userId);
     }
 }

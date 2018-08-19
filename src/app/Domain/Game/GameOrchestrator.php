@@ -8,13 +8,10 @@ use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use BackToWin\Domain\Game\Persistence\Reader;
 use BackToWin\Domain\Game\Persistence\Writer;
-use BackToWin\Domain\Game\Services\GameKeeper;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameResult\GameResultOrchestrator;
-use BackToWin\Domain\User\Entity\User;
 use BackToWin\Framework\Exception\NotFoundException;
 use BackToWin\Framework\Uuid\Uuid;
-use Money\Money;
 
 class GameOrchestrator
 {
@@ -30,21 +27,12 @@ class GameOrchestrator
      * @var GameResultOrchestrator
      */
     private $resultOrchestrator;
-    /**
-     * @var GameKeeper
-     */
-    private $keeper;
 
-    public function __construct(
-        Reader $reader,
-        Writer $writer,
-        GameKeeper $keeper,
-        GameResultOrchestrator $resultOrchestrator
-    ) {
+    public function __construct(Reader $reader, Writer $writer, GameResultOrchestrator $resultOrchestrator)
+    {
         $this->reader = $reader;
         $this->writer = $writer;
         $this->resultOrchestrator = $resultOrchestrator;
-        $this->keeper = $keeper;
     }
 
     public function createGame(Game $game): Game
@@ -73,12 +61,11 @@ class GameOrchestrator
 
     /**
      * @param Uuid $gameId
-     * @param User $user
      * @throws GameEntryException
      * @throws \RuntimeException
-     * @return void
+     * @return Game
      */
-    public function addUserToGame(Uuid $gameId, User $user): void
+    public function getGameToEnter(Uuid $gameId): Game
     {
         $game = $this->reader->getById($gameId);
 
@@ -86,17 +73,16 @@ class GameOrchestrator
             throw new GameEntryException("Cannot enter Game {$game->getId()} as game status is {$game->getStatus()}");
         }
 
-        $this->keeper->processUserGameEntry($game, $user);
+        return $game;
     }
 
     /**
      * @param Uuid $gameId
-     * @param User $user
-     * @param Money $winningTotal
      * @throws GameSettlementException
-     * @return void
+     * @throws NotFoundException
+     * @return Game
      */
-    public function settleGame(Uuid $gameId, User $user, Money $winningTotal): void
+    public function getGameToSettle(Uuid $gameId): Game
     {
         $game = $this->reader->getById($gameId);
 
@@ -106,10 +92,13 @@ class GameOrchestrator
             );
         }
 
-        $this->keeper->processGameSettlement($game, $user, $winningTotal);
+        return $game;
+    }
 
+    public function completeGame(Game $game, Uuid $userId): void
+    {
         $this->writer->update($game->setStatus(GameStatus::COMPLETED()));
 
-        $this->resultOrchestrator->saveGameWinner($gameId, $user->getId());
+        $this->resultOrchestrator->saveGameWinner($game->getId(), $userId);
     }
 }

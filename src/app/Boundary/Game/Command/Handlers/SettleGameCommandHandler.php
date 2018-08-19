@@ -2,39 +2,39 @@
 
 namespace BackToWin\Boundary\Game\Command\Handlers;
 
-use BackToWin\Boundary\Game\Command\EnterGameCommand;
+use BackToWin\Boundary\Game\Command\SettleGameCommand;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\Services\GameKeeper;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\User\UserOrchestrator;
 use BackToWin\Framework\Exception\NotFoundException;
 
-class EnterGameCommandHandler
+class SettleGameCommandHandler
 {
-    /**
-     * @var UserOrchestrator
-     */
-    private $userOrchestrator;
     /**
      * @var GameKeeper
      */
     private $keeper;
+    /**
+     * @var UserOrchestrator
+     */
+    private $userOrchestrator;
 
     public function __construct(GameKeeper $keeper, UserOrchestrator $userOrchestrator)
     {
-        $this->userOrchestrator = $userOrchestrator;
         $this->keeper = $keeper;
+        $this->userOrchestrator = $userOrchestrator;
     }
 
     /**
-     * @param EnterGameCommand $command
+     * @param SettleGameCommand $command
+     * @throws GameSettlementException
      * @throws NotFoundException
-     * @throws GameEntryException
      * @return void
      */
-    public function handle(EnterGameCommand $command): void
+    public function handle(SettleGameCommand $command)
     {
         $user = $this->userOrchestrator->getUserById($command->getUserId());
 
-        $this->keeper->processUserGameEntry($command->getGameId(), $user);
+        $this->keeper->processGameSettlement($command->getGameId(), $user, $command->getMoney());
     }
 }

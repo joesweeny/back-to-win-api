@@ -6,6 +6,8 @@ use BackToWin\Domain\Admin\Bank\Services\FundsHandler;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
+use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
 use BackToWin\Domain\User\Entity\User;
@@ -14,6 +16,7 @@ use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 
 class GameKeeperTest extends TestCase
 {
@@ -25,13 +28,17 @@ class GameKeeperTest extends TestCase
     private $adminFundsHandler;
     /** @var  GameKeeper */
     private $keeper;
+    /** @var  GameOrchestrator */
+    private $gameOrchestrator;
 
     public function setUp()
     {
+        $this->gameOrchestrator = $this->prophesize(GameOrchestrator::class);
         $this->entryOrchestrator = $this->prophesize(GameEntryOrchestrator::class);
         $this->userFundsHandler = $this->prophesize(UserFundsHandler::class);
         $this->adminFundsHandler = $this->prophesize(FundsHandler::class);
         $this->keeper = new GameKeeper(
+            $this->gameOrchestrator->reveal(),
             $this->entryOrchestrator->reveal(),
             $this->userFundsHandler->reveal(),
             $this->adminFundsHandler->reveal()
@@ -40,9 +47,11 @@ class GameKeeperTest extends TestCase
 
     public function test_user_game_entry_is_processed_correctly()
     {
-        $game = $this->createGame(4);
-
         $user = new User();
+
+        $this->gameOrchestrator->getGameToEnter(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
 
         $this->entryOrchestrator->checkEntryEligibility($game, $user->getId())->shouldBeCalled();
 
@@ -50,16 +59,18 @@ class GameKeeperTest extends TestCase
 
         $this->entryOrchestrator->addGameEntry($game, $user)->shouldBeCalled();
 
-        $this->keeper->processUserGameEntry($game, $user);
+        $this->keeper->processUserGameEntry($game->getId(), $user);
 
         $this->addToAssertionCount(1);
     }
 
     public function test_exception_is_thrown_if_user_is_not_eligible_to_join_a_game()
     {
-        $game = $this->createGame(4);
-
         $user = new User();
+
+        $this->gameOrchestrator->getGameToEnter(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
 
         $this->entryOrchestrator->checkEntryEligibility($game, $user->getId())->willThrow(
             $e = new GameEntryException('User is not eligible')
@@ -71,12 +82,14 @@ class GameKeeperTest extends TestCase
 
         $this->expectException(GameEntryException::class);
 
-        $this->keeper->processUserGameEntry($game, $user);
+        $this->keeper->processUserGameEntry($game->getId(), $user);
     }
 
     public function test_exception_is_thrown_if_unable_to_process_funds_to_join_a_game()
     {
-        $game = $this->createGame(4);
+        $this->gameOrchestrator->getGameToEnter(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
 
         $user = new User();
 
@@ -90,7 +103,48 @@ class GameKeeperTest extends TestCase
 
         $this->expectException(GameEntryException::class);
 
-        $this->keeper->processUserGameEntry($game, $user);
+        $this->keeper->processUserGameEntry($game->getId(), $user);
+    }
+
+    public function test_game_settlement_is_processed_correctly()
+    {
+        $user = new User();
+
+        $this->gameOrchestrator->getGameToSettle(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
+
+        $this->entryOrchestrator->isUserInGame($game, $user->getId())->willReturn(true);
+
+        $this->userFundsHandler->settleGameWinnings(
+            $game->getId(), $user->getId(), new Money(50, new Currency('GBP'))
+        )->willReturn($remainder = new Money(450, new Currency('GBP')));
+
+        $this->adminFundsHandler->addSettledGameFunds($game->getId(), $remainder)->shouldBeCalled();
+
+        $this->keeper->processGameSettlement($game->getId(), $user, new Money(50, new Currency('GBP')));
+    }
+
+    public function test_exception_is_thrown_if_settling_a_game_with_a_user_who_has_not_entered()
+    {
+        $user = new User();
+
+        $this->gameOrchestrator->getGameToSettle(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
+
+        $this->entryOrchestrator->isUserInGame($game, $user->getId())->willReturn(false);
+
+        $this->userFundsHandler->settleGameWinnings(
+            $game->getId(), $user->getId(), new Money(50, new Currency('GBP'))
+        )->shouldNotBeCalled();
+
+        $this->adminFundsHandler->addSettledGameFunds($game->getId(), Argument::type(Money::class))->shouldNotBeCalled();
+
+        $this->expectException(GameSettlementException::class);
+        $this->expectExceptionMessage("Unable to settle as User {$user->getId()} did not enter Game {$game->getId()}");
+        $this->keeper->processGameSettlement($game->getId(), $user, new Money(50, new Currency('GBP')));
+
     }
 
     private function createGame(int $players): Game

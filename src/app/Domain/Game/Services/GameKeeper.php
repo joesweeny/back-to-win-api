@@ -71,6 +71,7 @@ class GameKeeper
      * @param User $user
      * @param Money $winningTotal
      * @throws GameSettlementException
+     * @throws NotFoundException
      * @return void
      */
     public function processGameSettlement(Uuid $gameId, User $user, Money $winningTotal): void

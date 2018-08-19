@@ -6,6 +6,7 @@ use BackToWin\Domain\Admin\Bank\Services\FundsHandler;
 use BackToWin\Domain\Game\Entity\Game;
 use BackToWin\Domain\Game\Enum\GameStatus;
 use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
 use BackToWin\Domain\Game\GameOrchestrator;
 use BackToWin\Domain\GameEntry\Exception\GameEntryException;
 use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
@@ -15,6 +16,7 @@ use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 
 class GameKeeperTest extends TestCase
 {
@@ -102,6 +104,47 @@ class GameKeeperTest extends TestCase
         $this->expectException(GameEntryException::class);
 
         $this->keeper->processUserGameEntry($game->getId(), $user);
+    }
+
+    public function test_game_settlement_is_processed_correctly()
+    {
+        $user = new User();
+
+        $this->gameOrchestrator->getGameToSettle(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
+
+        $this->entryOrchestrator->isUserInGame($game, $user->getId())->willReturn(true);
+
+        $this->userFundsHandler->settleGameWinnings(
+            $game->getId(), $user->getId(), new Money(50, new Currency('GBP'))
+        )->willReturn($remainder = new Money(450, new Currency('GBP')));
+
+        $this->adminFundsHandler->addSettledGameFunds($game->getId(), $remainder)->shouldBeCalled();
+
+        $this->keeper->processGameSettlement($game->getId(), $user, new Money(50, new Currency('GBP')));
+    }
+
+    public function test_exception_is_thrown_if_settling_a_game_with_a_user_who_has_not_entered()
+    {
+        $user = new User();
+
+        $this->gameOrchestrator->getGameToSettle(new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'))->willReturn(
+            $game = $this->createGame(4)
+        );
+
+        $this->entryOrchestrator->isUserInGame($game, $user->getId())->willReturn(false);
+
+        $this->userFundsHandler->settleGameWinnings(
+            $game->getId(), $user->getId(), new Money(50, new Currency('GBP'))
+        )->shouldNotBeCalled();
+
+        $this->adminFundsHandler->addSettledGameFunds($game->getId(), Argument::type(Money::class))->shouldNotBeCalled();
+
+        $this->expectException(GameSettlementException::class);
+        $this->expectExceptionMessage("Unable to settle as User {$user->getId()} did not enter Game {$game->getId()}");
+        $this->keeper->processGameSettlement($game->getId(), $user, new Money(50, new Currency('GBP')));
+
     }
 
     private function createGame(int $players): Game

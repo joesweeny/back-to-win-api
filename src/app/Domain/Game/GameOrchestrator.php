@@ -79,6 +79,7 @@ class GameOrchestrator
     /**
      * @param Uuid $gameId
      * @throws GameSettlementException
+     * @throws NotFoundException
      * @return Game
      */
     public function getGameToSettle(Uuid $gameId): Game

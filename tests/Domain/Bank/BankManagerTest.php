@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Domain\Bank;
+namespace GamePlatform\Domain\Bank;
 
-use BackToWin\Domain\Bank\Exception\BankingException;
-use BackToWin\Domain\User\Entity\User;
+use GamePlatform\Domain\Bank\Exception\BankingException;
+use GamePlatform\Domain\User\Entity\User;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

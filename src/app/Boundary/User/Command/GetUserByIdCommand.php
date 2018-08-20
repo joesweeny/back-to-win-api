@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Boundary\User\Command;
+namespace GamePlatform\Boundary\User\Command;
 
-use BackToWin\Framework\CommandBus\Command;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Framework\CommandBus\Command;
+use GamePlatform\Framework\Uuid\Uuid;
 
 class GetUserByIdCommand implements Command
 {

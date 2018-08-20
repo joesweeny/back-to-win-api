@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\GameResult;
+namespace GamePlatform\Domain\GameResult;
 
-use BackToWin\Domain\GameResult\Persistence\Repository;
-use BackToWin\Framework\Exception\RepositoryDuplicationException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\GameResult\Persistence\Repository;
+use GamePlatform\Framework\Exception\RepositoryDuplicationException;
+use GamePlatform\Framework\Uuid\Uuid;
 
 class GameResultOrchestrator
 {

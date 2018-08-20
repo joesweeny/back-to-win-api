@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Application\Http\App\Routes;
+namespace GamePlatform\Application\Http\App\Routes;
 
 use FastRoute\RouteCollector;
-use BackToWin\Application\Http\App\Controllers\HomepageController;
-use BackToWin\Framework\Routing\RouteMapper;
+use GamePlatform\Application\Http\App\Controllers\HomepageController;
+use GamePlatform\Framework\Routing\RouteMapper;
 
 class RouteManager implements RouteMapper
 {

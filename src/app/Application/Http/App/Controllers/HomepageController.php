@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Application\Http\App\Controllers;
+namespace GamePlatform\Application\Http\App\Controllers;
 
-use BackToWin\Framework\Buffer\OutputBuffer;
+use GamePlatform\Framework\Buffer\OutputBuffer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;

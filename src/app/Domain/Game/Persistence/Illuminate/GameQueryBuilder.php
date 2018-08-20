@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence\Illuminate;
+namespace GamePlatform\Domain\Game\Persistence\Illuminate;
 
-use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
+use GamePlatform\Domain\Game\Persistence\GameRepositoryQuery;
 use Illuminate\Database\Query\Builder;
 
 class GameQueryBuilder

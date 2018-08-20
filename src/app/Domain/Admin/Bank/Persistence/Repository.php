@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Domain\Admin\Bank\Persistence;
+namespace GamePlatform\Domain\Admin\Bank\Persistence;
 
-use BackToWin\Framework\Exception\RepositoryDuplicationException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Framework\Exception\RepositoryDuplicationException;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Money;
 
 interface Repository

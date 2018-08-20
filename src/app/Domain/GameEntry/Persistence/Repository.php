@@ -1,12 +1,12 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Persistence;
+namespace GamePlatform\Domain\GameEntry\Persistence;
 
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Exception\RepositoryDuplicationException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Exception\RepositoryDuplicationException;
+use GamePlatform\Framework\Uuid\Uuid;
 
 interface Repository
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Controllers\User;
+namespace GamePlatform\Application\Http\Api\v1\Controllers\User;
 
-use BackToWin\Boundary\User\Command\ListUsersCommand;
-use BackToWin\Framework\Controller\ControllerService;
-use BackToWin\Framework\Jsend\JsendResponse;
-use BackToWin\Framework\Jsend\JsendSuccessResponse;
+use GamePlatform\Boundary\User\Command\ListUsersCommand;
+use GamePlatform\Framework\Controller\ControllerService;
+use GamePlatform\Framework\Jsend\JsendResponse;
+use GamePlatform\Framework\Jsend\JsendSuccessResponse;
 
 class ListController
 {

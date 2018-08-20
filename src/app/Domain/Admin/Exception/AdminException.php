@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Admin\Exception;
+namespace GamePlatform\Domain\Admin\Exception;
 
 class AdminException extends \Exception
 {

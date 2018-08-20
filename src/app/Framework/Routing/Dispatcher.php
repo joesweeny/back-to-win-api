@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Framework\Routing;
+namespace GamePlatform\Framework\Routing;
 
-use BackToWin\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Exception\NotFoundException;
 use FastRoute\Dispatcher as FastRouteDispatcher;
 use Interop\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;

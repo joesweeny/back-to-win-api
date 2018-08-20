@@ -1,15 +1,15 @@
 <?php
 
-namespace BackToWin\Domain\User;
+namespace GamePlatform\Domain\User;
 
-use BackToWin\Domain\User\Persistence\Reader;
-use BackToWin\Domain\User\Persistence\Writer;
-use BackToWin\Domain\User\Entity\User;
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Exception\UserCreationException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\User\Persistence\Reader;
+use GamePlatform\Domain\User\Persistence\Writer;
+use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Exception\UserCreationException;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 
@@ -70,7 +70,7 @@ class UserOrchestrator
     /**
      * @param Uuid $id
      * @return User
-     * @throws \BackToWin\Framework\Exception\NotFoundException
+     * @throws \GamePlatform\Framework\Exception\NotFoundException
      */
     public function getUserById(Uuid $id): User
     {
@@ -120,8 +120,8 @@ class UserOrchestrator
      * @param Uuid $id
      * @param string $password
      * @return bool
-     * @throws \BackToWin\Framework\Exception\UndefinedException
-     * @throws \BackToWin\Framework\Exception\NotFoundException
+     * @throws \GamePlatform\Framework\Exception\UndefinedException
+     * @throws \GamePlatform\Framework\Exception\NotFoundException
      */
     public function validateUserPassword(Uuid $id, string $password): bool
     {

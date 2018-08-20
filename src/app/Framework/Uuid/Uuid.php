@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Framework\Uuid;
+namespace GamePlatform\Framework\Uuid;
 
 use Ramsey\Uuid\Uuid as BaseUuid;
 use Ramsey\Uuid\UuidInterface;

@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Persistence;
+namespace GamePlatform\Domain\UserPurse\Persistence;
 
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Uuid\Uuid;
 
 interface Reader
 {

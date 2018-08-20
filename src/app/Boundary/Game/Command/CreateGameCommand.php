@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Boundary\Game\Command;
+namespace GamePlatform\Boundary\Game\Command;
 
-use BackToWin\Domain\Game\Enum\GameType;
+use GamePlatform\Domain\Game\Enum\GameType;
 use Chief\Command;
 use Money\Currency;
 use Money\Money;

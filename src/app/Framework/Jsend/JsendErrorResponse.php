@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Framework\Jsend;
+namespace GamePlatform\Framework\Jsend;
 
 class JsendErrorResponse extends JsendResponse
 {

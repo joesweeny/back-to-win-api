@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence\Hydration;
+namespace GamePlatform\Domain\Game\Persistence\Hydration;
 
-use BackToWin\Domain\Game\Enum\GameStatus;
-use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Enum\GameType;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

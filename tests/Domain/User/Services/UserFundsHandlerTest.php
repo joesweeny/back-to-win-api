@@ -1,20 +1,20 @@
 <?php
 
-namespace BackToWin\Domain\User\Services;
+namespace GamePlatform\Domain\User\Services;
 
-use BackToWin\Domain\Bank\BankManager;
-use BackToWin\Domain\Bank\Exception\BankingException;
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Enum\GameStatus;
-use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use BackToWin\Domain\User\Entity\User;
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Bank\BankManager;
+use GamePlatform\Domain\Bank\Exception\BankingException;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Enum\GameType;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

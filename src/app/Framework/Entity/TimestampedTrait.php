@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Framework\Entity;
+namespace GamePlatform\Framework\Entity;
 
 use Cake\Chronos\Chronos;
-use BackToWin\Framework\Exception\UndefinedException;
+use GamePlatform\Framework\Exception\UndefinedException;
 use DateTimeImmutable;
 
 /**

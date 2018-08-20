@@ -1,14 +1,14 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry;
+namespace GamePlatform\Domain\GameEntry;
 
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\Persistence\Repository;
-use BackToWin\Domain\User\Entity\User;
-use BackToWin\Domain\User\UserOrchestrator;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
+use GamePlatform\Domain\GameEntry\Persistence\Repository;
+use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Domain\User\UserOrchestrator;
+use GamePlatform\Framework\Uuid\Uuid;
 
 class GameEntryOrchestrator
 {

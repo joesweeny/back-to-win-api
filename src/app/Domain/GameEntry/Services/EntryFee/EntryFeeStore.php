@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Services\EntryFee;
+namespace GamePlatform\Domain\GameEntry\Services\EntryFee;
 
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Domain\GameEntry\Exception\EntryFeeStoreException;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Money;
 
 interface EntryFeeStore

@@ -1,14 +1,14 @@
 <?php
 
-namespace BackToWin\Boundary\Game\Command\Handlers;
+namespace GamePlatform\Boundary\Game\Command\Handlers;
 
-use BackToWin\Boundary\Game\Command\ListGamesCommand;
-use BackToWin\Boundary\Game\GamePresenter;
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Enum\GameStatus;
-use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Domain\Game\GameOrchestrator;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Boundary\Game\Command\ListGamesCommand;
+use GamePlatform\Boundary\Game\GamePresenter;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Enum\GameType;
+use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

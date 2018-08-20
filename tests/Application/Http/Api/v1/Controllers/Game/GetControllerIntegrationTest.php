@@ -1,15 +1,15 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
+namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Enum\GameStatus;
-use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Domain\Game\GameOrchestrator;
-use BackToWin\Framework\Uuid\Uuid;
-use BackToWin\Testing\Traits\RunsMigrations;
-use BackToWin\Testing\Traits\UsesContainer;
-use BackToWin\Testing\Traits\UsesHttpServer;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Enum\GameType;
+use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\RunsMigrations;
+use GamePlatform\Testing\Traits\UsesContainer;
+use GamePlatform\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use Money\Currency;

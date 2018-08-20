@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Application\Http;
+namespace GamePlatform\Application\Http;
 
 use Interop\Container\ContainerInterface;
-use BackToWin\Framework\Routing\Router;
+use GamePlatform\Framework\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use PSR7Session\Http\SessionMiddleware;

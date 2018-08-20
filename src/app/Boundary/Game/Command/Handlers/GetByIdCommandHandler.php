@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Boundary\Game\Command\Handlers;
+namespace GamePlatform\Boundary\Game\Command\Handlers;
 
-use BackToWin\Boundary\Game\Command\GetByIdCommand;
-use BackToWin\Boundary\Game\GamePresenter;
-use BackToWin\Domain\Game\GameOrchestrator;
-use BackToWin\Framework\Exception\NotFoundException;
+use GamePlatform\Boundary\Game\Command\GetByIdCommand;
+use GamePlatform\Boundary\Game\GamePresenter;
+use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Framework\Exception\NotFoundException;
 
 class GetByIdCommandHandler
 {

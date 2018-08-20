@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Application\Console;
+namespace GamePlatform\Application\Console;
 
-use BackToWin\Application\Console\Command\GameCreateCommand;
+use GamePlatform\Application\Console\Command\GameCreateCommand;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Finder\GlobFinder;

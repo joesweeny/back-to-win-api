@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence\Hydration;
+namespace GamePlatform\Domain\Game\Persistence\Hydration;
 
-use BackToWin\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Entity\Game;
 
 class Extractor
 {

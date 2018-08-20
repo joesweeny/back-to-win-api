@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Framework\Entity;
+namespace GamePlatform\Framework\Entity;
 
-use BackToWin\Framework\Exception\UndefinedValueException;
+use GamePlatform\Framework\Exception\UndefinedValueException;
 
 trait PrivateAttributesTrait
 {

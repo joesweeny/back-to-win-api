@@ -1,15 +1,15 @@
 <?php
 
-namespace BackToWin\Domain\User\Persistence\Hydration;
+namespace GamePlatform\Domain\User\Persistence\Hydration;
 
-use BackToWin\Domain\User\Entity\User;
+use GamePlatform\Domain\User\Entity\User;
 
 final class Extractor
 {
     /**
      * @param User $user
      * @return \stdClass
-     * @throws \BackToWin\Framework\Exception\UndefinedException
+     * @throws \GamePlatform\Framework\Exception\UndefinedException
      */
     public static function toRawData(User $user): \stdClass
     {

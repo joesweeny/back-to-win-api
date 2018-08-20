@@ -1,14 +1,14 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Services\EntryFee\Redis;
+namespace GamePlatform\Domain\GameEntry\Services\EntryFee\Redis;
 
-use BackToWin\Bootstrap\Config;
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
-use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use BackToWin\Framework\Uuid\Uuid;
-use BackToWin\Testing\Traits\UsesContainer;
-use BackToWin\Testing\Traits\UsesTestRedisDatabase;
+use GamePlatform\Bootstrap\Config;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Domain\GameEntry\Exception\EntryFeeStoreException;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\UsesContainer;
+use GamePlatform\Testing\Traits\UsesTestRedisDatabase;
 use Interop\Container\ContainerInterface;
 use Money\Currency;
 use Money\Money;

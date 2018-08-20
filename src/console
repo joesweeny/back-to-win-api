@@ -3,7 +3,7 @@
 
 $container = require __DIR__ . '/bootstrap.php';
 
-$console = $container->get(\BackToWin\Application\Console\Console::class);
+$console = $container->get(\GamePlatform\Application\Console\Console::class);
 
 $code = $console->run(
     new \Symfony\Component\Console\Input\ArgvInput,

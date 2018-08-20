@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Bank\Exception;
+namespace GamePlatform\Domain\Bank\Exception;
 
 class BankingException extends \Exception
 {

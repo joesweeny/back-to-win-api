@@ -4,7 +4,7 @@ namespace GamePlatform\Application\Http\Api\v1\Validation\Game;
 
 class RequestValidator
 {
-    public function validate(\stdClass $body): array
+    public function validateCreate(\stdClass $body): array
     {
         $errors = [];
 

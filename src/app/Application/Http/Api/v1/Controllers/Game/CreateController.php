@@ -38,7 +38,7 @@ class CreateController
             ]);
         }
 
-        $errors = $this->validator->validate($body);
+        $errors = $this->validator->validateCreate($body);
 
         if (!empty($errors)) {
             return new JsendFailResponse(

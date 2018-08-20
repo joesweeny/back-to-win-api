@@ -134,7 +134,6 @@ class ContainerFactory
                     case 'monolog':
                         $logger = new Logger('error');
                         $logger->pushHandler(new ErrorLogHandler);
-                        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/error.log', Logger::ERROR));
                         return $logger;
 
                     case 'null':
@@ -168,6 +167,8 @@ class ContainerFactory
                 switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
                     case 'redis':
                         return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
+                    case 'log':
+                        return new \GamePlatform\Domain\Admin\Bank\Log\LogBank($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Admin bank '$bank' not recognised");
                 }

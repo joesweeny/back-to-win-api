@@ -4,7 +4,13 @@ namespace GamePlatform\Application\Http\Api\v1\Validation\Game;
 
 class RequestValidator
 {
-    public function validate(\stdClass $body): array
+    /**
+     * Validate Request body fields when creating a Game
+     *
+     * @param \stdClass $body
+     * @return array
+     */
+    public function validateCreate(\stdClass $body): array
     {
         $errors = [];
 
@@ -34,6 +40,35 @@ class RequestValidator
 
         if (!isset($body->players)) {
             $errors[] = "Required field 'players' is missing";
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Validate Request body fields when settling a Game
+     *
+     * @param \stdClass $body
+     * @return array
+     */
+    public function validateSettle(\stdClass $body): array
+    {
+        $errors = [];
+
+        if (!isset($body->game_id)) {
+            $errors[] = "Required field 'game_id' is missing";
+        }
+
+        if (!isset($body->user_id)) {
+            $errors[] = "Required field 'winner_id' is missing";
+        }
+
+        if (!isset($body->currency)) {
+            $errors[] = "Required field 'currency' is missing";
+        }
+
+        if (!isset($body->amount)) {
+            $errors[] = "Required field 'amount' is missing";
         }
 
         return $errors;

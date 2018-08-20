@@ -2,25 +2,27 @@
 
 namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
+use Chief\CommandBus;
 use GamePlatform\Application\Http\Api\v1\Validation\Game\RequestValidator;
-use GamePlatform\Boundary\Game\Command\CreateGameCommand;
+use GamePlatform\Boundary\Game\Command\SettleGameCommand;
+use GamePlatform\Domain\Game\Exception\GameSettlementException;
+use GamePlatform\Framework\Exception\NotFoundException;
 use GamePlatform\Framework\Jsend\JsendError;
 use GamePlatform\Framework\Jsend\JsendFailResponse;
 use GamePlatform\Framework\Jsend\JsendResponse;
 use GamePlatform\Framework\Jsend\JsendSuccessResponse;
-use Chief\CommandBus;
 use Psr\Http\Message\ServerRequestInterface;
 
-class CreateController
+class SettleController
 {
-    /**
-     * @var RequestValidator
-     */
-    private $validator;
     /**
      * @var CommandBus
      */
     private $bus;
+    /**
+     * @var RequestValidator
+     */
+    private $validator;
 
     public function __construct(CommandBus $bus, RequestValidator $validator)
     {
@@ -38,7 +40,7 @@ class CreateController
             ]);
         }
 
-        $errors = $this->validator->validateCreate($body);
+        $errors = $this->validator->validateSettle($body);
 
         if (!empty($errors)) {
             return new JsendFailResponse(
@@ -49,34 +51,24 @@ class CreateController
         }
 
         try {
-            $command = $this->hydrateCommand($body);
-        } catch (\UnexpectedValueException $e) {
-            return new JsendFailResponse([
+            $this->bus->execute(
+                new SettleGameCommand(
+                    $body->game_id,
+                    $body->user_id,
+                    $body->currency,
+                    $body->amount
+                )
+            );
+
+            return new JsendSuccessResponse();
+        } catch (NotFoundException $e) {
+            return (new JsendFailResponse([
                 new JsendError($e->getMessage())
-            ]);
+            ]))->withStatus(404);
+        } catch (GameSettlementException $e) {
+            return (new JsendFailResponse([
+                new JsendError($e->getMessage())
+            ]))->withStatus(422);
         }
-
-        return new JsendSuccessResponse([
-            'game' => $this->bus->execute($command)
-        ]);
-    }
-
-    /**
-     * @param \stdClass $data
-     * @throws \UnexpectedValueException
-     * @throws \InvalidArgumentException
-     * @return CreateGameCommand
-     */
-    private function hydrateCommand(\stdClass $data): CreateGameCommand
-    {
-        return new CreateGameCommand(
-            $data->type,
-            $data->currency,
-            $data->buy_in,
-            $data->max,
-            $data->min,
-            $data->start,
-            $data->players
-        );
     }
 }

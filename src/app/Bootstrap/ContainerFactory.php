@@ -3,8 +3,10 @@
 namespace GamePlatform\Bootstrap;
 
 use GamePlatform\Domain\Bank\Bank;
+use GamePlatform\Domain\Bank\User\LogBank;
 use GamePlatform\Domain\Bank\User\RedisBank;
 use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\Log\LogEntryFeeStore;
 use GamePlatform\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
@@ -132,7 +134,6 @@ class ContainerFactory
                     case 'monolog':
                         $logger = new Logger('error');
                         $logger->pushHandler(new ErrorLogHandler);
-                        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/error.log', Logger::ERROR));
                         return $logger;
 
                     case 'null':
@@ -155,6 +156,8 @@ class ContainerFactory
                 switch ($bank = $container->get(Config::class)->get('bank.driver')) {
                     case 'redis':
                         return new RedisBank($container->get(Client::class));
+                    case 'log':
+                        return new LogBank($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Bank '$bank' not recognised");
                 }
@@ -164,6 +167,8 @@ class ContainerFactory
                 switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
                     case 'redis':
                         return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
+                    case 'log':
+                        return new \GamePlatform\Domain\Admin\Bank\Log\LogBank($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Admin bank '$bank' not recognised");
                 }
@@ -173,6 +178,8 @@ class ContainerFactory
                 switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
                     case 'redis':
                         return new RedisEntryFeeStore($container->get(Client::class));
+                    case 'log':
+                        return new LogEntryFeeStore($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Entry fee store '$store' not recognised");
                 }

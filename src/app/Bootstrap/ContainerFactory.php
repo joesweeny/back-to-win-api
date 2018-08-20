@@ -6,6 +6,7 @@ use GamePlatform\Domain\Bank\Bank;
 use GamePlatform\Domain\Bank\User\LogBank;
 use GamePlatform\Domain\Bank\User\RedisBank;
 use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\Log\LogEntryFeeStore;
 use GamePlatform\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
@@ -176,6 +177,8 @@ class ContainerFactory
                 switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
                     case 'redis':
                         return new RedisEntryFeeStore($container->get(Client::class));
+                    case 'log':
+                        return new LogEntryFeeStore($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Entry fee store '$store' not recognised");
                 }

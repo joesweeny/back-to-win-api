@@ -12,6 +12,7 @@ services:
      - DB_USER=root
      - DB_PASSWORD=password
      - ENTRY_FEE_STORE_DRIVER=log
+     - LOG_LOGGER=monolog
     volumes:
      - .:/opt
 

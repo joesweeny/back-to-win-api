@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Domain\GameResult\Persistence\Illuminate;
+namespace GamePlatform\Domain\GameResult\Persistence\Illuminate;
 
-use BackToWin\Domain\GameResult\Persistence\Repository;
-use BackToWin\Framework\DateTime\Clock;
-use BackToWin\Framework\Exception\RepositoryDuplicationException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\GameResult\Persistence\Repository;
+use GamePlatform\Framework\DateTime\Clock;
+use GamePlatform\Framework\Exception\RepositoryDuplicationException;
+use GamePlatform\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 

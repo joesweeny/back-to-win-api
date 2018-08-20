@@ -1,13 +1,13 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Controllers\UserPurse;
+namespace GamePlatform\Application\Http\Api\v1\Controllers\UserPurse;
 
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Persistence\Writer;
-use BackToWin\Framework\Uuid\Uuid;
-use BackToWin\Testing\Traits\RunsMigrations;
-use BackToWin\Testing\Traits\UsesContainer;
-use BackToWin\Testing\Traits\UsesHttpServer;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Persistence\Writer;
+use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\RunsMigrations;
+use GamePlatform\Testing\Traits\UsesContainer;
+use GamePlatform\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use Money\Currency;

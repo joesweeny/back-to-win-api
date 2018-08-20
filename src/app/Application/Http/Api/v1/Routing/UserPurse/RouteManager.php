@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Routing\UserPurse;
+namespace GamePlatform\Application\Http\Api\v1\Routing\UserPurse;
 
-use BackToWin\Application\Http\Api\v1\Controllers\UserPurse\GetController;
-use BackToWin\Framework\Routing\RouteMapper;
+use GamePlatform\Application\Http\Api\v1\Controllers\UserPurse\GetController;
+use GamePlatform\Framework\Routing\RouteMapper;
 use FastRoute\RouteCollector;
 
 class RouteManager implements RouteMapper

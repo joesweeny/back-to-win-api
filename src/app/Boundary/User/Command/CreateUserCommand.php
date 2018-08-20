@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Boundary\User\Command;
+namespace GamePlatform\Boundary\User\Command;
 
-use BackToWin\Framework\CommandBus\Command;
-use BackToWin\Framework\Password\PasswordHash;
+use GamePlatform\Framework\CommandBus\Command;
+use GamePlatform\Framework\Password\PasswordHash;
 
 class CreateUserCommand implements Command
 {

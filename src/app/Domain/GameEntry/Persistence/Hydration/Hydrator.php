@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Domain\GameEntry\Persistence\Hydration;
+namespace GamePlatform\Domain\GameEntry\Persistence\Hydration;
 
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Framework\Uuid\Uuid;
 
 class Hydrator
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Persistence\Illuminate;
+namespace GamePlatform\Domain\UserPurse\Persistence\Illuminate;
 
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Domain\UserPurse\Persistence\Writer;
-use BackToWin\Framework\Calculation\Calculation;
-use BackToWin\Framework\Uuid\Uuid;
-use BackToWin\Testing\Traits\RunsMigrations;
-use BackToWin\Testing\Traits\UsesContainer;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Domain\UserPurse\Persistence\Writer;
+use GamePlatform\Framework\Calculation\Calculation;
+use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\RunsMigrations;
+use GamePlatform\Testing\Traits\UsesContainer;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
 use Money\Currency;

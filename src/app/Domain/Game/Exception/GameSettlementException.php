@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Game\Exception;
+namespace GamePlatform\Domain\Game\Exception;
 
 class GameSettlementException extends \Exception
 {

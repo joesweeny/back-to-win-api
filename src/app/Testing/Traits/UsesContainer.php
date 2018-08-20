@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Testing\Traits;
+namespace GamePlatform\Testing\Traits;
 
 use Interop\Container\ContainerInterface;
-use BackToWin\Bootstrap\Config;
-use BackToWin\Bootstrap\ConfigFactory;
-use BackToWin\Bootstrap\ContainerFactory;
+use GamePlatform\Bootstrap\Config;
+use GamePlatform\Bootstrap\ConfigFactory;
+use GamePlatform\Bootstrap\ContainerFactory;
 
 trait UsesContainer
 {

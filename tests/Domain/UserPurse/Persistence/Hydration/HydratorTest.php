@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Persistence\Hydration;
+namespace GamePlatform\Domain\UserPurse\Persistence\Hydration;
 
-use BackToWin\Framework\Calculation\Calculation;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Framework\Calculation\Calculation;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

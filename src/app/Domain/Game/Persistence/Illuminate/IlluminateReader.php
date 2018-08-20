@@ -1,13 +1,13 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence\Illuminate;
+namespace GamePlatform\Domain\Game\Persistence\Illuminate;
 
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
-use BackToWin\Domain\Game\Persistence\Hydration\Hydrator;
-use BackToWin\Domain\Game\Persistence\Reader;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Persistence\GameRepositoryQuery;
+use GamePlatform\Domain\Game\Persistence\Hydration\Hydrator;
+use GamePlatform\Domain\Game\Persistence\Reader;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 

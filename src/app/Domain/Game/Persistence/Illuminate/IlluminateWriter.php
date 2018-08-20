@@ -1,12 +1,12 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence\Illuminate;
+namespace GamePlatform\Domain\Game\Persistence\Illuminate;
 
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Persistence\Hydration\Extractor;
-use BackToWin\Domain\Game\Persistence\Writer;
-use BackToWin\Framework\DateTime\Clock;
-use BackToWin\Framework\Exception\NotFoundException;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Persistence\Hydration\Extractor;
+use GamePlatform\Domain\Game\Persistence\Writer;
+use GamePlatform\Framework\DateTime\Clock;
+use GamePlatform\Framework\Exception\NotFoundException;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 

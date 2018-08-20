@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Framework\Exception;
+namespace GamePlatform\Framework\Exception;
 
 class RepositoryDuplicationException extends \Exception
 {

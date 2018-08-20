@@ -1,15 +1,15 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Controllers\User;
+namespace GamePlatform\Application\Http\Api\v1\Controllers\User;
 
-use BackToWin\Boundary\User\Command\CreateUserCommand;
-use BackToWin\Framework\Exception\UserCreationException;
-use BackToWin\Framework\Jsend\JsendError;
-use BackToWin\Framework\Jsend\JsendFailResponse;
-use BackToWin\Framework\Jsend\JsendResponse;
-use BackToWin\Framework\Jsend\JsendSuccessResponse;
+use GamePlatform\Boundary\User\Command\CreateUserCommand;
+use GamePlatform\Framework\Exception\UserCreationException;
+use GamePlatform\Framework\Jsend\JsendError;
+use GamePlatform\Framework\Jsend\JsendFailResponse;
+use GamePlatform\Framework\Jsend\JsendResponse;
+use GamePlatform\Framework\Jsend\JsendSuccessResponse;
 use Chief\CommandBus;
-use BackToWin\Application\Http\Api\v1\Validation\User\RequestValidator;
+use GamePlatform\Application\Http\Api\v1\Validation\User\RequestValidator;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CreateController

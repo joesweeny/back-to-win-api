@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Application\Console\Command;
+namespace GamePlatform\Application\Console\Command;
 
-use BackToWin\Boundary\Game\Command\CreateGameCommand;
+use GamePlatform\Boundary\Game\Command\CreateGameCommand;
 use Chief\CommandBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

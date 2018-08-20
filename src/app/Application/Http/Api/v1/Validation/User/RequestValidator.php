@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Validation\User;
+namespace GamePlatform\Application\Http\Api\v1\Validation\User;
 
 class RequestValidator
 {

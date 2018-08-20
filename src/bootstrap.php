@@ -1,6 +1,6 @@
 <?php
 
-use BackToWin\Bootstrap\ContainerFactory;
+use GamePlatform\Bootstrap\ContainerFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -11,5 +11,5 @@ if (file_exists(__DIR__ . '/.env')) {
 }
 
 return (new ContainerFactory())->create(
-    \BackToWin\Bootstrap\ConfigFactory::create()
+    \GamePlatform\Bootstrap\ConfigFactory::create()
 );

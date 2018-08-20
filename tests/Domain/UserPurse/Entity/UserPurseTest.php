@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Entity;
+namespace GamePlatform\Domain\UserPurse\Entity;
 
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Framework\Routing;
+namespace GamePlatform\Framework\Routing;
 
 use FastRoute\RouteCollector;
 use Interop\Http\Middleware\DelegateInterface;

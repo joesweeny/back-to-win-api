@@ -1,13 +1,13 @@
 <?php
 
-namespace BackToWin\Domain\Admin\Bank\Redis;
+namespace GamePlatform\Domain\Admin\Bank\Redis;
 
-use BackToWin\Bootstrap\Config;
-use BackToWin\Domain\Admin\Bank\Bank;
-use BackToWin\Domain\Admin\Bank\Exception\BankingException;
-use BackToWin\Framework\Uuid\Uuid;
-use BackToWin\Testing\Traits\UsesContainer;
-use BackToWin\Testing\Traits\UsesTestRedisDatabase;
+use GamePlatform\Bootstrap\Config;
+use GamePlatform\Domain\Admin\Bank\Bank;
+use GamePlatform\Domain\Admin\Bank\Exception\BankingException;
+use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\UsesContainer;
+use GamePlatform\Testing\Traits\UsesTestRedisDatabase;
 use Interop\Container\ContainerInterface;
 use Money\Currency;
 use Money\Money;

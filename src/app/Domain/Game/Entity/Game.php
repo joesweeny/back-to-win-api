@@ -1,12 +1,12 @@
 <?php
 
-namespace BackToWin\Domain\Game\Entity;
+namespace GamePlatform\Domain\Game\Entity;
 
-use BackToWin\Domain\Game\Enum\GameStatus;
-use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Framework\Entity\PrivateAttributesTrait;
-use BackToWin\Framework\Entity\TimestampedTrait;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Enum\GameType;
+use GamePlatform\Framework\Entity\PrivateAttributesTrait;
+use GamePlatform\Framework\Entity\TimestampedTrait;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Money;
 
 class Game

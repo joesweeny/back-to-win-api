@@ -1,12 +1,12 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Entity;
+namespace GamePlatform\Domain\UserPurse\Entity;
 
-use BackToWin\Framework\Calculation\Calculation;
-use BackToWin\Framework\Entity\PrivateAttributesTrait;
-use BackToWin\Framework\Entity\TimestampedTrait;
-use BackToWin\Framework\Identity\IdentifiedByUuidTrait;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Framework\Calculation\Calculation;
+use GamePlatform\Framework\Entity\PrivateAttributesTrait;
+use GamePlatform\Framework\Entity\TimestampedTrait;
+use GamePlatform\Framework\Identity\IdentifiedByUuidTrait;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Money;
 
 class UserPurseTransaction

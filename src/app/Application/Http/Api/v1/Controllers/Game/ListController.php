@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
+namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
-use BackToWin\Boundary\Game\Command\ListGamesCommand;
-use BackToWin\Framework\Controller\ControllerService;
-use BackToWin\Framework\Jsend\JsendSuccessResponse;
+use GamePlatform\Boundary\Game\Command\ListGamesCommand;
+use GamePlatform\Framework\Controller\ControllerService;
+use GamePlatform\Framework\Jsend\JsendSuccessResponse;
 
 class ListController
 {

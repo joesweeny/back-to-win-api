@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Domain\User\Entity;
+namespace GamePlatform\Domain\User\Entity;
 
-use BackToWin\Framework\Entity\PrivateAttributesTrait;
-use BackToWin\Framework\Entity\TimestampedTrait;
-use BackToWin\Framework\Identity\IdentifiedByUuidTrait;
-use BackToWin\Framework\Password\PasswordHash;
+use GamePlatform\Framework\Entity\PrivateAttributesTrait;
+use GamePlatform\Framework\Entity\TimestampedTrait;
+use GamePlatform\Framework\Identity\IdentifiedByUuidTrait;
+use GamePlatform\Framework\Password\PasswordHash;
 
 class User
 {
@@ -20,7 +20,7 @@ class User
 
     /**
      * @return string
-     * @throws \BackToWin\Framework\Exception\UndefinedException
+     * @throws \GamePlatform\Framework\Exception\UndefinedException
      */
     public function getUsername(): string
     {
@@ -34,7 +34,7 @@ class User
 
     /**
      * @return string
-     * @throws \BackToWin\Framework\Exception\UndefinedException
+     * @throws \GamePlatform\Framework\Exception\UndefinedException
      */
     public function getEmail(): string
     {
@@ -48,7 +48,7 @@ class User
 
     /**
      * @return PasswordHash
-     * @throws \BackToWin\Framework\Exception\UndefinedException
+     * @throws \GamePlatform\Framework\Exception\UndefinedException
      */
     public function getPasswordHash(): PasswordHash
     {

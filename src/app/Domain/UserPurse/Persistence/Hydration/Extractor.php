@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Persistence\Hydration;
+namespace GamePlatform\Domain\UserPurse\Persistence\Hydration;
 
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Framework\Exception\UndefinedValueException;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Framework\Exception\UndefinedValueException;
 
 class Extractor
 {

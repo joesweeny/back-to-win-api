@@ -1,8 +1,8 @@
 <?php
 
-namespace BackToWin\Domain\User\Entity;
+namespace GamePlatform\Domain\User\Entity;
 
-use BackToWin\Framework\Password\PasswordHash;
+use GamePlatform\Framework\Password\PasswordHash;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase

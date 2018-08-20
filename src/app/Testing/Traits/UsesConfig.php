@@ -1,9 +1,9 @@
 <?php
 
-namespace BackToWin\Testing\Traits;
+namespace GamePlatform\Testing\Traits;
 
-use BackToWin\Bootstrap\Config;
-use BackToWin\Bootstrap\ConfigFactory;
+use GamePlatform\Bootstrap\Config;
+use GamePlatform\Bootstrap\ConfigFactory;
 
 trait UsesConfig
 {

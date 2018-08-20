@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence;
+namespace GamePlatform\Domain\Game\Persistence;
 
-use BackToWin\Domain\Game\Enum\GameStatus;
-use BackToWin\Domain\Game\Enum\GameType;
-use BackToWin\Framework\Entity\PrivateAttributesTrait;
+use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Enum\GameType;
+use GamePlatform\Framework\Entity\PrivateAttributesTrait;
 
 class GameRepositoryQuery
 {

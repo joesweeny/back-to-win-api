@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Domain\Game\Enum;
+namespace GamePlatform\Domain\Game\Enum;
 
 use MyCLabs\Enum\Enum;
 

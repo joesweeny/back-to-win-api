@@ -1,21 +1,21 @@
 <?php
 
-namespace BackToWin\Domain\User\Services;
+namespace GamePlatform\Domain\User\Services;
 
-use BackToWin\Domain\Bank\BankManager;
-use BackToWin\Domain\Bank\Exception\BankingException;
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Domain\Game\Exception\GameSettlementException;
-use BackToWin\Domain\GameEntry\Entity\GameEntry;
-use BackToWin\Domain\GameEntry\Exception\EntryFeeStoreException;
-use BackToWin\Domain\GameEntry\Exception\GameEntryException;
-use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use BackToWin\Domain\User\Entity\User;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
-use BackToWin\Framework\Calculation\Calculation;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Bank\BankManager;
+use GamePlatform\Domain\Bank\Exception\BankingException;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Exception\GameSettlementException;
+use GamePlatform\Domain\GameEntry\Entity\GameEntry;
+use GamePlatform\Domain\GameEntry\Exception\EntryFeeStoreException;
+use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
+use GamePlatform\Framework\Calculation\Calculation;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Money;
 
 class UserFundsHandler

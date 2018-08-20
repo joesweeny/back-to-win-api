@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Application\Http\App\Controllers;
+namespace GamePlatform\Application\Http\App\Controllers;
 
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
-use BackToWin\Testing\Traits\UsesContainer;
-use BackToWin\Testing\Traits\UsesHttpServer;
+use GamePlatform\Testing\Traits\UsesContainer;
+use GamePlatform\Testing\Traits\UsesHttpServer;
 
 class HomepageControllerIntegrationTest extends TestCase
 {

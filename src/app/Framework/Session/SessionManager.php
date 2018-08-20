@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Framework\Session;
+namespace GamePlatform\Framework\Session;
 
 use Psr\Http\Message\ServerRequestInterface;
 use PSR7Session\Http\SessionMiddleware;

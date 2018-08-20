@@ -1,12 +1,12 @@
 <?php
 
-namespace BackToWin\Domain\Admin\Bank\Persistence\Illuminate;
+namespace GamePlatform\Domain\Admin\Bank\Persistence\Illuminate;
 
-use BackToWin\Framework\Exception\RepositoryDuplicationException;
-use BackToWin\Domain\Admin\Bank\Persistence\Repository;
-use BackToWin\Framework\Uuid\Uuid;
-use BackToWin\Testing\Traits\RunsMigrations;
-use BackToWin\Testing\Traits\UsesContainer;
+use GamePlatform\Framework\Exception\RepositoryDuplicationException;
+use GamePlatform\Domain\Admin\Bank\Persistence\Repository;
+use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\RunsMigrations;
+use GamePlatform\Testing\Traits\UsesContainer;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
 use Money\Currency;

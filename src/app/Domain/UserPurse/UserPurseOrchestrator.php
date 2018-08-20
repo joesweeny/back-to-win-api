@@ -1,13 +1,13 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse;
+namespace GamePlatform\Domain\UserPurse;
 
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Domain\UserPurse\Persistence\Reader;
-use BackToWin\Domain\UserPurse\Persistence\Writer;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Domain\UserPurse\Persistence\Reader;
+use GamePlatform\Domain\UserPurse\Persistence\Writer;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Uuid\Uuid;
 
 class UserPurseOrchestrator
 {

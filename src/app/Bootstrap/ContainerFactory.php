@@ -1,17 +1,17 @@
 <?php
 
-namespace BackToWin\Bootstrap;
+namespace GamePlatform\Bootstrap;
 
-use BackToWin\Domain\Bank\Bank;
-use BackToWin\Domain\Bank\User\RedisBank;
-use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use BackToWin\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
+use GamePlatform\Domain\Bank\Bank;
+use GamePlatform\Domain\Bank\User\RedisBank;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use GamePlatform\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
 use Chief\Resolvers\NativeCommandHandlerResolver;
-use BackToWin\Framework\DateTime\Clock;
-use BackToWin\Framework\DateTime\SystemClock;
+use GamePlatform\Framework\DateTime\Clock;
+use GamePlatform\Framework\DateTime\SystemClock;
 use Dflydev\FigCookies\SetCookie;
 use DI\ContainerBuilder;
 use function DI\object;
@@ -21,8 +21,8 @@ use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
 use Interop\Container\ContainerInterface;
 use Lcobucci\JWT\Parser;
-use BackToWin\Framework\CommandBus\ChiefAdapter;
-use BackToWin\Framework\Routing\Router;
+use GamePlatform\Framework\CommandBus\ChiefAdapter;
+use GamePlatform\Framework\Routing\Router;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -87,10 +87,10 @@ class ContainerFactory
 
             Router::class => \DI\decorate(function (Router $router, ContainerInterface $container) {
                 return $router
-                    ->addRoutes($container->get(\BackToWin\Application\Http\App\Routes\RouteManager::class))
-                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class))
-                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
-                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\Game\RouteManager::class));
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\App\Routes\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\User\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class));
             }),
 
             CommandBus::class => \DI\factory(function (ContainerInterface $container) {
@@ -160,10 +160,10 @@ class ContainerFactory
                 }
             }),
 
-            \BackToWin\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
+            \GamePlatform\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
                     case 'redis':
-                        return new \BackToWin\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
+                        return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
                     default:
                         throw new \UnexpectedValueException("Admin bank '$bank' not recognised");
                 }
@@ -186,23 +186,23 @@ class ContainerFactory
     private function defineDomain(): array
     {
         return [
-            \BackToWin\Domain\User\Persistence\Reader::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateReader::class),
+            \GamePlatform\Domain\User\Persistence\Reader::class => \DI\object(\GamePlatform\Domain\User\Persistence\Illuminate\IlluminateReader::class),
 
-            \BackToWin\Domain\User\Persistence\Writer::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateWriter::class),
+            \GamePlatform\Domain\User\Persistence\Writer::class => \DI\object(\GamePlatform\Domain\User\Persistence\Illuminate\IlluminateWriter::class),
 
-            \BackToWin\Domain\UserPurse\Persistence\Writer::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class),
+            \GamePlatform\Domain\UserPurse\Persistence\Writer::class => \DI\object(\GamePlatform\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class),
 
-            \BackToWin\Domain\UserPurse\Persistence\Reader::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class),
+            \GamePlatform\Domain\UserPurse\Persistence\Reader::class => \DI\object(\GamePlatform\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class),
 
-            \BackToWin\Domain\Game\Persistence\Writer::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
+            \GamePlatform\Domain\Game\Persistence\Writer::class => \DI\object(\GamePlatform\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
 
-            \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class),
+            \GamePlatform\Domain\Game\Persistence\Reader::class => \DI\object(\GamePlatform\Domain\Game\Persistence\Illuminate\IlluminateReader::class),
 
-            \BackToWin\Domain\GameEntry\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class),
+            \GamePlatform\Domain\GameEntry\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class),
 
-            \BackToWin\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\BackToWin\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
+            \GamePlatform\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
 
-            \BackToWin\Domain\GameResult\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
+            \GamePlatform\Domain\GameResult\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
         ];
     }
 

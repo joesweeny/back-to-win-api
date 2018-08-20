@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\Game\Persistence;
+namespace GamePlatform\Domain\Game\Persistence;
 
-use BackToWin\Domain\Game\Entity\Game;
-use BackToWin\Framework\Exception\NotFoundException;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Framework\Exception\NotFoundException;
+use GamePlatform\Framework\Uuid\Uuid;
 
 interface Reader
 {

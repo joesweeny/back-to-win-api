@@ -1,10 +1,10 @@
 <?php
 
-namespace BackToWin\Domain\User\Persistence\Hydration;
+namespace GamePlatform\Domain\User\Persistence\Hydration;
 
-use BackToWin\Domain\User\Entity\User;
-use BackToWin\Framework\Password\PasswordHash;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Framework\Password\PasswordHash;
+use GamePlatform\Framework\Uuid\Uuid;
 
 final class Hydrator
 {

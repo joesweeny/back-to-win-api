@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Application\Http\Api\v1\Routing\Game;
+namespace GamePlatform\Application\Http\Api\v1\Routing\Game;
 
-use BackToWin\Application\Http\Api\v1\Controllers\Game\CreateController;
-use BackToWin\Application\Http\Api\v1\Controllers\Game\GetController;
-use BackToWin\Application\Http\Api\v1\Controllers\Game\ListController;
-use BackToWin\Framework\Routing\RouteMapper;
+use GamePlatform\Application\Http\Api\v1\Controllers\Game\CreateController;
+use GamePlatform\Application\Http\Api\v1\Controllers\Game\GetController;
+use GamePlatform\Application\Http\Api\v1\Controllers\Game\ListController;
+use GamePlatform\Framework\Routing\RouteMapper;
 use FastRoute\RouteCollector;
 
 class RouteManager implements RouteMapper

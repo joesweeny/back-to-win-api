@@ -1,6 +1,6 @@
 <?php
 
-namespace BackToWin\Framework\DateTime;
+namespace GamePlatform\Framework\DateTime;
 
 use Cake\Chronos\Chronos;
 use DateTimeZone;

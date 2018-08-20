@@ -1,11 +1,11 @@
 <?php
 
-namespace BackToWin\Domain\UserPurse\Persistence\Hydration;
+namespace GamePlatform\Domain\UserPurse\Persistence\Hydration;
 
-use BackToWin\Domain\UserPurse\Entity\UserPurse;
-use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
-use BackToWin\Framework\Calculation\Calculation;
-use BackToWin\Framework\Uuid\Uuid;
+use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
+use GamePlatform\Framework\Calculation\Calculation;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 

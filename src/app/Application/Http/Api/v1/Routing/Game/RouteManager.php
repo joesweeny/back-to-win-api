@@ -3,6 +3,7 @@
 namespace GamePlatform\Application\Http\Api\v1\Routing\Game;
 
 use GamePlatform\Application\Http\Api\v1\Controllers\Game\CreateController;
+use GamePlatform\Application\Http\Api\v1\Controllers\Game\EnterController;
 use GamePlatform\Application\Http\Api\v1\Controllers\Game\GetController;
 use GamePlatform\Application\Http\Api\v1\Controllers\Game\ListController;
 use GamePlatform\Framework\Routing\RouteMapper;
@@ -18,5 +19,6 @@ class RouteManager implements RouteMapper
         $router->addRoute('POST', '/api/game', CreateController::class);
         $router->addRoute('GET', '/api/game/{id}', GetController::class);
         $router->addRoute('GET', '/api/game', ListController::class);
+        $router->addRoute('POST', '/api/game/{gameId}/user/{userId}', EnterController::class);
     }
 }

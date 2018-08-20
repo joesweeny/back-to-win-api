@@ -46,27 +46,6 @@ class RequestValidator
     }
 
     /**
-     * Validate Request body fields when entering a Game
-     *
-     * @param \stdClass $body
-     * @return array
-     */
-    public function validateEnter(\stdClass $body): array
-    {
-        $errors = [];
-
-        if (!isset($body->game_id)) {
-            $errors[] = "Required field 'game_id' is missing";
-        }
-
-        if (!isset($body->user_id)) {
-            $errors[] = "Required field 'user_id' is missing";
-        }
-        
-        return $errors;
-    }
-
-    /**
      * Validate Request body fields when settling a Game
      *
      * @param \stdClass $body

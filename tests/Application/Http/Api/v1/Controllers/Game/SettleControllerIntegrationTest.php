@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
+use GamePlatform\Bootstrap\Config;
 use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
@@ -38,6 +39,7 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->clock = $this->container->get(Clock::class);
+        $this->container->get(Config::class)->set('log.logger', 'null');
     }
 
     public function test_200_response_is_returned_if_game_is_settled_successfully()

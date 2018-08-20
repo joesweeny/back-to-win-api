@@ -3,6 +3,7 @@
 namespace GamePlatform\Bootstrap;
 
 use GamePlatform\Domain\Bank\Bank;
+use GamePlatform\Domain\Bank\User\LogBank;
 use GamePlatform\Domain\Bank\User\RedisBank;
 use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
 use GamePlatform\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
@@ -155,6 +156,8 @@ class ContainerFactory
                 switch ($bank = $container->get(Config::class)->get('bank.driver')) {
                     case 'redis':
                         return new RedisBank($container->get(Client::class));
+                    case 'log':
+                        return new LogBank($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Bank '$bank' not recognised");
                 }

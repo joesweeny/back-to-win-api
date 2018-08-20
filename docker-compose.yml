@@ -6,12 +6,12 @@ services:
       dockerfile: ./docker/php/Dockerfile
       context: ./
     environment:
-     - ADMIN_BANK_DRIVER=redis
-     - BANK_DRIVER=redis
+     - ADMIN_BANK_DRIVER=log
+     - BANK_DRIVER=log
      - DB_DSN=mysql:host=mysql;dbname=app
      - DB_USER=root
      - DB_PASSWORD=password
-     - ENTRY_FEE_STORE_DRIVER=redis
+     - ENTRY_FEE_STORE_DRIVER=log
     volumes:
      - .:/opt
 

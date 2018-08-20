@@ -51,11 +51,13 @@ class SettleController
         }
 
         try {
-            $this->bus->execute(new SettleGameCommand(
-                $body->game_id,
-                $body->user_id,
-                $body->currency,
-                $body->amount)
+            $this->bus->execute(
+                new SettleGameCommand(
+                    $body->game_id,
+                    $body->user_id,
+                    $body->currency,
+                    $body->amount
+                )
             );
 
             return new JsendSuccessResponse();

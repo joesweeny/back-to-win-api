@@ -19,7 +19,6 @@ class GetController
     public function __invoke(string $id): JsendResponse
     {
         try {
-
             try {
                 $gameCommand = new GetByIdCommand($id);
 

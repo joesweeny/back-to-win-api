@@ -3,6 +3,7 @@
 namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
 use GamePlatform\Boundary\Game\Command\GetByIdCommand;
+use GamePlatform\Boundary\GameEntry\Command\GetUsersForGameCommand;
 use GamePlatform\Framework\Controller\ControllerService;
 use GamePlatform\Framework\Exception\NotFoundException;
 use GamePlatform\Framework\Jsend\JsendError;
@@ -18,10 +19,20 @@ class GetController
     public function __invoke(string $id): JsendResponse
     {
         try {
-            $game = $this->bus->execute(new GetByIdCommand($id));
+
+            try {
+                $gameCommand = new GetByIdCommand($id);
+
+                $entriesCommand = new GetUsersForGameCommand($id);
+            } catch (\UnexpectedValueException $e) {
+                return new JsendFailResponse([
+                    new JsendError($e->getMessage())
+                ]);
+            }
 
             return new JsendSuccessResponse([
-                'game' => $game
+                'game' => $this->bus->execute($gameCommand),
+                'users' => $this->bus->execute($entriesCommand)
             ]);
         } catch (NotFoundException | InvalidUuidStringException $e) {
             return (new JsendFailResponse([

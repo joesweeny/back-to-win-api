@@ -2,7 +2,6 @@
 
 namespace GamePlatform\Boundary\GameEntry\Command\Handlers;
 
-use GamePlatform\Boundary\Game\GamePresenter;
 use GamePlatform\Boundary\GameEntry\Command\GetUsersForGameCommand;
 use GamePlatform\Boundary\User\UserPresenter;
 use GamePlatform\Domain\Game\GameOrchestrator;
@@ -21,10 +20,6 @@ class GetUsersForGameCommandHandler
      */
     private $gameOrchestrator;
     /**
-     * @var GamePresenter
-     */
-    private $gamePresenter;
-    /**
      * @var UserPresenter
      */
     private $userPresenter;
@@ -32,12 +27,10 @@ class GetUsersForGameCommandHandler
     public function __construct(
         GameEntryOrchestrator $orchestrator,
         GameOrchestrator $gameOrchestrator,
-        GamePresenter $gamePresenter,
         UserPresenter $userPresenter
     ) {
         $this->orchestrator = $orchestrator;
         $this->gameOrchestrator = $gameOrchestrator;
-        $this->gamePresenter = $gamePresenter;
         $this->userPresenter = $userPresenter;
     }
 
@@ -50,13 +43,8 @@ class GetUsersForGameCommandHandler
     {
         $game = $this->gameOrchestrator->getGameById($command->getGameId());
 
-        $users = array_map(function (User $user) {
+        return array_map(function (User $user) {
             return $this->userPresenter->toDto($user);
         }, $this->orchestrator->getUsersForGame($game->getId()));
-
-        return [
-            'game' => $this->gamePresenter->toDto($game),
-            'users' => $users
-        ];
     }
 }

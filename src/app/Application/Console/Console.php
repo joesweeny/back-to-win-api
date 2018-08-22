@@ -8,6 +8,8 @@ use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Finder\GlobFinder;
 use Doctrine\DBAL\Migrations\OutputWriter;
 use Doctrine\DBAL\Migrations\Tools\Console\Helper\ConfigurationHelper;
+use GamePlatform\Application\Console\Command\UserCreateCommand;
+use GamePlatform\Application\Console\Command\UserFundsAddCommand;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -56,7 +58,9 @@ class Console
 
         $app->addCommands([
             $this->container->get(GameCreateCommand::class),
-            
+            $this->container->get(UserCreateCommand::class),
+            $this->container->get(UserFundsAddCommand::class),
+
             new \Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand(),
             new \Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand(),
             new \Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand(),

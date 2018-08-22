@@ -120,6 +120,57 @@ class IlluminateReaderIntegrationTest extends TestCase
         $this->assertEmpty($this->reader->get());
     }
 
+    public function test_games_can_be_filtered_by_game_start()
+    {
+        for ($i = 0; $i < 5; $i++) {
+            $this->insertGame(
+                new \DateTimeImmutable("2018-07-1{$i} 00:00:00"),
+                GameStatus::CREATED(),
+                new Money(500, new Currency('GBP'))
+            );
+        }
+
+        $games = $this->reader->get((new GameRepositoryQuery())->whereGameStartBefore(new \DateTimeImmutable('2018-07-11 00:01:00')));
+
+        $this->assertCount(2, $games);
+    }
+
+    public function test_games_can_be_filtered_by_currency()
+    {
+        for ($i = 0; $i < 3; $i++) {
+            $this->insertGame(
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                GameStatus::CREATED(),
+                new Money(500, new Currency('GBP'))
+            );
+        }
+
+        $this->insertGame(
+            new \DateTimeImmutable('2018-07-18 00:00:00'),
+            GameStatus::CREATED(),
+            new Money(500, new Currency('EUR'))
+        );
+
+        $games = $this->reader->get((new GameRepositoryQuery())->whereCurrencyEquals(new Currency('GBP')));
+
+        $this->assertCount(3, $games);
+    }
+
+    public function test_games_can_be_filtered_by_buy_in()
+    {
+        for ($i = 1; $i < 10; $i++) {
+            $this->insertGame(
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                GameStatus::CREATED(),
+                new Money((int) "{$i}00", new Currency('GBP'))
+            );
+        }
+
+        $games = $this->reader->get((new GameRepositoryQuery())->whereBuyInLessThan(500));
+
+        $this->assertCount(4, $games);
+    }
+
     private function insertGame(\DateTimeImmutable $start, GameStatus $status, Money $buyIn)
     {
         $this->writer->insert(
@@ -128,8 +179,8 @@ class IlluminateReaderIntegrationTest extends TestCase
                 GameType::GENERAL_KNOWLEDGE(),
                 $status,
                 $buyIn,
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
+                new Money(50, $buyIn->getCurrency()),
+                new Money(10, $buyIn->getCurrency()),
                 $start,
                 4
             )

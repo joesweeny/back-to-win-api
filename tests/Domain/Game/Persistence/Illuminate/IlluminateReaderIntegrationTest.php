@@ -77,43 +77,18 @@ class IlluminateReaderIntegrationTest extends TestCase
 
     public function test_game_retrieval_can_be_filtered_by_status()
     {
-        $this->writer->insert(
-            new Game(
-                Uuid::generate(),
-                GameType::GENERAL_KNOWLEDGE(),
+        for ($i = 0; $i < 2; $i++) {
+            $this->insertGame(
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
                 GameStatus::CREATED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
+                new Money(500, new Currency('GBP'))
+            );
+        }
 
-        $this->writer->insert(
-            new Game(
-                Uuid::generate(),
-                GameType::GENERAL_KNOWLEDGE(),
-                GameStatus::CANCELLED(),
-                new Money(5000, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
-
-        $this->writer->insert(
-            new Game(
-                Uuid::generate(),
-                GameType::GENERAL_KNOWLEDGE(),
-                GameStatus::CREATED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
+        $this->insertGame(
+            new \DateTimeImmutable('2018-07-18 00:00:00'),
+            GameStatus::COMPLETED(),
+            new Money(500, new Currency('GBP'))
         );
 
         $games = $this->reader->get((new GameRepositoryQuery())->whereStatusEquals(GameStatus::CREATED()));
@@ -127,44 +102,13 @@ class IlluminateReaderIntegrationTest extends TestCase
 
     public function test_all_game_records_are_returned_if_no_query_is_provided_to_argument()
     {
-        $this->writer->insert(
-            new Game(
-                Uuid::generate(),
-                GameType::GENERAL_KNOWLEDGE(),
+        for ($i = 0; $i < 3; $i++) {
+            $this->insertGame(
+                new \DateTimeImmutable('2018-07-18 00:00:00'),
                 GameStatus::CREATED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
-
-        $this->writer->insert(
-            new Game(
-                Uuid::generate(),
-                GameType::GENERAL_KNOWLEDGE(),
-                GameStatus::CANCELLED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
-
-        $this->writer->insert(
-            new Game(
-                Uuid::generate(),
-                GameType::GENERAL_KNOWLEDGE(),
-                GameStatus::CREATED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
+                new Money(500, new Currency('GBP'))
+            );
+        }
 
         $games = $this->reader->get();
 
@@ -174,5 +118,21 @@ class IlluminateReaderIntegrationTest extends TestCase
     public function test_empty_array_is_returned_if_no_records_are_in_database()
     {
         $this->assertEmpty($this->reader->get());
+    }
+
+    private function insertGame(\DateTimeImmutable $start, GameStatus $status, Money $buyIn)
+    {
+        $this->writer->insert(
+            new Game(
+                Uuid::generate(),
+                GameType::GENERAL_KNOWLEDGE(),
+                $status,
+                $buyIn,
+                new Money(50, new Currency('GBP')),
+                new Money(10, new Currency('GBP')),
+                $start,
+                4
+            )
+        );
     }
 }

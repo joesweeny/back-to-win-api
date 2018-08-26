@@ -18,20 +18,20 @@ class QueryBuilder
     {
         $query = new GameRepositoryQuery();
 
-        if ($status = ($parameters['status'] !== null)) {
-            $query->whereStatusEquals(new GameStatus($status));
+        if ($parameters['status'] !== null) {
+            $query->whereStatusEquals(new GameStatus($parameters['status']));
         }
 
-        if ($start = ($parameters['start'] !== null)) {
-            $query->whereGameStartsBefore(new \DateTimeImmutable($start));
+        if ($parameters['start'] !== null) {
+            $query->whereGameStartsBefore(new \DateTimeImmutable($parameters['start']));
         }
 
-        if ($currency = ($parameters['currency'] !== null)) {
-            $query->whereCurrencyEquals(new Currency($currency));
+        if ($parameters['currency'] !== null) {
+            $query->whereCurrencyEquals(new Currency($parameters['currency']));
         }
 
-        if ($buyIn = ($parameters['buy_in'] !== null)) {
-            if (!is_numeric($buyIn)) {
+        if ($parameters['buy_in'] !== null) {
+            if (!is_numeric($buyIn = $parameters['buy_in'])) {
                 throw new \InvalidArgumentException("Parameter 'buy_in' needs to be numeric");
             }
 

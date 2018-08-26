@@ -4,14 +4,17 @@ namespace GamePlatform\Boundary\Game\Command\Handlers;
 
 use GamePlatform\Boundary\Game\Command\ListGamesCommand;
 use GamePlatform\Boundary\Game\GamePresenter;
+use GamePlatform\Boundary\Game\QueryBuilder;
 use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Domain\Game\Persistence\GameRepositoryQuery;
 use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 
 class ListGamesCommandHandlerTest extends TestCase
 {
@@ -25,7 +28,8 @@ class ListGamesCommandHandlerTest extends TestCase
         $this->orchestrator = $this->prophesize(GameOrchestrator::class);
         $this->handler = new ListGamesCommandHandler(
             $this->orchestrator->reveal(),
-            new GamePresenter()
+            new GamePresenter(),
+            new QueryBuilder()
         );
     }
 
@@ -59,9 +63,9 @@ class ListGamesCommandHandlerTest extends TestCase
         $game2->setCreatedDate(new \DateTimeImmutable('2018-07-25 00:00:00'))
             ->setLastModifiedDate(new \DateTimeImmutable('2018-07-25 00:00:00'));
 
-        $this->orchestrator->getGames()->willReturn([$game1, $game2]);
+        $this->orchestrator->getGames(Argument::type(GameRepositoryQuery::class))->willReturn([$game1, $game2]);
 
-        $games = $this->handler->handle(new ListGamesCommand());
+        $games = $this->handler->handle(new ListGamesCommand([]));
 
         $this->assertEquals('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2', $games[0]->id);
         $this->assertEquals('GENERAL_KNOWLEDGE', $games[0]->type);

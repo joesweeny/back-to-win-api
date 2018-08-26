@@ -5,6 +5,7 @@ namespace GamePlatform\Domain\Game\Persistence;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Framework\Entity\PrivateAttributesTrait;
+use Money\Currency;
 
 class GameRepositoryQuery
 {
@@ -28,5 +29,35 @@ class GameRepositoryQuery
     public function getWhereTypeEquals(): ?GameType
     {
         return $this->get('where_type_equals');
+    }
+
+    public function whereGameStartsBefore(\DateTimeImmutable $date): self
+    {
+        return $this->set('where_game_starts_before', $date);
+    }
+
+    public function getGameStartsBeforeWhere(): ?\DateTimeImmutable
+    {
+        return $this->get('where_game_starts_before');
+    }
+
+    public function whereCurrencyEquals(Currency $currency): self
+    {
+        return $this->set('where_currency_equals', $currency);
+    }
+
+    public function getCurrencyEqualsWhere(): ?Currency
+    {
+        return $this->get('where_currency_equals');
+    }
+
+    public function whereBuyInLessThan(int $amount): self
+    {
+        return $this->set('where_buy_in_less_than', $amount);
+    }
+
+    public function getBuyInLessThanWhere(): ?int
+    {
+        return $this->get('where_buy_in_less_than');
     }
 }

@@ -19,6 +19,18 @@ class GameQueryBuilder
             $builder->where('type', $query->getWhereTypeEquals()->getValue());
         }
 
+        if ($query->getGameStartsBeforeWhere() !== null) {
+            $builder->where('start', '<', $query->getGameStartsBeforeWhere()->getTimestamp());
+        }
+
+        if ($query->getCurrencyEqualsWhere() !== null) {
+            $builder->where('currency', $query->getCurrencyEqualsWhere()->getCode());
+        }
+
+        if ($query->getBuyInLessThanWhere() !== null) {
+            $builder->where('buy_in', '<', $query->getBuyInLessThanWhere());
+        }
+
         return $builder;
     }
 }

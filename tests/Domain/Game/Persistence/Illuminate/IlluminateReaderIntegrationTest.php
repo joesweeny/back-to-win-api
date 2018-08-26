@@ -130,7 +130,7 @@ class IlluminateReaderIntegrationTest extends TestCase
             );
         }
 
-        $games = $this->reader->get((new GameRepositoryQuery())->whereGameStartBefore(new \DateTimeImmutable('2018-07-11 00:01:00')));
+        $games = $this->reader->get((new GameRepositoryQuery())->whereGameStartsBefore(new \DateTimeImmutable('2018-07-11 00:01:00')));
 
         $this->assertCount(2, $games);
     }

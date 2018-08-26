@@ -31,7 +31,7 @@ class GameRepositoryQuery
         return $this->get('where_type_equals');
     }
 
-    public function whereGameStartBefore(\DateTimeImmutable $date): self
+    public function whereGameStartsBefore(\DateTimeImmutable $date): self
     {
         return $this->set('where_game_starts_before', $date);
     }

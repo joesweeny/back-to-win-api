@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 
 class ErrorHandler implements MiddlewareInterface
 {
@@ -13,10 +14,15 @@ class ErrorHandler implements MiddlewareInterface
      * @var ErrorResponseFactory
      */
     private $responseFactory;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-    public function __construct(ErrorResponseFactory $responseFactory)
+    public function __construct(ErrorResponseFactory $responseFactory, LoggerInterface $logger)
     {
         $this->responseFactory = $responseFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -27,6 +33,13 @@ class ErrorHandler implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (\Throwable $e) {
+            $this->logger->error(
+                "Exception caught in ErrorHandler middleware: {$e->getMessage()}",
+                [
+                    'exception' => $e
+                ]
+            );
+            
             return $this->responseFactory->create($e);
         }
     }

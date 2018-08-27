@@ -14,25 +14,22 @@ use Chief\Container;
 use Chief\Resolvers\NativeCommandHandlerResolver;
 use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\DateTime\SystemClock;
-use Dflydev\FigCookies\SetCookie;
 use DI\ContainerBuilder;
 use function DI\object;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
+use GamePlatform\Framework\Middleware\Error\ErrorResponseFactory;
+use GamePlatform\Framework\Middleware\Error\JsonErrorResponseFactory;
 use Illuminate\Database\Connection;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
 use Interop\Container\ContainerInterface;
-use Lcobucci\JWT\Parser;
 use GamePlatform\Framework\CommandBus\ChiefAdapter;
 use GamePlatform\Framework\Routing\Router;
 use Monolog\Handler\ErrorLogHandler;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Predis\Client;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use PSR7Session\Http\SessionMiddleware;
-use PSR7Session\Time\SystemCurrentTime;
 
 class ContainerFactory
 {
@@ -110,23 +107,7 @@ class ContainerFactory
                         return $this->container->get($class);
                     }
                 })));
-//                $bus->pushDecorator($container->get(AuthDecorator::class));
                 return $bus;
-            }),
-
-            SessionMiddleware::class => \DI\factory(function (ContainerInterface $container) {
-                return new SessionMiddleware(
-                    new \Lcobucci\JWT\Signer\Hmac\Sha256(),
-                    'OpcMuKmoxVhzW0Y1iESpjWwL/D3UBdDauJOe742BJ5Q=',
-                    'OpcMuKmoxVhzW0Y1iESpjWwL/D3UBdDauJOe742BJ5Q=',
-                    SetCookie::create(SessionMiddleware::DEFAULT_COOKIE)
-                        ->withSecure(false)
-                        ->withHttpOnly(true)
-                        ->withPath('/'),
-                    new Parser(),
-                    1200,
-                    new SystemCurrentTime()
-                );
             }),
 
             LoggerInterface::class => \DI\factory(function (ContainerInterface $container) {
@@ -183,7 +164,9 @@ class ContainerFactory
                     default:
                         throw new \UnexpectedValueException("Entry fee store '$store' not recognised");
                 }
-            })
+            }),
+
+            ErrorResponseFactory::class => \DI\object(JsonErrorResponseFactory::class),
         ];
     }
 

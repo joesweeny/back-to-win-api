@@ -28,7 +28,7 @@ class Dispatcher
     /**
      * @param RequestInterface $request
      * @param  FastRouteDispatcher $dispatcher
-     * @return \Psr\Http\Message\ResponseInterface|HtmlResponse
+     * @return \Psr\Http\Message\ResponseInterface
      * @throws NotFoundException
      */
     public function dispatch(RequestInterface $request, FastRouteDispatcher $dispatcher)

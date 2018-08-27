@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Application\Http;
 
+use GamePlatform\Framework\Middleware\Error\ErrorHandler;
 use Interop\Container\ContainerInterface;
 use GamePlatform\Framework\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
@@ -40,10 +41,8 @@ class HttpServer
 
         $pipe->raiseThrowables();
 
-        $prototype = new Response;
-
         return $pipe
-            ->pipe('/', new CallableMiddlewareWrapper($this->container->get(SessionMiddleware::class), $prototype))
+            ->pipe('/', $this->container->get(ErrorHandler::class))
 
             ->process($request, $this->container->get(Router::class));
     }

@@ -18,6 +18,8 @@ use Dflydev\FigCookies\SetCookie;
 use DI\ContainerBuilder;
 use function DI\object;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
+use GamePlatform\Framework\Middleware\Error\ErrorResponseFactory;
+use GamePlatform\Framework\Middleware\Error\JsonErrorResponseFactory;
 use Illuminate\Database\Connection;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
@@ -183,7 +185,9 @@ class ContainerFactory
                     default:
                         throw new \UnexpectedValueException("Entry fee store '$store' not recognised");
                 }
-            })
+            }),
+
+            ErrorResponseFactory::class => \DI\object(JsonErrorResponseFactory::class),
         ];
     }
 

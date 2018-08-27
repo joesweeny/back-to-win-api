@@ -3,10 +3,11 @@
 namespace GamePlatform\Framework\Routing;
 
 use FastRoute\RouteCollector;
-use Interop\Http\Middleware\DelegateInterface;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class Router implements DelegateInterface
+class Router implements RequestHandlerInterface
 {
     /**
      * @var Dispatcher
@@ -35,7 +36,7 @@ class Router implements DelegateInterface
     /**
      * @inheritdoc
      */
-    public function process(RequestInterface $request)
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $dispatcher = \FastRoute\simpleDispatcher(function (RouteCollector $r) {
             foreach ($this->mappers as $mapper) {

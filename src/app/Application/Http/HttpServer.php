@@ -7,10 +7,8 @@ use Interop\Container\ContainerInterface;
 use GamePlatform\Framework\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use PSR7Session\Http\SessionMiddleware;
-use Zend\Diactoros\Response;
-use Zend\Stratigility\Middleware\CallableMiddlewareWrapper;
 use Zend\Stratigility\MiddlewarePipe;
+use function Zend\Stratigility\path;
 
 class HttpServer
 {
@@ -39,11 +37,8 @@ class HttpServer
     {
         $pipe = new MiddlewarePipe;
 
-        $pipe->raiseThrowables();
+        $pipe->pipe(path('/', $this->container->get(ErrorHandler::class)));
 
-        return $pipe
-            ->pipe('/', $this->container->get(ErrorHandler::class))
-
-            ->process($request, $this->container->get(Router::class));
+        return $pipe->process($request, $this->container->get(Router::class));
     }
 }

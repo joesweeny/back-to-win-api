@@ -12,6 +12,16 @@ class ConfigFactory
     public static function create(): Config
     {
         return new Config([
+            'auth' => [
+                'token' => [
+                    'driver' => self::fromEnv('AUTH_TOKEN_DRIVER')
+                ],
+
+                'jwt' => [
+                    'secret' => self::fromEnv('JWT_SECRET')
+                ]
+            ],
+
             'database' => [
                 'default' => [
                     'pdo' => [

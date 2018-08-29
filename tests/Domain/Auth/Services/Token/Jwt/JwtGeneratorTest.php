@@ -8,6 +8,7 @@ use GamePlatform\Framework\Uuid\Uuid;
 use GamePlatform\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
 use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use PHPUnit\Framework\TestCase;
 
 class JwtGeneratorTest extends TestCase
@@ -40,12 +41,13 @@ class JwtGeneratorTest extends TestCase
             new Uuid('058b1dc8-d168-4bab-aa4a-ffeed90c5435'),
             (new \DateTimeImmutable())->add(new \DateInterval('P1D'))
         );
-
+        
         $parsed = (new Parser())->parse($token);
 
         $this->assertEquals('058b1dc8-d168-4bab-aa4a-ffeed90c5435', $parsed->getClaim('user_id'));
         $this->assertFalse($parsed->isExpired());
         $this->assertEquals('JWT', $parsed->getHeader('typ'));
         $this->assertEquals('HS256', $parsed->getHeader('alg'));
+        $this->assertTrue($parsed->verify(new Sha256(), $this->config->get('auth.jwt.secret')));
     }
 }

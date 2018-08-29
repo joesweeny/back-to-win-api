@@ -11,6 +11,7 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 
 class JwtGenerator implements Generator
 {
+    const USER_ID = 'user_id';
     /**
      * @var Config
      */
@@ -39,7 +40,7 @@ class JwtGenerator implements Generator
         $token = (new Builder())
             ->setIssuedAt($this->clock->now()->getTimestamp())
             ->setExpiration($expiry->getTimestamp())
-            ->set('user_id', (string) $userId)
+            ->set(self::USER_ID, (string) $userId)
             ->sign($this->signer, $this->config->get('auth.jwt.secret'))
             ->getToken();
 

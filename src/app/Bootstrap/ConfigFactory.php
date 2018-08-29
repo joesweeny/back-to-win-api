@@ -14,7 +14,10 @@ class ConfigFactory
         return new Config([
             'auth' => [
                 'token' => [
-                    'driver' => self::fromEnv('AUTH_TOKEN_DRIVER')
+                    'driver' => self::fromEnv('AUTH_TOKEN_DRIVER'),
+
+                    // Default application access token length in minutes
+                    'expiry' => 1400
                 ],
 
                 'jwt' => [

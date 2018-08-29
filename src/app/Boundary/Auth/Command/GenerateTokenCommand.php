@@ -1,15 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joesweeny
- * Date: 29/08/18
- * Time: 15:58
- */
 
 namespace GamePlatform\Boundary\Auth\Command;
 
+use Chief\Command;
+use GamePlatform\Framework\Uuid\Uuid;
 
-class GenerateTokenCommand
+class GenerateTokenCommand implements Command
 {
+    /**
+     * @var Uuid
+     */
+    private $userId;
 
+    public function __construct(Uuid $userId)
+    {
+        $this->userId = $userId;
+    }
+
+    public function getUserId(): Uuid
+    {
+        return $this->userId;
+    }
 }

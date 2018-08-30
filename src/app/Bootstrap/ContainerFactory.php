@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Bootstrap;
 
+use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
 use GamePlatform\Domain\Bank\Bank;
 use GamePlatform\Domain\Bank\User\LogBank;
 use GamePlatform\Domain\Bank\User\RedisBank;
@@ -89,7 +90,8 @@ class ContainerFactory
                     ->addRoutes($container->get(\GamePlatform\Application\Http\App\Routes\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\User\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class));
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Auth\RouteManager::class));
             }),
 
             CommandBus::class => \DI\factory(function (ContainerInterface $container) {
@@ -107,6 +109,7 @@ class ContainerFactory
                         return $this->container->get($class);
                     }
                 })));
+
                 return $bus;
             }),
 
@@ -167,6 +170,15 @@ class ContainerFactory
             }),
 
             ErrorResponseFactory::class => \DI\object(JsonErrorResponseFactory::class),
+
+            TokenGenerator::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($driver = $container->get(Config::class)->get('auth.token.driver')) {
+                    case 'jwt':
+                        return $container->get(\GamePlatform\Domain\Auth\Services\Token\Jwt\JwtTokenGenerator::class);
+                    default:
+                        throw new \UnexpectedValueException("Auth token driver '$driver' not recognised");
+                }
+            })
         ];
     }
 

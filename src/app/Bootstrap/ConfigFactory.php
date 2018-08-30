@@ -12,6 +12,19 @@ class ConfigFactory
     public static function create(): Config
     {
         return new Config([
+            'auth' => [
+                'token' => [
+                    'driver' => self::fromEnv('AUTH_TOKEN_DRIVER'),
+
+                    // Default application access token length in minutes
+                    'expiry' => 1400
+                ],
+
+                'jwt' => [
+                    'secret' => self::fromEnv('JWT_SECRET')
+                ]
+            ],
+
             'database' => [
                 'default' => [
                     'pdo' => [

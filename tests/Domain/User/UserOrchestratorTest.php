@@ -3,6 +3,7 @@
 namespace GamePlatform\Domain\User;
 
 use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
+use GamePlatform\Framework\Exception\NotAuthenticatedException;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Domain\User\Entity\User;
@@ -117,19 +118,21 @@ class UserOrchestratorTest extends TestCase
         $this->orchestrator->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
     }
 
-    public function test_validate_user_password_returns_true_if_password_matches_password_stored_for_user()
+    public function test_verify_user_returns_user_if_password_matches_password_stored_for_user()
     {
         $this->orchestrator->createUser(
-            (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
+            $user = (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $this->assertTrue($this->orchestrator->validateUserPassword(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'), 'password'));
+        $verified = $this->orchestrator->verifyUser('joe@example.com', 'password');
+
+        $this->assertEquals($user->getId(), $verified->getId());
     }
 
-    public function test_validate_user_password_returns_false_if_password_does_not_match_password_stored_for_user()
+    public function test_verify_user_throws_exception_if_password_does_not_match_password_stored_for_user()
     {
         $this->orchestrator->createUser(
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
@@ -138,7 +141,8 @@ class UserOrchestratorTest extends TestCase
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
         );
 
-        $this->assertFalse($this->orchestrator->validateUserPassword(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'), 'wrongPassword'));
+        $this->expectException(NotAuthenticatedException::class);
+        $this->orchestrator->verifyUser('joe@example.com', 'wrongPassword');
     }
 
     public function test_gets_users_returns_a_collection_of_users_sorted_alphabetically_by_email()

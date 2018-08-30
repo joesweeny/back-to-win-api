@@ -37,7 +37,7 @@ class TokenController
             return $this->failResponse("Request body is missing 'email' parameter");
         }
 
-        if (!$body->email) {
+        if (!$body->password) {
             return $this->failResponse("Request body is missing 'password' parameter");
         }
 

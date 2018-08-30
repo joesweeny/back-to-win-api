@@ -109,6 +109,7 @@ class ContainerFactory
                         return $this->container->get($class);
                     }
                 })));
+
                 return $bus;
             }),
 

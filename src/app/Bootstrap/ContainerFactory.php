@@ -90,7 +90,8 @@ class ContainerFactory
                     ->addRoutes($container->get(\GamePlatform\Application\Http\App\Routes\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\User\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class));
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Auth\RouteManager::class));
             }),
 
             CommandBus::class => \DI\factory(function (ContainerInterface $container) {

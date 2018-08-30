@@ -6,7 +6,6 @@ use GamePlatform\Boundary\User\Command\VerifyUserCommand;
 use GamePlatform\Domain\User\UserOrchestrator;
 use GamePlatform\Framework\Exception\NotAuthenticatedException;
 use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
 
 class VerifyUserCommandHandler
 {
@@ -22,11 +21,11 @@ class VerifyUserCommandHandler
 
     /**
      * @param VerifyUserCommand $command
-     * @return Uuid
+     * @return string
      * @throws NotAuthenticatedException
      * @throws NotFoundException
      */
-    public function handle(VerifyUserCommand $command): Uuid
+    public function handle(VerifyUserCommand $command): string
     {
         $user = $this->orchestrator->getUserByEmail($command->getEmail());
 
@@ -34,6 +33,6 @@ class VerifyUserCommandHandler
             throw new NotAuthenticatedException("Unable to verify User with email {$command->getEmail()}");
         }
 
-        return $user->getId();
+        return (string) $user->getId();
     }
 }

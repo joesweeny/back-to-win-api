@@ -12,9 +12,9 @@ class GenerateTokenCommand implements Command
      */
     private $userId;
 
-    public function __construct(Uuid $userId)
+    public function __construct(string $userId)
     {
-        $this->userId = $userId;
+        $this->userId = new Uuid($userId);
     }
 
     public function getUserId(): Uuid

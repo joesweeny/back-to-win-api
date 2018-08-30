@@ -27,6 +27,8 @@ class VerifyUserCommandHandler
      */
     public function handle(VerifyUserCommand $command): string
     {
-        return (string) $this->orchestrator->verifyUser($command->getEmail(), $command->getPassword());
+        $user = $this->orchestrator->verifyUser($command->getEmail(), $command->getPassword());
+
+        return (string) $user->getId();
     }
 }

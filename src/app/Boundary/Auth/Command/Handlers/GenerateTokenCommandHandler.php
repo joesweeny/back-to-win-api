@@ -2,38 +2,29 @@
 
 namespace GamePlatform\Boundary\Auth\Command\Handlers;
 
-use GamePlatform\Bootstrap\Config;
 use GamePlatform\Boundary\Auth\Command\GenerateTokenCommand;
-use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
-use GamePlatform\Framework\DateTime\Clock;
+use GamePlatform\Domain\Auth\Services\Token\TokenOrchestrator;
+use GamePlatform\Framework\Exception\NotFoundException;
 
 class GenerateTokenCommandHandler
 {
     /**
-     * @var TokenGenerator
+     * @var TokenOrchestrator
      */
-    private $generator;
-    /**
-     * @var Config
-     */
-    private $config;
-    /**
-     * @var Clock
-     */
-    private $clock;
+    private $orchestrator;
 
-    public function __construct(TokenGenerator $generator, Clock $clock, Config $config)
+    public function __construct(TokenOrchestrator $orchestrator)
     {
-        $this->generator = $generator;
-        $this->clock = $clock;
-        $this->config = $config;
+        $this->orchestrator = $orchestrator;
     }
 
+    /**
+     * @param GenerateTokenCommand $command
+     * @return string
+     * @throws NotFoundException
+     */
     public function handle(GenerateTokenCommand $command): string
     {
-        return $this->generator->generate(
-            $command->getUserId(),
-            $this->clock->now()->addMinutes($this->config->get('auth.token.expiry'))
-        );
+        return $this->orchestrator->createNewToken($command->getUserId());
     }
 }

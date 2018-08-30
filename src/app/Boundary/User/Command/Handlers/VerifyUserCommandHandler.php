@@ -27,12 +27,6 @@ class VerifyUserCommandHandler
      */
     public function handle(VerifyUserCommand $command): string
     {
-        $user = $this->orchestrator->getUserByEmail($command->getEmail());
-
-        if (!$this->orchestrator->validateUserPassword($user->getId(), $command->getPassword())) {
-            throw new NotAuthenticatedException("Unable to verify User with email {$command->getEmail()}");
-        }
-
-        return (string) $user->getId();
+        return (string) $this->orchestrator->verifyUser($command->getEmail(), $command->getPassword());
     }
 }

@@ -7,6 +7,7 @@ use GamePlatform\Domain\User\Persistence\Writer;
 use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\UserPurse\Entity\UserPurse;
 use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
+use GamePlatform\Framework\Exception\NotAuthenticatedException;
 use GamePlatform\Framework\Exception\NotFoundException;
 use GamePlatform\Framework\Exception\UserCreationException;
 use GamePlatform\Framework\Uuid\Uuid;
@@ -117,17 +118,21 @@ class UserOrchestrator
     }
 
     /**
-     * @param Uuid $id
+     * @param string $email
      * @param string $password
-     * @return bool
-     * @throws \GamePlatform\Framework\Exception\UndefinedException
-     * @throws \GamePlatform\Framework\Exception\NotFoundException
+     * @return User
+     * @throws NotFoundException
+     * @throws NotAuthenticatedException
      */
-    public function validateUserPassword(Uuid $id, string $password): bool
+    public function verifyUser(string $email, string $password): User
     {
-        $user = $this->getUserById($id);
+        $user = $this->getUserByEmail($email);
 
-        return $user->getPasswordHash()->verify($password);
+        if (!$user->getPasswordHash()->verify($password)) {
+            throw new NotAuthenticatedException('Unable to verify User with credentials provided');
+        }
+
+        return $user;
     }
 
     /**

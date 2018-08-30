@@ -3,7 +3,7 @@
 namespace GamePlatform\Domain\Auth\Services\Token\Jwt;
 
 use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Auth\Services\Token\Generator;
+use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
 use GamePlatform\Framework\Uuid\Uuid;
 use GamePlatform\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
@@ -17,7 +17,7 @@ class JwtGeneratorTest extends TestCase
 
     /** @var  ContainerInterface */
     private $container;
-    /** @var  Generator */
+    /** @var  TokenGenerator */
     private $generator;
     /** @var  Config */
     private $config;
@@ -27,12 +27,12 @@ class JwtGeneratorTest extends TestCase
         $this->container = $this->createContainer();
         $this->config = $this->container->get(Config::class);
         $this->config->set('auth.token.driver', 'jwt');
-        $this->generator = $this->container->get(Generator::class);
+        $this->generator = $this->container->get(TokenGenerator::class);
     }
 
     public function test_interface_is_bound()
     {
-        $this->assertInstanceOf(Generator::class, $this->generator);
+        $this->assertInstanceOf(TokenGenerator::class, $this->generator);
     }
 
     public function test_generate_returns_a_valid_encoded_jwt_token_string()

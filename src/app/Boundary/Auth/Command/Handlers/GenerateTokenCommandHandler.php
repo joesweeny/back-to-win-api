@@ -4,13 +4,13 @@ namespace GamePlatform\Boundary\Auth\Command\Handlers;
 
 use GamePlatform\Bootstrap\Config;
 use GamePlatform\Boundary\Auth\Command\GenerateTokenCommand;
-use GamePlatform\Domain\Auth\Services\Token\Generator;
+use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
 use GamePlatform\Framework\DateTime\Clock;
 
 class GenerateTokenCommandHandler
 {
     /**
-     * @var Generator
+     * @var TokenGenerator
      */
     private $generator;
     /**
@@ -22,7 +22,7 @@ class GenerateTokenCommandHandler
      */
     private $clock;
 
-    public function __construct(Generator $generator, Clock $clock, Config $config)
+    public function __construct(TokenGenerator $generator, Clock $clock, Config $config)
     {
         $this->generator = $generator;
         $this->clock = $clock;

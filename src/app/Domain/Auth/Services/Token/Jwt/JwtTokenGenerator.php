@@ -3,13 +3,13 @@
 namespace GamePlatform\Domain\Auth\Services\Token\Jwt;
 
 use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Auth\Services\Token\Generator;
+use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
 use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Uuid\Uuid;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 
-class JwtGenerator implements Generator
+class JwtTokenGenerator implements TokenGenerator
 {
     const USER_ID = 'user_id';
     /**

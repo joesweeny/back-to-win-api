@@ -4,7 +4,7 @@ namespace GamePlatform\Domain\Auth\Services\Token;
 
 use GamePlatform\Framework\Uuid\Uuid;
 
-interface Generator
+interface TokenGenerator
 {
     /**
      * @param Uuid $userId

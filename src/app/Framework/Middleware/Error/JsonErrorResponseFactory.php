@@ -2,6 +2,8 @@
 
 namespace GamePlatform\Framework\Middleware\Error;
 
+use GamePlatform\Framework\Exception\BadRequestException;
+use GamePlatform\Framework\Exception\NotAuthenticatedException;
 use GamePlatform\Framework\Exception\NotFoundException;
 use GamePlatform\Framework\Jsend\JsendError;
 use GamePlatform\Framework\Jsend\JsendErrorResponse;
@@ -15,9 +17,21 @@ class JsonErrorResponseFactory implements ErrorResponseFactory
      */
     public function create(\Throwable $exception): ResponseInterface
     {
+        if ($exception instanceof BadRequestException) {
+            return (new JsendFailResponse([
+                new JsendError($exception->getMessage() ?: 'Bad Request', 400)
+            ]))->withStatus(400);
+        }
+
+        if ($exception instanceof NotAuthenticatedException) {
+            return (new JsendFailResponse([
+                new JsendError($exception->getMessage() ?: 'Not Authenticated', 403)
+            ]))->withStatus(403);
+        }
+
         if ($exception instanceof NotFoundException) {
             return (new JsendFailResponse([
-                new JsendError($exception->getMessage() ?: 'Not Found', 403)
+                new JsendError($exception->getMessage() ?: 'Not Found', 404)
             ]))->withStatus(404);
         }
 

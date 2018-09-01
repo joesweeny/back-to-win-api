@@ -14,6 +14,7 @@ use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
 use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Password\PasswordHash;
 use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -27,18 +28,22 @@ class EnterControllerIntegrationTest extends TestCase
 {
     use RunsMigrations,
         UsesContainer,
-        UsesHttpServer;
+        UsesHttpServer,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
     /** @var  Clock */
     private $clock;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->clock = $this->container->get(Clock::class);
         $this->container->get(Config::class)->set('log.logger', 'null');
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_user_can_successfully_be_entered_into_a_game()
@@ -52,7 +57,11 @@ class EnterControllerIntegrationTest extends TestCase
 
         $user = $this->createUser(new Money(1000000, new Currency('GBP')));
 
-        $request = new ServerRequest('POST', "/api/game/{$game->getId()}/user/{$user->getId()}");
+        $request = new ServerRequest(
+            'POST',
+            "/api/game/{$game->getId()}/user/{$user->getId()}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -70,7 +79,11 @@ class EnterControllerIntegrationTest extends TestCase
 
         $user = $this->createUser(new Money(1000000, new Currency('GBP')));
 
-        $request = new ServerRequest('POST', "/api/game/{$game->getId()}/user/{$user->getId()}");
+        $request = new ServerRequest(
+            'POST',
+            "/api/game/{$game->getId()}/user/{$user->getId()}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -90,7 +103,11 @@ class EnterControllerIntegrationTest extends TestCase
 
         $user = $this->createUser(new Money(1000000, new Currency('GBP')));
 
-        $request = new ServerRequest('POST', "/api/game/{$gameId}/user/{$user->getId()}");
+        $request = new ServerRequest(
+            'POST',
+            "/api/game/{$gameId}/user/{$user->getId()}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -111,7 +128,11 @@ class EnterControllerIntegrationTest extends TestCase
 
         $userId = Uuid::generate();
 
-        $request = new ServerRequest('POST', "/api/game/{$game->getId()}/user/{$userId}");
+        $request = new ServerRequest(
+            'POST',
+            "/api/game/{$game->getId()}/user/{$userId}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -132,7 +153,11 @@ class EnterControllerIntegrationTest extends TestCase
 
         $user = $this->createUser(new Money(1000000, new Currency('GBP')));
 
-        $request = new ServerRequest('POST', "/api/game/{$game->getId()}/user/{$user->getId()}");
+        $request = new ServerRequest(
+            'POST',
+            "/api/game/{$game->getId()}/user/{$user->getId()}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 

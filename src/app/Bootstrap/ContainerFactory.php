@@ -3,6 +3,7 @@
 namespace GamePlatform\Bootstrap;
 
 use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
+use GamePlatform\Domain\Auth\Services\Token\TokenValidator;
 use GamePlatform\Domain\Bank\Bank;
 use GamePlatform\Domain\Bank\User\LogBank;
 use GamePlatform\Domain\Bank\User\RedisBank;
@@ -178,7 +179,16 @@ class ContainerFactory
                     default:
                         throw new \UnexpectedValueException("Auth token driver '$driver' not recognised");
                 }
-            })
+            }),
+
+            TokenValidator::class => \DI\factory(function (ContainerInterface $container) {
+                switch ($driver = $container->get(Config::class)->get('auth.token.driver')) {
+                    case 'jwt':
+                        return $container->get(\GamePlatform\Domain\Auth\Services\Token\Jwt\JwtTokenValidator::class);
+                    default:
+                        throw new \UnexpectedValueException("Auth token driver '$driver' not recognised");
+                }
+            }),
         ];
     }
 

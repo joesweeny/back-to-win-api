@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 class CreateControllerIntegrationTest extends TestCase
 {
-    use UsesHttpServer;
-    use UsesContainer;
-    use RunsMigrations;
+    use UsesHttpServer,
+        UsesContainer,
+        RunsMigrations;
 
     /** @var  ContainerInterface */
     private $container;

@@ -20,5 +20,9 @@
         <testsuite name="Domain">
             <directory suffix="Test.php">./tests/Domain</directory>
         </testsuite>
+
+        <testsuite name="Framework">
+            <directory suffix="Test.php">./tests/Framework</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

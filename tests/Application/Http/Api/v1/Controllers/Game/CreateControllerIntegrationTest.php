@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -13,14 +14,18 @@ class CreateControllerIntegrationTest extends TestCase
 {
     use RunsMigrations,
         UsesContainer,
-        UsesHttpServer;
+        UsesHttpServer,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_returns_200_response_containing_game_data()
@@ -38,7 +43,7 @@ class CreateControllerIntegrationTest extends TestCase
         $request = new ServerRequest(
             'post',
             '/api/game',
-            [],
+            ['Authorization' => "Bearer {$this->token}"],
             json_encode($data)
         );
 
@@ -71,7 +76,7 @@ class CreateControllerIntegrationTest extends TestCase
         $request = new ServerRequest(
             'post',
             '/api/game',
-            [],
+            ['Authorization' => "Bearer {$this->token}"],
             json_encode($data)
         );
 
@@ -99,7 +104,7 @@ class CreateControllerIntegrationTest extends TestCase
         $request = new ServerRequest(
             'post',
             '/api/game',
-            [],
+            ['Authorization' => "Bearer {$this->token}"],
             json_encode($data)
         );
 

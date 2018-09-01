@@ -7,6 +7,7 @@ use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Domain\Game\GameOrchestrator;
 use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -20,24 +21,32 @@ class ListControllerIntegrationTest extends TestCase
 {
     use RunsMigrations,
         UsesContainer,
-        UsesHttpServer;
+        UsesHttpServer,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
     /** @var  GameOrchestrator */
     private $orchestrator;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->orchestrator = $this->container->get(GameOrchestrator::class);
+        $this->token = $this->getValidToken($this->container);
     }
     
     public function test_200_response_is_returned_containing_an_array_of_game_data()
     {
         $this->createGames();
 
-        $request = new ServerRequest('GET', '/api/game');
+        $request = new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
         
         $response = $this->handle($this->container, $request);
         
@@ -70,7 +79,11 @@ class ListControllerIntegrationTest extends TestCase
     {
         $this->createGames();
 
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['status' => 'CREATED']);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['status' => 'CREATED']);
 
         $response = $this->handle($this->container, $request);
 
@@ -93,7 +106,11 @@ class ListControllerIntegrationTest extends TestCase
     {
         $this->createGames();
 
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['start' => '2018-07-19T00:00:00+00:00']);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['start' => '2018-07-19T00:00:00+00:00']);
 
         $response = $this->handle($this->container, $request);
 
@@ -116,7 +133,11 @@ class ListControllerIntegrationTest extends TestCase
     {
         $this->createGames();
 
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['buy_in' => 1000]);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['buy_in' => 1000]);
 
         $response = $this->handle($this->container, $request);
 
@@ -139,7 +160,11 @@ class ListControllerIntegrationTest extends TestCase
     {
         $this->createGames();
 
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['currency' => 'GBP']);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['currency' => 'GBP']);
 
         $response = $this->handle($this->container, $request);
 
@@ -160,7 +185,11 @@ class ListControllerIntegrationTest extends TestCase
 
     public function test_400_response_returned_if_providing_invalid_arguments_for_query_strings()
     {
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['status' => 'DONE']);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['status' => 'DONE']);
 
         $response = $this->handle($this->container, $request);
 
@@ -172,7 +201,11 @@ class ListControllerIntegrationTest extends TestCase
             $json->data->errors[0]->message
         );
 
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['buy_in' => '100 Quid']);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['buy_in' => '100 Quid']);
 
         $response = $this->handle($this->container, $request);
 
@@ -181,7 +214,11 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals("Parameter 'buy_in' needs to be numeric", $json->data->errors[0]->message);
 
-        $request = (new ServerRequest('GET', '/api/game'))->withQueryParams(['start' => 'Hello']);
+        $request = (new ServerRequest(
+            'GET',
+            '/api/game',
+            ['Authorization' => "Bearer {$this->token}"]
+        ))->withQueryParams(['start' => 'Hello']);
 
         $response = $this->handle($this->container, $request);
 

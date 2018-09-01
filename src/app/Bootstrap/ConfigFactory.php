@@ -22,6 +22,10 @@ class ConfigFactory
 
                 'jwt' => [
                     'secret' => self::fromEnv('JWT_SECRET')
+                ],
+
+                'exempt-paths' => [
+                    'POST' => '/user',
                 ]
             ],
 

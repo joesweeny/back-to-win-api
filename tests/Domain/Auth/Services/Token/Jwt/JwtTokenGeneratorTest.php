@@ -11,7 +11,7 @@ use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use PHPUnit\Framework\TestCase;
 
-class JwtGeneratorTest extends TestCase
+class JwtTokenGeneratorTest extends TestCase
 {
     use UsesContainer;
 

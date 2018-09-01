@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Application\Http;
 
+use GamePlatform\Framework\Middleware\Auth\AuthGuard;
 use GamePlatform\Framework\Middleware\Error\ErrorHandler;
 use Interop\Container\ContainerInterface;
 use GamePlatform\Framework\Routing\Router;
@@ -38,6 +39,7 @@ class HttpServer
         $pipe = new MiddlewarePipe;
 
         $pipe->pipe(path('/', $this->container->get(ErrorHandler::class)));
+        $pipe->pipe(path('/api', $this->container->get(AuthGuard::class)));
 
         return $pipe->process($request, $this->container->get(Router::class));
     }

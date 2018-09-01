@@ -44,9 +44,9 @@ class AuthGuard implements MiddlewareInterface
         }
 
         if (0 !== strpos($header, 'Bearer')) {
-            throw new BadRequestException("Authorization header value {$header} is not in the correct format");
+            throw new BadRequestException("Authorization header value '{$header}' is not in the correct format");
         }
 
-        return trim(substr($header, 8));
+        return trim(substr($header, 7));
     }
 }

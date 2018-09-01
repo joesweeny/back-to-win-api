@@ -15,6 +15,7 @@ use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
 use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Password\PasswordHash;
 use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -28,18 +29,22 @@ class SettleControllerIntegrationTest extends TestCase
 {
     use RunsMigrations,
         UsesContainer,
-        UsesHttpServer;
+        UsesHttpServer,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
     /** @var  Clock */
     private $clock;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->clock = $this->container->get(Clock::class);
         $this->container->get(Config::class)->set('log.logger', 'null');
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_200_response_is_returned_if_game_is_settled_successfully()
@@ -70,7 +75,12 @@ class SettleControllerIntegrationTest extends TestCase
             'amount' => 1500
         ];
 
-        $request = new ServerRequest('POST', '/api/game/settle', [], json_encode($body));
+        $request = new ServerRequest(
+            'POST',
+            '/api/game/settle',
+            ['Authorization' => "Bearer {$this->token}"],
+            json_encode($body)
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -99,7 +109,12 @@ class SettleControllerIntegrationTest extends TestCase
             'amount' => 1500
         ];
 
-        $request = new ServerRequest('POST', '/api/game/settle', [], json_encode($body));
+        $request = new ServerRequest(
+            'POST',
+            '/api/game/settle',
+            ['Authorization' => "Bearer {$this->token}"],
+            json_encode($body)
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -128,7 +143,12 @@ class SettleControllerIntegrationTest extends TestCase
             'amount' => 1500
         ];
 
-        $request = new ServerRequest('POST', '/api/game/settle', [], json_encode($body));
+        $request = new ServerRequest(
+            'POST',
+            '/api/game/settle',
+            ['Authorization' => "Bearer {$this->token}"],
+            json_encode($body)
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -153,7 +173,12 @@ class SettleControllerIntegrationTest extends TestCase
             'amount' => 1500
         ];
 
-        $request = new ServerRequest('POST', '/api/game/settle', [], json_encode($body));
+        $request = new ServerRequest(
+            'POST',
+            '/api/game/settle',
+            ['Authorization' => "Bearer {$this->token}"],
+            json_encode($body)
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -173,7 +198,12 @@ class SettleControllerIntegrationTest extends TestCase
             'user_id' => (string) Uuid::generate(),
         ];
 
-        $request = new ServerRequest('POST', '/api/game/settle', [], json_encode($body));
+        $request = new ServerRequest(
+            'POST',
+            '/api/game/settle',
+            ['Authorization' => "Bearer {$this->token}"],
+            json_encode($body)
+        );
 
         $response = $this->handle($this->container, $request);
 

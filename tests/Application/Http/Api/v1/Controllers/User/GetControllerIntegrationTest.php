@@ -5,6 +5,7 @@ namespace GamePlatform\Application\Http\Api\v1\Controllers\User;
 use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\User\UserOrchestrator;
 use GamePlatform\Framework\Password\PasswordHash;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -14,9 +15,10 @@ use PHPUnit\Framework\TestCase;
 
 class GetControllerIntegrationTest extends TestCase
 {
-    use UsesHttpServer;
-    use UsesContainer;
-    use RunsMigrations;
+    use UsesHttpServer,
+        UsesContainer,
+        RunsMigrations,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
@@ -24,6 +26,8 @@ class GetControllerIntegrationTest extends TestCase
     private $orchestrator;
     /** @var  User */
     private $user;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
@@ -35,6 +39,7 @@ class GetControllerIntegrationTest extends TestCase
                 ->setEmail('joe@joe.com')
                 ->setPasswordHash(new PasswordHash('password'))
         );
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_success_response_is_received_with_user_details()
@@ -42,7 +47,7 @@ class GetControllerIntegrationTest extends TestCase
         $request = new ServerRequest(
             'get',
             '/api/user/f530caab-1767-4f0c-a669-331a7bf0fc85',
-            []
+            ['Authorization' => "Bearer {$this->token}"]
         );
 
         $response = $this->handle($this->container, $request);
@@ -60,7 +65,7 @@ class GetControllerIntegrationTest extends TestCase
         $request = new ServerRequest(
             'get',
             '/api/user/93449e9d-4082-4305-8840-fa1673bcf915',
-            []
+            ['Authorization' => "Bearer {$this->token}"]
         );
 
         $response = $this->handle($this->container, $request);
@@ -80,7 +85,7 @@ class GetControllerIntegrationTest extends TestCase
         $request = new ServerRequest(
             'get',
             '/api/user/1',
-            []
+            ['Authorization' => "Bearer {$this->token}"]
         );
 
         $response = $this->handle($this->container, $request);

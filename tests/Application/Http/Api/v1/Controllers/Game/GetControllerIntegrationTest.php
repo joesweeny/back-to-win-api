@@ -14,6 +14,7 @@ use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
 use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Password\PasswordHash;
 use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -27,12 +28,15 @@ class GetControllerIntegrationTest extends TestCase
 {
     use RunsMigrations,
         UsesContainer,
-        UsesHttpServer;
+        UsesHttpServer,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
     /** @var  Clock */
     private $clock;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
@@ -50,6 +54,7 @@ class GetControllerIntegrationTest extends TestCase
                 4
             )
         );
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_returns_200_response_containing_requested_game_and_game_entry_data()
@@ -69,7 +74,11 @@ class GetControllerIntegrationTest extends TestCase
 
         $this->addUserToGame($game, $user);
 
-        $request = new ServerRequest('GET', "/api/game/{$game->getId()}");
+        $request = new ServerRequest(
+            'GET',
+            "/api/game/{$game->getId()}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -98,7 +107,11 @@ class GetControllerIntegrationTest extends TestCase
 
     public function test_404_response_returned_if_game_does_not_exist()
     {
-        $request = new ServerRequest('GET', '/api/game/81644266-7b09-4a38-84db-f8c1584c2ad4');
+        $request = new ServerRequest(
+            'GET',
+            '/api/game/81644266-7b09-4a38-84db-f8c1584c2ad4',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -113,7 +126,11 @@ class GetControllerIntegrationTest extends TestCase
 
     public function test_404_response_returned_if_id_provided_is_not_a_valid_uuid_string()
     {
-        $request = new ServerRequest('GET', '/api/game/999');
+        $request = new ServerRequest(
+            'GET',
+            '/api/game/999',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 

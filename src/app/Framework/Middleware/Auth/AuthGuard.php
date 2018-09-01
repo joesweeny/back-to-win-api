@@ -3,6 +3,7 @@
 namespace GamePlatform\Framework\Middleware\Auth;
 
 use Chief\CommandBus;
+use GamePlatform\Bootstrap\Config;
 use GamePlatform\Boundary\Auth\Command\ValidateTokenCommand;
 use GamePlatform\Framework\Exception\BadRequestException;
 use GamePlatform\Framework\Exception\NotAuthenticatedException;
@@ -17,10 +18,15 @@ class AuthGuard implements MiddlewareInterface
      * @var CommandBus
      */
     private $bus;
+    /**
+     * @var Config
+     */
+    private $config;
 
-    public function __construct(CommandBus $bus)
+    public function __construct(CommandBus $bus, Config $config)
     {
         $this->bus = $bus;
+        $this->config = $config;
     }
 
     /**
@@ -30,11 +36,24 @@ class AuthGuard implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        if ($this->isExempt($this->parseMethod($request), $this->parsePath($request))) {
+            return $handler->handle($request);
+        }
+
         $token = $this->parseAuthToken($request);
 
         $this->bus->execute(new ValidateTokenCommand($token));
 
         return $handler->handle($request);
+    }
+
+    private function isExempt(string $method, string $path): bool
+    {
+        foreach ($this->config->get('auth.exempt-paths') as $key => $value) {
+            return $key === $method && $value === $path;
+        }
+
+        return false;
     }
 
     private function parseAuthToken(ServerRequestInterface $request): string
@@ -48,5 +67,15 @@ class AuthGuard implements MiddlewareInterface
         }
 
         return trim(substr($header, 7));
+    }
+
+    private function parseMethod(ServerRequestInterface $request): string
+    {
+        return $request->getMethod();
+    }
+
+    private function parsePath(ServerRequestInterface $request): string
+    {
+        return $request->getUri()->getPath();
     }
 }

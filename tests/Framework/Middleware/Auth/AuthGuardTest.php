@@ -3,6 +3,7 @@
 namespace GamePlatform\Framework\Middleware\Auth;
 
 use Chief\CommandBus;
+use GamePlatform\Bootstrap\Config;
 use GamePlatform\Boundary\Auth\Command\ValidateTokenCommand;
 use GamePlatform\Framework\Exception\BadRequestException;
 use GamePlatform\Framework\Exception\NotAuthenticatedException;
@@ -21,17 +22,22 @@ class AuthGuardTest extends TestCase
     private $guard;
     /** @var  RequestHandlerInterface */
     private $handler;
+    /** @var  Config */
+    private $config;
 
     public function setUp()
     {
         $this->bus = $this->prophesize(CommandBus::class);
-        $this->guard = new AuthGuard($this->bus->reveal());
+        $this->config = $this->prophesize(Config::class);
+        $this->guard = new AuthGuard($this->bus->reveal(), $this->config->reveal());
         $this->handler = $this->prophesize(RequestHandlerInterface::class);
     }
 
     public function test_process_returns_response_if_request_is_correct_and_validated()
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'Bearer some-valid-token']);
+
+        $this->config->get('auth.exempt-paths')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->shouldBeCalled();
 
@@ -46,6 +52,8 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content');
 
+        $this->config->get('auth.exempt-paths')->willReturn([]);
+
         $this->bus->execute(new ValidateTokenCommand(Argument::any()))->shouldNotBeCalled();
 
         $this->handler->handle($request)->shouldNotBeCalled();
@@ -59,6 +67,8 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'some-valid-token']);
 
+        $this->config->get('auth.exempt-paths')->willReturn([]);
+
         $this->bus->execute(new ValidateTokenCommand(Argument::any()))->shouldNotBeCalled();
 
         $this->handler->handle($request)->shouldNotBeCalled();
@@ -71,6 +81,8 @@ class AuthGuardTest extends TestCase
     public function test_process_throws_exception_if_internal_token_validation_fails()
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'Bearer some-valid-token']);
+
+        $this->config->get('auth.exempt-paths')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->willThrow(
             $e = new NotAuthenticatedException('Not authenticated')
@@ -87,6 +99,8 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'Bearer some-valid-token']);
 
+        $this->config->get('auth.exempt-paths')->willReturn([]);
+
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->willThrow(
             $e = new TokenExpiryException('Token expired')
         );
@@ -96,5 +110,20 @@ class AuthGuardTest extends TestCase
         $this->expectException(TokenExpiryException::class);
         $this->expectExceptionMessage('Token expired');
         $this->guard->process($request, $this->handler->reveal());
+    }
+
+    public function test_validation_is_skipped_if_request_method_and_path_is_exempt_from_validation()
+    {
+        $request = new ServerRequest('GET', '/content');
+
+        $this->config->get('auth.exempt-paths')->willReturn(['GET' => '/content']);
+
+        $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->shouldNotBeCalled();
+
+        $this->handler->handle($request)->willReturn($mockResponse = new TextResponse('Hello Joe'));
+
+        $response = $this->guard->process($request, $this->handler->reveal());
+
+        $this->assertEquals($mockResponse, $response);
     }
 }

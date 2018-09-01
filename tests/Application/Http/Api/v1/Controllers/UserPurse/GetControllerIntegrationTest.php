@@ -5,6 +5,7 @@ namespace GamePlatform\Application\Http\Api\v1\Controllers\UserPurse;
 use GamePlatform\Domain\UserPurse\Entity\UserPurse;
 use GamePlatform\Domain\UserPurse\Persistence\Writer;
 use GamePlatform\Framework\Uuid\Uuid;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -18,10 +19,13 @@ class GetControllerIntegrationTest extends TestCase
 {
     use UsesContainer,
         UsesHttpServer,
-        RunsMigrations;
+        RunsMigrations,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
@@ -32,11 +36,16 @@ class GetControllerIntegrationTest extends TestCase
                 new Money(500, new Currency('GBP'))
             )
         );
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_200_response_is_returned_containing_user_purse_data()
     {
-        $request = new ServerRequest('get', '/api/user/511f27c9-58be-49a5-82f1-a8b8807c2075/purse');
+        $request = new ServerRequest(
+            'get',
+            '/api/user/511f27c9-58be-49a5-82f1-a8b8807c2075/purse',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -50,7 +59,11 @@ class GetControllerIntegrationTest extends TestCase
 
     public function test_404_response_is_returned_if_user_purse_does_not_exist()
     {
-        $request = new ServerRequest('get', '/api/user/d8a3a1e7-d169-44bb-a848-aad07ccffcba/purse');
+        $request = new ServerRequest(
+            'get',
+            '/api/user/d8a3a1e7-d169-44bb-a848-aad07ccffcba/purse',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 
@@ -65,7 +78,11 @@ class GetControllerIntegrationTest extends TestCase
 
     public function test_404_response_is_returned_if_user_id_is_not_a_valid_uuid()
     {
-        $request = new ServerRequest('get', '/api/user/1/purse');
+        $request = new ServerRequest(
+            'get',
+            '/api/user/1/purse',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 

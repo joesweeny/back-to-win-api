@@ -5,6 +5,7 @@ namespace GamePlatform\Application\Http\Api\v1\Controllers\User;
 use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\User\UserOrchestrator;
 use GamePlatform\Framework\Password\PasswordHash;
+use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
 use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
@@ -14,14 +15,17 @@ use PHPUnit\Framework\TestCase;
 
 class ListControllerIntegrationTest extends TestCase
 {
-    use UsesHttpServer;
-    use UsesContainer;
-    use RunsMigrations;
+    use UsesHttpServer,
+        UsesContainer,
+        RunsMigrations,
+        CreateAuthToken;
 
     /** @var  ContainerInterface */
     private $container;
     /** @var  UserOrchestrator */
     private $orchestrator;
+    /** @var  string */
+    private $token;
 
     public function setUp()
     {
@@ -40,11 +44,16 @@ class ListControllerIntegrationTest extends TestCase
                 ->setEmail('andrea@andrea.com')
                 ->setPasswordHash(new PasswordHash('password'))
         );
+        $this->token = $this->getValidToken($this->container);
     }
 
     public function test_returns_200_response_with_body_containing_a_list_of_user_details()
     {
-        $request = new ServerRequest('GET', '/api/user');
+        $request = new ServerRequest(
+            'GET',
+            '/api/user',
+            ['Authorization' => "Bearer {$this->token}"]
+        );
 
         $response = $this->handle($this->container, $request);
 

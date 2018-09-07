@@ -3,6 +3,7 @@
 namespace GamePlatform\Domain\GameEntry;
 
 use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\GameEntry\Entity\GameEntry;
 use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
 use GamePlatform\Domain\GameEntry\Persistence\Repository;
@@ -69,6 +70,8 @@ class GameEntryOrchestrator
 
         $this->checkStartDateTime($game);
 
+        $this->checkGameStatus($game);
+
         if ($this->isUserInGame($game, $userId)) {
             throw new GameEntryException('User has already entered Game');
         }
@@ -106,6 +109,13 @@ class GameEntryOrchestrator
     {
         if ($game->getStartDateTime() < $this->clock->now()) {
             throw new GameEntryException('Game has already started');
+        }
+    }
+
+    private function checkGameStatus(Game $game): void
+    {
+        if (!$game->getStatus()->equals(GameStatus::CREATED())) {
+            throw new GameEntryException('Game does not have the correct status to enter');
         }
     }
 }

@@ -112,4 +112,29 @@ class GameEntryOrchestratorTest extends TestCase
         $this->expectExceptionMessage('Game has already started');
         $this->orchestrator->checkEntryEligibility($game, $userId);
     }
+
+    public function test_exception_is_thrown_if_game_does_not_have_correct_status_to_enter()
+    {
+        $game = new Game(
+            new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'),
+            GameType::GENERAL_KNOWLEDGE(),
+            GameStatus::COMPLETED(),
+            new Money(500, new Currency('GBP')),
+            new Money(50, new Currency('GBP')),
+            new Money(10, new Currency('GBP')),
+            new \DateTimeImmutable('2018-07-18 00:00:00'),
+            4
+        );
+
+        $this->clock->now()->willReturn(new Chronos('2018-07-10 00:00:00'));
+
+        $this->repository->get($game->getId())->willReturn([
+            new GameEntry($game->getId(), $userId = Uuid::generate()),
+            new GameEntry($game->getId(), Uuid::generate())
+        ]);
+
+        $this->expectException(GameEntryException::class);
+        $this->expectExceptionMessage('Game does not have the correct status to enter');
+        $this->orchestrator->checkEntryEligibility($game, $userId);
+    }
 }

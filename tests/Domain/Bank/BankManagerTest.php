@@ -4,6 +4,7 @@ namespace GamePlatform\Domain\Bank;
 
 use GamePlatform\Domain\Bank\Exception\BankingException;
 use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
@@ -48,5 +49,24 @@ class BankManagerTest extends TestCase
         );
 
         $this->manager->withdraw($user, new Money(500, new Currency('GBP')));
+    }
+
+    public function test_a_bank_account_is_opened_for_a_user_if_one_does_not_already_exist()
+    {
+        $this->bank->openAccount($id = Uuid::generate(), $money = new Money(500, new Currency('GBP')))->shouldBeCalled();
+
+        $this->manager->openAccount($id, $money);
+
+        $this->addToAssertionCount(1);
+    }
+
+    public function test_exception_is_thrown_if_opening_an_account_for_a_user_that_already_has_an_account()
+    {
+        $this->bank->openAccount($id = Uuid::generate(), $money = new Money(500, new Currency('GBP')))->willThrow(
+            new BankingException('User has an open account')
+        );
+
+        $this->expectException(BankingException::class);
+        $this->manager->openAccount($id, $money);
     }
 }

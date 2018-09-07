@@ -20,6 +20,17 @@ class BankManager
     }
 
     /**
+     * @param Uuid $userId
+     * @param Money $money
+     * @throws BankingException
+     * @return void
+     */
+    public function openAccount(Uuid $userId, Money $money): void
+    {
+        $this->bank->openAccount($userId, $money);
+    }
+
+    /**
      * Ensure User has enough funds prior to withdrawing money from their account
      *
      * @param User $user

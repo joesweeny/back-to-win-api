@@ -61,6 +61,16 @@ class BankManager
     }
 
     /**
+     * @param Uuid $userId
+     * @return Money
+     * @throws BankingException
+     */
+    public function getBalance(Uuid $userId): Money
+    {
+        return $this->bank->getBalance($userId);
+    }
+
+    /**
      * @param Money $balance
      * @param Money $money
      * @return bool

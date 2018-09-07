@@ -56,6 +56,14 @@ class UserFundsHandler
     public function handleGameEntryFee(Game $game, User $user): void
     {
         try {
+            $balance = $this->bankManager->getBalance($user->getId());
+
+            if (!$balance->isSameCurrency($game->getBuyIn())) {
+                throw new GameEntryException(
+                    'User cannot enter game due to Game currency and user bank currency mismatch'
+                );
+            }
+
             $entryFee = $this->bankManager->withdraw($user, $game->getBuyIn());
         } catch (BankingException $e) {
             throw new GameEntryException(

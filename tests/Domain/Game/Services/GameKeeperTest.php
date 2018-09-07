@@ -122,6 +122,8 @@ class GameKeeperTest extends TestCase
 
         $this->adminFundsHandler->addSettledGameFunds($game->getId(), $remainder)->shouldBeCalled();
 
+        $this->gameOrchestrator->completeGame($game, $user->getId())->shouldBeCalled();
+        
         $this->keeper->processGameSettlement($game->getId(), $user, new Money(50, new Currency('GBP')));
     }
 
@@ -141,10 +143,11 @@ class GameKeeperTest extends TestCase
 
         $this->adminFundsHandler->addSettledGameFunds($game->getId(), Argument::type(Money::class))->shouldNotBeCalled();
 
+        $this->gameOrchestrator->completeGame($game, $user->getId())->shouldNotBeCalled();
+
         $this->expectException(GameSettlementException::class);
         $this->expectExceptionMessage("Unable to settle as User {$user->getId()} did not enter Game {$game->getId()}");
         $this->keeper->processGameSettlement($game->getId(), $user, new Money(50, new Currency('GBP')));
-
     }
 
     private function createGame(int $players): Game

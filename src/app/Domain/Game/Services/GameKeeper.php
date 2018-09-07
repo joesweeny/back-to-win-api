@@ -87,5 +87,7 @@ class GameKeeper
         $money = $this->fundsHandler->settleGameWinnings($game->getId(), $user->getId(), $winningTotal);
 
         $this->handler->addSettledGameFunds($game->getId(), $money);
+
+        $this->gameOrchestrator->completeGame($game, $user->getId());
     }
 }

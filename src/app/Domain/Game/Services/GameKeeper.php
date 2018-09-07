@@ -9,6 +9,7 @@ use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
 use GamePlatform\Domain\GameEntry\GameEntryOrchestrator;
 use GamePlatform\Domain\User\Services\UserFundsHandler;
 use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Exception\NotFoundException;
 use GamePlatform\Framework\Uuid\Uuid;
 use Money\Money;
@@ -31,17 +32,23 @@ class GameKeeper
      * @var GameOrchestrator
      */
     private $gameOrchestrator;
+    /**
+     * @var Clock
+     */
+    private $clock;
 
     public function __construct(
         GameOrchestrator $gameOrchestrator,
         GameEntryOrchestrator $entryOrchestrator,
         UserFundsHandler $fundsHandler,
-        FundsHandler $handler
+        FundsHandler $handler,
+        Clock $clock
     ) {
         $this->gameOrchestrator = $gameOrchestrator;
         $this->entryOrchestrator = $entryOrchestrator;
         $this->fundsHandler = $fundsHandler;
         $this->handler = $handler;
+        $this->clock = $clock;
     }
 
     /**
@@ -77,6 +84,10 @@ class GameKeeper
     public function processGameSettlement(Uuid $gameId, User $user, Money $winningTotal): void
     {
         $game = $this->gameOrchestrator->getGameToSettle($gameId);
+
+        if ($game->getStartDateTime() >= $this->clock->now()) {
+            throw new GameSettlementException("Cannot settle Game {$gameId} as the game has not started yet");
+        }
 
         if (!$this->entryOrchestrator->isUserInGame($game, $user->getId())) {
             throw new GameSettlementException(

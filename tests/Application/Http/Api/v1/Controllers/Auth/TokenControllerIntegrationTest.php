@@ -10,6 +10,7 @@ use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
+use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
 class TokenControllerIntegrationTest extends TestCase
@@ -138,7 +139,8 @@ class TokenControllerIntegrationTest extends TestCase
             (new User())
                 ->setEmail('joe@joe.com')
                 ->setPasswordHash(PasswordHash::createFromRaw('password'))
-                ->setUsername('joe')
+                ->setUsername('joe'),
+            new Currency('GBP')
         );
     }
 }

@@ -20,6 +20,10 @@ class RequestValidator
             $errors[] = "Required field 'password' is missing";
         }
 
+        if (!isset($body->currency)) {
+            $errors[] = "Required field 'currency' is missing";
+        }
+
         return $errors;
     }
 }

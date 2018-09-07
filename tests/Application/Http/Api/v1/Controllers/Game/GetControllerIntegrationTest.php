@@ -66,11 +66,7 @@ class GetControllerIntegrationTest extends TestCase
             new Money(500, new Currency('GBP'))
         );
 
-        $user = $this->createUser(
-            $money = new Money(1000000, new Currency('GBP')),
-            'joe@joe.com',
-            'joe'
-        );
+        $user = $this->createUser('joe@joe.com', 'joe');
 
         $this->addUserToGame($game, $user);
 
@@ -156,17 +152,14 @@ class GetControllerIntegrationTest extends TestCase
         );
     }
 
-    private function createUser(Money $balance, string $email, string $username): User
+    private function createUser(string $email, string $username): User
     {
         $user = $this->container->get(UserOrchestrator::class)->createUser(
             (new User('5a095ea0-bc3f-4534-a0ee-074e731a5892'))
                 ->setEmail($email)
                 ->setUsername($username)
-                ->setPasswordHash(new PasswordHash('password'))
-        );
-
-        $this->container->get(UserPurseOrchestrator::class)->updateUserPurse(
-            (new UserPurse($user->getId(), $balance))->setCreatedDate($this->clock->now())
+                ->setPasswordHash(new PasswordHash('password')),
+            new Currency('GBP')
         );
 
         return $user;

@@ -3,11 +3,13 @@
 namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
 use GamePlatform\Bootstrap\Config;
+use GamePlatform\Domain\Bank\BankManager;
 use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Domain\Game\GameOrchestrator;
 use GamePlatform\Domain\User\Entity\User;
+use GamePlatform\Domain\User\Persistence\Writer;
 use GamePlatform\Domain\User\UserOrchestrator;
 use GamePlatform\Domain\UserPurse\Entity\UserPurse;
 use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
@@ -55,7 +57,7 @@ class EnterControllerIntegrationTest extends TestCase
             new Money(500, new Currency('GBP'))
         );
 
-        $user = $this->createUser(new Money(1000000, new Currency('GBP')));
+        $user = $this->createUser(new Currency('GBP'));
 
         $request = new ServerRequest(
             'POST',
@@ -77,7 +79,7 @@ class EnterControllerIntegrationTest extends TestCase
             new Money(50000, new Currency('GBP'))
         );
 
-        $user = $this->createUser(new Money(1000000, new Currency('GBP')));
+        $user = $this->createUser(new Currency('GBP'));
 
         $request = new ServerRequest(
             'POST',
@@ -101,7 +103,7 @@ class EnterControllerIntegrationTest extends TestCase
     {
         $gameId = Uuid::generate();
 
-        $user = $this->createUser(new Money(1000000, new Currency('GBP')));
+        $user = $this->createUser(new Currency('GBP'));
 
         $request = new ServerRequest(
             'POST',
@@ -151,7 +153,7 @@ class EnterControllerIntegrationTest extends TestCase
             new Money(50000, new Currency('GBP'))
         );
 
-        $user = $this->createUser(new Money(1000000, new Currency('GBP')));
+        $user = $this->createUser(new Currency('GBP'));
 
         $request = new ServerRequest(
             'POST',
@@ -170,6 +172,34 @@ class EnterControllerIntegrationTest extends TestCase
         );
     }
 
+    public function test_422_response_returned_if_game_currency_is_different_to_user_bank_currency()
+    {
+        $game = $this->createGame(
+            4,
+            $this->clock->now()->add(new \DateInterval('P10D')),
+            GameStatus::CREATED(),
+            new Money(50, new Currency('EUR'))
+        );
+
+        $user = $this->createUser(new Currency('GBP'));
+
+        $request = new ServerRequest(
+            'POST',
+            "/api/game/{$game->getId()}/user/{$user->getId()}",
+            ['Authorization' => "Bearer {$this->token}"]
+        );
+
+        $response = $this->handle($this->container, $request);
+
+        $json = json_decode($response->getBody()->getContents());
+
+        $this->assertEquals(422, $response->getStatusCode());
+        $this->assertEquals(
+            'User cannot enter game due to Game currency and user bank currency mismatch',
+            $json->data->errors[0]->message
+        );
+    }
+
     private function createGame(int $players, \DateTimeImmutable $start, GameStatus $status, Money $buyIn): Game
     {
         return $this->container->get(GameOrchestrator::class)->createGame(
@@ -178,25 +208,22 @@ class EnterControllerIntegrationTest extends TestCase
                 GameType::GENERAL_KNOWLEDGE(),
                 $status,
                 $buyIn,
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
+                new Money(50, $buyIn->getCurrency()),
+                new Money(10, $buyIn->getCurrency()),
                 $start,
                 $players
             )
         );
     }
 
-    private function createUser(Money $balance): User
+    private function createUser(Currency $currency): User
     {
         $user = $this->container->get(UserOrchestrator::class)->createUser(
             (new User('36e26d37-703c-4beb-999d-6d97b5dea9e3'))
                 ->setEmail('joe@joe.com')
                 ->setUsername('Joe')
-                ->setPasswordHash(new PasswordHash('password'))
-        );
-
-        $this->container->get(UserPurseOrchestrator::class)->updateUserPurse(
-            (new UserPurse($user->getId(), $balance))->setCreatedDate($this->clock->now())
+                ->setPasswordHash(new PasswordHash('password')),
+            $currency
         );
 
         return $user;

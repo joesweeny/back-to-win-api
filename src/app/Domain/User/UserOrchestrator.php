@@ -38,10 +38,11 @@ class UserOrchestrator
 
     /**
      * @param User $user
-     * @throws UserCreationException
+     * @param Currency $currency
      * @return User
+     * @throws UserCreationException
      */
-    public function createUser(User $user): User
+    public function createUser(User $user, Currency $currency): User
     {
         if ($this->userExistsWithEmail($user)) {
             throw new UserCreationException("A user has already registered with this email address {$user->getEmail()}");
@@ -53,7 +54,7 @@ class UserOrchestrator
 
         $user = $this->writer->insert($user);
 
-        $this->purseOrchestrator->createUserPurse(new UserPurse($user->getId(), new Money(0, new Currency('GBP'))));
+        $this->purseOrchestrator->createUserPurse(new UserPurse($user->getId(), new Money(0, $currency)));
 
         return $user;
     }

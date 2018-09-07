@@ -11,6 +11,7 @@ use GamePlatform\Testing\Traits\UsesContainer;
 use GamePlatform\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
+use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
 class GetControllerIntegrationTest extends TestCase
@@ -37,7 +38,8 @@ class GetControllerIntegrationTest extends TestCase
             (new User('f530caab-1767-4f0c-a669-331a7bf0fc85'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@joe.com')
-                ->setPasswordHash(new PasswordHash('password'))
+                ->setPasswordHash(new PasswordHash('password')),
+            new Currency('GBP')
         );
         $this->token = $this->getValidToken($this->container);
     }

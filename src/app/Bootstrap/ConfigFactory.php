@@ -52,19 +52,24 @@ class ConfigFactory
                     'port'     => 6379,
                     'database' => self::fromEnv('REDIS_DATABASE') ?: 0
                 ],
+
             ],
 
             'bank' => [
                 'driver' => self::fromEnv('BANK_DRIVER'),
 
                 'entry-fee' => [
-                    'store-driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER')
+                    'store-driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER'),
+
+                    'redis-database' => 2
                 ]
             ],
 
             'admin' => [
                 'bank' => [
-                    'driver' => self::fromEnv('ADMIN_BANK_DRIVER')
+                    'driver' => self::fromEnv('ADMIN_BANK_DRIVER'),
+
+                    'redis-database' => 1
                 ]
             ]
         ]);

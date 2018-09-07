@@ -6,13 +6,13 @@ services:
       dockerfile: ./docker/php/Dockerfile
       context: ./
     environment:
-     - ADMIN_BANK_DRIVER=log
+     - ADMIN_BANK_DRIVER=redis
      - AUTH_TOKEN_DRIVER=jwt
-     - BANK_DRIVER=log
+     - BANK_DRIVER=redis
      - DB_DSN=mysql:host=mysql;dbname=app
      - DB_USER=root
      - DB_PASSWORD=password
-     - ENTRY_FEE_STORE_DRIVER=log
+     - ENTRY_FEE_STORE_DRIVER=redis
      - JWT_SECRET=t9BBDNMYwbN634AJrXv0
      - LOG_LOGGER=monolog
     volumes:

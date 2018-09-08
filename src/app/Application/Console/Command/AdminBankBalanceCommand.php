@@ -38,7 +38,7 @@ class AdminBankBalanceCommand extends Command
         $response = new SymfonyStyle($input, $output);
 
         if ($this->container->get(Config::class)->get('bank.admin.driver') !== 'redis') {
-            $response->error('Bank configuration is not correct to deposit fake funds');
+            $response->error('Bank configuration is not correct to view Admin bank balance');
             return;
         }
 

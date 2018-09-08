@@ -42,6 +42,11 @@ class GameOrchestrator
         $this->clock = $clock;
     }
 
+    /**
+     * @param Game $game
+     * @throws GameCreationException
+     * @return Game
+     */
     public function createGame(Game $game): Game
     {
         $this->validateGameStartDate($game->getStartDateTime());

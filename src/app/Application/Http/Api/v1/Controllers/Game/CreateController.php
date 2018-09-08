@@ -66,7 +66,6 @@ class CreateController
                 new JsendError($e->getMessage())
             ]))->withStatus(422);
         }
-
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Application\Console;
 
+use GamePlatform\Application\Console\Command\AdminBankBalanceCommand;
 use GamePlatform\Application\Console\Command\GameCreateCommand;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
@@ -57,6 +58,7 @@ class Console
         ]));
 
         $app->addCommands([
+            $this->container->get(AdminBankBalanceCommand::class),
             $this->container->get(GameCreateCommand::class),
             $this->container->get(UserCreateCommand::class),
             $this->container->get(UserFundsAddCommand::class),

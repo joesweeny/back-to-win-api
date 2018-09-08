@@ -12,6 +12,7 @@ use Predis\Client;
 class RedisBank implements Bank
 {
     const KEY = 'admin-bank';
+    const CURRENCY = 'FAKE';
 
     /**
      * @var Client
@@ -45,7 +46,7 @@ class RedisBank implements Bank
             return new Money($value->amount, new Currency($value->currency));
         }, $this->client->keys('*'. self::KEY . '*'));
 
-        $money = new Money(0, $objects[0]->getCurrency());
+        $money = new Money(0, new Currency(self::CURRENCY));
 
         foreach ($objects as $object) {
             $money = $money->add($object);

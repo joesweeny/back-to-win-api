@@ -7,6 +7,7 @@ use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Domain\Game\Persistence\Writer;
 use GamePlatform\Domain\GameEntry\GameEntryOrchestrator;
 use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\User\UserOrchestrator;
@@ -51,7 +52,7 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            $this->clock->now()->add(new \DateInterval('P10D')),
+            $this->clock->now()->sub(new \DateInterval('P1D')),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
@@ -87,7 +88,7 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            $this->clock->now()->add(new \DateInterval('P10D')),
+            $this->clock->now()->sub(new \DateInterval('P1D')),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
@@ -123,7 +124,7 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            $this->clock->now()->add(new \DateInterval('P10D')),
+            $this->clock->now()->sub(new \DateInterval('P10D')),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
@@ -204,7 +205,7 @@ class SettleControllerIntegrationTest extends TestCase
 
     private function createGame(int $players, \DateTimeImmutable $start, GameStatus $status, Money $buyIn): Game
     {
-        return $this->container->get(GameOrchestrator::class)->createGame(
+        return $this->container->get(Writer::class)->insert(
             new Game(
                 new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'),
                 GameType::GENERAL_KNOWLEDGE(),

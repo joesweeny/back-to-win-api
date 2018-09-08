@@ -57,26 +57,14 @@ class ConfigFactory
             'bank' => [
                 'user' => [
                     'driver' => self::fromEnv('BANK_DRIVER'),
-
-                    'redis' => [
-                        'database' => 1
-                    ]
                 ],
 
                 'entry-fee' => [
                     'driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER'),
-
-                    'redis' => [
-                        'database' => 2
-                    ]
                 ],
 
                 'admin' => [
                     'driver' => self::fromEnv('ADMIN_BANK_DRIVER'),
-
-                    'redis' => [
-                        'database' => 3
-                    ]
                 ]
             ],
         ]);

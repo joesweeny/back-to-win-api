@@ -62,7 +62,7 @@ class CreateControllerIntegrationTest extends TestCase
         $this->assertEquals('GBP', $json->game->currency);
         $this->assertEquals(50, $json->game->max);
         $this->assertEquals(10, $json->game->min);
-        $this->assertEquals('2018-12-03T12:00:00+01:00', $json->game->start);
+        $this->assertNotNull($json->game->start);
     }
 
     public function test_400_response_is_returned_if_game_type_property_is_not_a_valid_enum_property()

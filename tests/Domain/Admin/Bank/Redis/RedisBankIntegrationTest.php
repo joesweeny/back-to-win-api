@@ -29,9 +29,9 @@ class RedisBankIntegrationTest extends TestCase
     public function setUp()
     {
         $this->container  = $this->setRedisDatabase($this->createContainer());
-        $this->container->get(Config::class)->set('admin.bank.driver', 'redis');
-        $this->client = $this->container->get(Client::class);
+        $this->container->get(Config::class)->set('bank.admin.driver', 'redis');
         $this->bank = $this->container->get(Bank::class);
+        $this->client = $this->container->get(Client::class);
     }
 
     public function test_deposit_adds_record_to_database()

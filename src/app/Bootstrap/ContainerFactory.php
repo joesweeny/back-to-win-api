@@ -131,12 +131,16 @@ class ContainerFactory
 
             Clock::class => \DI\object(SystemClock::class),
 
-            Bank::class => \DI\factory(function (ContainerInterface $container) {
+            Client::class => \DI\factory(function (ContainerInterface $container) {
                 $config = $container->get(Config::class);
 
+                return new Client($config->get('redis.default'));
+            }),
+
+            Bank::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($bank = $container->get(Config::class)->get('bank.user.driver')) {
                     case 'redis':
-                        return new RedisBank(new Client($config->get('bank.user.redis.database')));
+                        return new RedisBank($container->get(Client::class));
                     case 'log':
                         return new LogBank($container->get(LoggerInterface::class));
                     default:
@@ -145,13 +149,9 @@ class ContainerFactory
             }),
 
             \GamePlatform\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
-                $config = $container->get(Config::class);
-
                 switch ($bank = $container->get(Config::class)->get('bank.admin.driver')) {
                     case 'redis':
-                        return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank(
-                            new Client($config->get('bank.admin.redis.database'))
-                        );
+                        return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
                     case 'log':
                         return new \GamePlatform\Domain\Admin\Bank\Log\LogBank($container->get(LoggerInterface::class));
                     default:
@@ -160,11 +160,9 @@ class ContainerFactory
             }),
 
             EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
-                $config = $container->get(Config::class);
-
                 switch ($store = $container->get(Config::class)->get('bank.entry-fee.driver')) {
                     case 'redis':
-                        return new RedisEntryFeeStore(new Client($config->get('bank.entry-fee.redis.database')));
+                        return new RedisEntryFeeStore(new Client($container->get(Client::class)));
                     case 'log':
                         return new LogEntryFeeStore($container->get(LoggerInterface::class));
                     default:
@@ -233,7 +231,7 @@ class ContainerFactory
                 $config = $container->get(Config::class);
 
                 $dsn = $config->get('database.default.pdo.dsn');
-
+                
                 if (substr($dsn, 0, 5) === 'mysql') {
                     return new MySqlConnection($container->get(\PDO::class));
                 }

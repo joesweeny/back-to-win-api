@@ -42,18 +42,6 @@ class GetControllerIntegrationTest extends TestCase
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->clock = $this->container->get(Clock::class);
-        $this->container->get(GameOrchestrator::class)->createGame(
-            new Game(
-                new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
-                GameType::GENERAL_KNOWLEDGE(),
-                GameStatus::CREATED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
         $this->token = $this->getValidToken($this->container);
     }
 
@@ -61,7 +49,7 @@ class GetControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            new \DateTimeImmutable('2018-07-18T00:00:00+00:00'),
+            $start = $this->clock->now()->addMinutes(200),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
@@ -88,7 +76,7 @@ class GetControllerIntegrationTest extends TestCase
         $this->assertEquals(500, $json->game->buy_in);
         $this->assertEquals(50, $json->game->max);
         $this->assertEquals(10, $json->game->min);
-        $this->assertEquals('2018-07-18T00:00:00+00:00', $json->game->start);
+        $this->assertEquals($start->format(\DATE_ATOM), $json->game->start);
         $this->assertTrue(isset($json->game->created_at));
         $this->assertTrue(isset($json->game->updated_at));
         $this->assertNotEmpty($json->users);

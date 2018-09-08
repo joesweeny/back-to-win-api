@@ -134,9 +134,9 @@ class ContainerFactory
             Bank::class => \DI\factory(function (ContainerInterface $container) {
                 $config = $container->get(Config::class);
 
-                switch ($bank = $container->get(Config::class)->get('bank.driver')) {
+                switch ($bank = $container->get(Config::class)->get('bank.user.driver')) {
                     case 'redis':
-                        return new RedisBank(new Client($config->get('redis.default')));
+                        return new RedisBank(new Client($config->get('bank.user.redis.database')));
                     case 'log':
                         return new LogBank($container->get(LoggerInterface::class));
                     default:
@@ -147,9 +147,11 @@ class ContainerFactory
             \GamePlatform\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
                 $config = $container->get(Config::class);
 
-                switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
+                switch ($bank = $container->get(Config::class)->get('bank.admin.driver')) {
                     case 'redis':
-                        return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank(new Client($config->get('admin.bank.redis-database')));
+                        return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank(
+                            new Client($config->get('bank.admin.redis.database'))
+                        );
                     case 'log':
                         return new \GamePlatform\Domain\Admin\Bank\Log\LogBank($container->get(LoggerInterface::class));
                     default:
@@ -160,9 +162,9 @@ class ContainerFactory
             EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
                 $config = $container->get(Config::class);
 
-                switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
+                switch ($store = $container->get(Config::class)->get('bank.entry-fee.driver')) {
                     case 'redis':
-                        return new RedisEntryFeeStore(new Client($config->get('bank.entry-fee.redis-database')));
+                        return new RedisEntryFeeStore(new Client($config->get('bank.entry-fee.redis.database')));
                     case 'log':
                         return new LogEntryFeeStore($container->get(LoggerInterface::class));
                     default:

@@ -127,7 +127,7 @@ class UserFundsHandler
 
         $purse = $this->purseOrchestrator->getUserPurse($userId);
 
-        $purse = $calculation->getValue() === 'ADD' ? $purse->addMoney($money) : $purse->subtractMoney($money);
+        $purse = $calculation->equals(Calculation::ADD()) ? $purse->addMoney($money) : $purse->subtractMoney($money);
 
         $this->purseOrchestrator->updateUserPurse($purse);
     }

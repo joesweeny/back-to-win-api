@@ -36,37 +36,37 @@ class RedisBankIntegrationTest extends TestCase
 
     public function test_deposit_adds_record_to_database()
     {
-        $this->bank->deposit($id = Uuid::generate(), new Money(1000, new Currency('GBP')));
+        $this->bank->deposit($id = Uuid::generate(), new Money(1000, new Currency('FAKE')));
 
         $value = $this->client->get('admin-bank:' . (string) $id);
 
-        $this->assertEquals('{"amount":"1000","currency":"GBP"}', $value);
+        $this->assertEquals('{"amount":"1000","currency":"FAKE"}', $value);
     }
 
     public function test_exception_is_thrown_if_record_exists_for_game_id()
     {
-        $this->bank->deposit($id = Uuid::generate(), new Money(1000, new Currency('GBP')));
+        $this->bank->deposit($id = Uuid::generate(), new Money(1000, new Currency('FAKE')));
 
         $this->expectException(BankingException::class);
         $this->expectExceptionMessage("Record for Game {$id} already exists");
 
-        $this->bank->deposit($id, new Money(1000, new Currency('GBP')));
+        $this->bank->deposit($id, new Money(1000, new Currency('FAKE')));
     }
 
     public function test_get_balance_returns_a_total_of_all_funds_deposited_via_the_bank()
     {
         $this->client->set(
             (string) Uuid::generate(),
-            json_encode((new Money(100, new Currency('GBP')))->jsonSerialize())
+            json_encode((new Money(100, new Currency('FAKE')))->jsonSerialize())
         );
 
         for ($i = 0; $i < 4; $i++) {
-            $this->bank->deposit(Uuid::generate(), new Money(1000, new Currency('GBP')));
+            $this->bank->deposit(Uuid::generate(), new Money(1000, new Currency('FAKE')));
         }
 
         $balance = $this->bank->getBalance();
 
-        $this->assertEquals(new Money(4000, new Currency('GBP')), $balance);
+        $this->assertEquals(new Money(4000, new Currency('FAKE')), $balance);
     }
 
     protected function tearDown()

@@ -53,6 +53,22 @@ class RedisBankIntegrationTest extends TestCase
         $this->bank->deposit($id, new Money(1000, new Currency('GBP')));
     }
 
+    public function test_get_balance_returns_a_total_of_all_funds_deposited_via_the_bank()
+    {
+        $this->client->set(
+            (string) Uuid::generate(),
+            json_encode((new Money(100, new Currency('GBP')))->jsonSerialize())
+        );
+
+        for ($i = 0; $i < 4; $i++) {
+            $this->bank->deposit(Uuid::generate(), new Money(1000, new Currency('GBP')));
+        }
+
+        $balance = $this->bank->getBalance();
+
+        $this->assertEquals(new Money(4000, new Currency('GBP')), $balance);
+    }
+
     protected function tearDown()
     {
         parent::tearDown();

@@ -17,4 +17,11 @@ interface Bank
      * @return void
      */
     public function deposit(Uuid $gameId, Money $money): void;
+
+    /**
+     * Get total balance of all funds deposited into account
+     *
+     * @return Money
+     */
+    public function getBalance(): Money;
 }

@@ -4,6 +4,7 @@ namespace GamePlatform\Domain\Admin\Bank\Log;
 
 use GamePlatform\Domain\Admin\Bank\Bank;
 use GamePlatform\Framework\Uuid\Uuid;
+use Money\Currency;
 use Money\Money;
 use Psr\Log\LoggerInterface;
 
@@ -25,5 +26,13 @@ class LogBank implements Bank
     public function deposit(Uuid $gameId, Money $money): void
     {
         $this->logger->info("Depositing remaining funds for Game {$gameId}");
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getBalance(): Money
+    {
+        return new Money(1000000, new Currency('FAKE'));
     }
 }

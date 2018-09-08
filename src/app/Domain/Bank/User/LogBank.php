@@ -53,6 +53,6 @@ class LogBank implements Bank
     {
         $this->logger->info("Returning balance for User {$userId}");
 
-        return new Money(1000, new Currency('GBP'));
+        return new Money(1000, new Currency('FAKE'));
     }
 }

@@ -6,6 +6,7 @@ use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Uuid\Uuid;
 use GamePlatform\Testing\Traits\CreateAuthToken;
 use GamePlatform\Testing\Traits\RunsMigrations;
@@ -30,12 +31,15 @@ class ListControllerIntegrationTest extends TestCase
     private $orchestrator;
     /** @var  string */
     private $token;
+    /** @var  Clock */
+    private $clock;
 
     public function setUp()
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->orchestrator = $this->container->get(GameOrchestrator::class);
         $this->token = $this->getValidToken($this->container);
+        $this->clock = $this->container->get(Clock::class);
     }
     
     public function test_200_response_is_returned_containing_an_array_of_game_data()
@@ -62,7 +66,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(50, $json->data->games[0]->max);
         $this->assertEquals(10, $json->data->games[0]->min);
         $this->assertEquals(4, $json->data->games[0]->players);
-        $this->assertEquals('2018-07-18T00:00:00+00:00', $json->data->games[0]->start);
+        $this->assertNotNull($json->data->games[0]->start);
 
         $this->assertEquals('ad3f0975-25d1-4078-92d9-c964a3a131ba', $json->data->games[1]->id);
         $this->assertEquals('GENERAL_KNOWLEDGE', $json->data->games[1]->type);
@@ -72,7 +76,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(5000, $json->data->games[1]->max);
         $this->assertEquals(100, $json->data->games[1]->min);
         $this->assertEquals(4, $json->data->games[1]->players);
-        $this->assertEquals('2018-07-25T00:00:00+00:00', $json->data->games[1]->start);
+        $this->assertNotNull($json->data->games[1]->start);
     }
 
     public function test_games_can_be_filtered_by_status()
@@ -99,7 +103,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(50, $json->data->games[0]->max);
         $this->assertEquals(10, $json->data->games[0]->min);
         $this->assertEquals(4, $json->data->games[0]->players);
-        $this->assertEquals('2018-07-18T00:00:00+00:00', $json->data->games[0]->start);
+        $this->assertNotNull($json->data->games[0]->start);
     }
 
     public function test_games_can_be_filtered_by_start_date_time()
@@ -110,7 +114,7 @@ class ListControllerIntegrationTest extends TestCase
             'GET',
             '/api/game',
             ['Authorization' => "Bearer {$this->token}"]
-        ))->withQueryParams(['start' => '2018-07-19T00:00:00+00:00']);
+        ))->withQueryParams(['start' => $this->clock->now()->addMinutes(300)->format(\DATE_ATOM)]);
 
         $response = $this->handle($this->container, $request);
 
@@ -126,7 +130,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(50, $json->data->games[0]->max);
         $this->assertEquals(10, $json->data->games[0]->min);
         $this->assertEquals(4, $json->data->games[0]->players);
-        $this->assertEquals('2018-07-18T00:00:00+00:00', $json->data->games[0]->start);
+        $this->assertNotNull($json->data->games[0]->start);
     }
 
     public function test_games_can_be_filtered_by_buy_in()
@@ -153,7 +157,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(50, $json->data->games[0]->max);
         $this->assertEquals(10, $json->data->games[0]->min);
         $this->assertEquals(4, $json->data->games[0]->players);
-        $this->assertEquals('2018-07-18T00:00:00+00:00', $json->data->games[0]->start);
+        $this->assertNotNull($json->data->games[0]->start);
     }
 
     public function test_games_can_be_filtered_by_currency()
@@ -180,7 +184,7 @@ class ListControllerIntegrationTest extends TestCase
         $this->assertEquals(5000, $json->data->games[0]->max);
         $this->assertEquals(100, $json->data->games[0]->min);
         $this->assertEquals(4, $json->data->games[0]->players);
-        $this->assertEquals('2018-07-25T00:00:00+00:00', $json->data->games[0]->start);
+        $this->assertNotNull($json->data->games[0]->start);
     }
 
     public function test_400_response_returned_if_providing_invalid_arguments_for_query_strings()
@@ -238,7 +242,7 @@ class ListControllerIntegrationTest extends TestCase
                 new Money(500, new Currency('EUR')),
                 new Money(50, new Currency('EUR')),
                 new Money(10, new Currency('EUR')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
+                $this->clock->now()->addMinutes(200),
                 4
             )
         );
@@ -251,7 +255,7 @@ class ListControllerIntegrationTest extends TestCase
                 new Money(15000, new Currency('GBP')),
                 new Money(5000, new Currency('GBP')),
                 new Money(100, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-25 00:00:00'),
+                $this->clock->now()->addMinutes(400),
                 4
             )
         );

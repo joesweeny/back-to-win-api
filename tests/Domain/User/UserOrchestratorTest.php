@@ -41,7 +41,8 @@ class UserOrchestratorTest extends TestCase
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $this->assertCount(1, $this->connection->table('user')->get());
@@ -50,7 +51,8 @@ class UserOrchestratorTest extends TestCase
             (new User('a4a93668-6e61-4a81-93b4-b2404dbe9788'))
                 ->setUsername('andreasweeny')
                 ->setEmail('andrea@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $this->assertCount(2, $this->connection->table('user')->get());
@@ -62,7 +64,8 @@ class UserOrchestratorTest extends TestCase
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $fetched = $this->orchestrator->getUserByEmail('joe@example.com');
@@ -84,7 +87,8 @@ class UserOrchestratorTest extends TestCase
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $user =$this->orchestrator->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
@@ -102,7 +106,8 @@ class UserOrchestratorTest extends TestCase
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $fetched = $this->orchestrator->getUserById(new Uuid('dc5b6421-d452-4862-b741-d43383c3fe1d'));
@@ -124,7 +129,8 @@ class UserOrchestratorTest extends TestCase
             $user = (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $verified = $this->orchestrator->verifyUser('joe@example.com', 'password');
@@ -138,7 +144,8 @@ class UserOrchestratorTest extends TestCase
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $this->expectException(NotAuthenticatedException::class);
@@ -151,7 +158,8 @@ class UserOrchestratorTest extends TestCase
             (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         sleep(1);
@@ -160,7 +168,8 @@ class UserOrchestratorTest extends TestCase
             (new User('fbeb2f20-b1a4-433f-8f83-bb6f83c01cfa'))
                 ->setUsername('andreasweeny')
                 ->setEmail('andrea@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         sleep(1);
@@ -169,7 +178,8 @@ class UserOrchestratorTest extends TestCase
             (new User('77e2438d-a744-4590-9785-08917dcdeb75'))
                 ->setUsername('thomasweeny')
                 ->setEmail('thomas@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $users = $this->orchestrator->getUsers();
@@ -189,7 +199,8 @@ class UserOrchestratorTest extends TestCase
             $user = (new User('dc5b6421-d452-4862-b741-d43383c3fe1d'))
                 ->setUsername('joesweeny')
                 ->setEmail('joe@example.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('password'))
+                ->setPasswordHash(PasswordHash::createFromRaw('password')),
+            new Currency('GBP')
         );
 
         $purse = $purseOrchestrator->getUserPurse($user->getId());

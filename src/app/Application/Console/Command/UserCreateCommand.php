@@ -30,7 +30,8 @@ class UserCreateCommand extends Command
             ->setDescription('Create a new User')
             ->addArgument('username', InputArgument::REQUIRED)
             ->addArgument('email', InputArgument::REQUIRED)
-            ->addArgument('password', InputArgument::REQUIRED);
+            ->addArgument('password', InputArgument::REQUIRED)
+            ->addArgument('currency', InputArgument::REQUIRED);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -41,7 +42,8 @@ class UserCreateCommand extends Command
             $command = new CreateUserCommand(
                 $input->getArgument('username'),
                 $input->getArgument('email'),
-                $input->getArgument('password')
+                $input->getArgument('password'),
+                $input->getArgument('currency')
             );
 
             $user = $this->bus->execute($command);

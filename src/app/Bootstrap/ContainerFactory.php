@@ -138,7 +138,7 @@ class ContainerFactory
             }),
 
             Bank::class => \DI\factory(function (ContainerInterface $container) {
-                switch ($bank = $container->get(Config::class)->get('bank.driver')) {
+                switch ($bank = $container->get(Config::class)->get('bank.user.driver')) {
                     case 'redis':
                         return new RedisBank($container->get(Client::class));
                     case 'log':
@@ -149,7 +149,7 @@ class ContainerFactory
             }),
 
             \GamePlatform\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
-                switch ($bank = $container->get(Config::class)->get('admin.bank.driver')) {
+                switch ($bank = $container->get(Config::class)->get('bank.admin.driver')) {
                     case 'redis':
                         return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
                     case 'log':
@@ -160,7 +160,7 @@ class ContainerFactory
             }),
 
             EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
-                switch ($store = $container->get(Config::class)->get('bank.entry-fee.store-driver')) {
+                switch ($store = $container->get(Config::class)->get('bank.entry-fee.driver')) {
                     case 'redis':
                         return new RedisEntryFeeStore($container->get(Client::class));
                     case 'log':
@@ -231,7 +231,7 @@ class ContainerFactory
                 $config = $container->get(Config::class);
 
                 $dsn = $config->get('database.default.pdo.dsn');
-
+                
                 if (substr($dsn, 0, 5) === 'mysql') {
                     return new MySqlConnection($container->get(\PDO::class));
                 }

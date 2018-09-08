@@ -3,11 +3,13 @@
 namespace GamePlatform\Domain\GameEntry;
 
 use GamePlatform\Domain\Game\Entity\Game;
+use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\GameEntry\Entity\GameEntry;
 use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
 use GamePlatform\Domain\GameEntry\Persistence\Repository;
 use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\User\UserOrchestrator;
+use GamePlatform\Framework\DateTime\Clock;
 use GamePlatform\Framework\Uuid\Uuid;
 
 class GameEntryOrchestrator
@@ -20,11 +22,16 @@ class GameEntryOrchestrator
      * @var UserOrchestrator
      */
     private $userOrchestrator;
+    /**
+     * @var Clock
+     */
+    private $clock;
 
-    public function __construct(Repository $repository, UserOrchestrator $userOrchestrator)
+    public function __construct(Repository $repository, UserOrchestrator $userOrchestrator, Clock $clock)
     {
         $this->repository = $repository;
         $this->userOrchestrator = $userOrchestrator;
+        $this->clock = $clock;
     }
 
     /**
@@ -61,6 +68,10 @@ class GameEntryOrchestrator
     {
         $this->checkCapacity($game);
 
+        $this->checkStartDateTime($game);
+
+        $this->checkGameStatus($game);
+
         if ($this->isUserInGame($game, $userId)) {
             throw new GameEntryException('User has already entered Game');
         }
@@ -91,6 +102,20 @@ class GameEntryOrchestrator
     {
         if (count($this->repository->get($game->getId())) >= $game->getPlayers()) {
             throw new GameEntryException('Game has reached full capacity');
+        }
+    }
+
+    private function checkStartDateTime(Game $game): void
+    {
+        if ($game->getStartDateTime() < $this->clock->now()) {
+            throw new GameEntryException('Game has already started');
+        }
+    }
+
+    private function checkGameStatus(Game $game): void
+    {
+        if (!$game->getStatus()->equals(GameStatus::CREATED())) {
+            throw new GameEntryException('Game does not have the correct status to enter');
         }
     }
 }

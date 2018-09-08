@@ -34,7 +34,7 @@ class CreateUserCommandHandler
     {
         $user = $this->createUserEntity($command);
 
-        return $this->presenter->toDto($this->orchestrator->createUser($user));
+        return $this->presenter->toDto($this->orchestrator->createUser($user, $command->getCurrency()));
     }
 
     /**

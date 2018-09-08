@@ -7,6 +7,7 @@ use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
 use GamePlatform\Domain\Game\Enum\GameType;
 use GamePlatform\Domain\Game\GameOrchestrator;
+use GamePlatform\Domain\Game\Persistence\Writer;
 use GamePlatform\Domain\GameEntry\GameEntryOrchestrator;
 use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\User\UserOrchestrator;
@@ -51,21 +52,17 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            $this->clock->now()->add(new \DateInterval('P10D')),
+            $this->clock->now()->sub(new \DateInterval('P1D')),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
 
-        $user = $this->createUser(
-            $money = new Money(1000000, new Currency('GBP')),
-            'joe@joe.com',
-            'joe'
-        );
+        $user = $this->createUser('joe@joe.com', 'joe');
 
         $this->addUserToGame($game, $user);
 
         for ($i = 0; $i < 3; $i++) {
-            $this->addUserToGame($game, $this->createUser($money, "{$i}@joe.com", "user{$i}"));
+            $this->addUserToGame($game, $this->createUser("{$i}@joe.com", "user{$i}"));
         }
 
         $body = (object) [
@@ -91,16 +88,12 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            $this->clock->now()->add(new \DateInterval('P10D')),
+            $this->clock->now()->sub(new \DateInterval('P1D')),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
 
-        $user = $this->createUser(
-            $money = new Money(1000000, new Currency('GBP')),
-            'joe@joe.com',
-            'joe'
-        );
+        $user = $this->createUser('joe@joe.com', 'joe');
 
         $body = (object) [
             'game_id' => (string) $game->getId(),
@@ -131,7 +124,7 @@ class SettleControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            $this->clock->now()->add(new \DateInterval('P10D')),
+            $this->clock->now()->sub(new \DateInterval('P10D')),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
@@ -160,11 +153,7 @@ class SettleControllerIntegrationTest extends TestCase
 
     public function test_404_response_returned_if_game_does_not_exist()
     {
-        $user = $this->createUser(
-            $money = new Money(1000000, new Currency('GBP')),
-            'joe@joe.com',
-            'joe'
-        );
+        $user = $this->createUser('joe@joe.com', 'joe');
 
         $body = (object) [
             'game_id' => (string) $id = Uuid::generate(),
@@ -216,7 +205,7 @@ class SettleControllerIntegrationTest extends TestCase
 
     private function createGame(int $players, \DateTimeImmutable $start, GameStatus $status, Money $buyIn): Game
     {
-        return $this->container->get(GameOrchestrator::class)->createGame(
+        return $this->container->get(Writer::class)->insert(
             new Game(
                 new Uuid('157e93d3-c225-4523-8a59-6630b05d671b'),
                 GameType::GENERAL_KNOWLEDGE(),
@@ -230,17 +219,14 @@ class SettleControllerIntegrationTest extends TestCase
         );
     }
 
-    private function createUser(Money $balance, string $email, string $username): User
+    private function createUser(string $email, string $username): User
     {
         $user = $this->container->get(UserOrchestrator::class)->createUser(
             (new User())
                 ->setEmail($email)
                 ->setUsername($username)
-                ->setPasswordHash(new PasswordHash('password'))
-        );
-
-        $this->container->get(UserPurseOrchestrator::class)->updateUserPurse(
-            (new UserPurse($user->getId(), $balance))->setCreatedDate($this->clock->now())
+                ->setPasswordHash(new PasswordHash('password')),
+            new Currency('GBP')
         );
 
         return $user;

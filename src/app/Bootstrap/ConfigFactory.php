@@ -55,18 +55,18 @@ class ConfigFactory
             ],
 
             'bank' => [
-                'driver' => self::fromEnv('BANK_DRIVER'),
+                'user' => [
+                    'driver' => self::fromEnv('BANK_DRIVER'),
+                ],
 
                 'entry-fee' => [
-                    'store-driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER')
+                    'driver' => self::fromEnv('ENTRY_FEE_STORE_DRIVER'),
+                ],
+
+                'admin' => [
+                    'driver' => self::fromEnv('ADMIN_BANK_DRIVER'),
                 ]
             ],
-
-            'admin' => [
-                'bank' => [
-                    'driver' => self::fromEnv('ADMIN_BANK_DRIVER')
-                ]
-            ]
         ]);
     }
 

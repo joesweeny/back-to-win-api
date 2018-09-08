@@ -10,6 +10,7 @@ use GamePlatform\Domain\User\UserOrchestrator;
 use GamePlatform\Framework\Password\PasswordHash;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
+use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
 class CreateControllerIntegrationTest extends TestCase
@@ -32,7 +33,7 @@ class CreateControllerIntegrationTest extends TestCase
             'post',
             '/api/user',
             [],
-            '{"username":"joesweeny","email":"joe@email.com","password":"mypass"}'
+            '{"username":"joesweeny","email":"joe@email.com","password":"mypass", "currency": "GBP"}'
         );
 
         $response = $this->handle($this->container, $request);
@@ -52,13 +53,15 @@ class CreateControllerIntegrationTest extends TestCase
             (new User)
                 ->setUsername('joesweeny')
                 ->setEmail('joe@email.com')
-                ->setPasswordHash(PasswordHash::createFromRaw('pass')));
+                ->setPasswordHash(PasswordHash::createFromRaw('pass')),
+            new Currency('GBP')
+        );
 
         $request = new ServerRequest(
             'post',
             '/api/user',
             [],
-            '{"username":"joesweeny","email":"joe@email.com","password":"mypass"}'
+            '{"username":"joesweeny","email":"joe@email.com","password":"mypass", "currency": "GBP"}'
         );
 
         $response = $this->handle($this->container, $request);

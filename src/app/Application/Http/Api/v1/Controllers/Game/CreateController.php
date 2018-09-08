@@ -4,6 +4,7 @@ namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
 
 use GamePlatform\Application\Http\Api\v1\Validation\Game\RequestValidator;
 use GamePlatform\Boundary\Game\Command\CreateGameCommand;
+use GamePlatform\Domain\Game\Exception\GameCreationException;
 use GamePlatform\Framework\Jsend\JsendError;
 use GamePlatform\Framework\Jsend\JsendFailResponse;
 use GamePlatform\Framework\Jsend\JsendResponse;
@@ -56,9 +57,15 @@ class CreateController
             ]);
         }
 
-        return new JsendSuccessResponse([
-            'game' => $this->bus->execute($command)
-        ]);
+        try {
+            return new JsendSuccessResponse([
+                'game' => $this->bus->execute($command)
+            ]);
+        } catch (GameCreationException $e) {
+            return (new JsendFailResponse([
+                new JsendError($e->getMessage())
+            ]))->withStatus(422);
+        }
     }
 
     /**

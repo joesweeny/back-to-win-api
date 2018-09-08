@@ -49,6 +49,8 @@ class UserFundsHandlerTest extends TestCase
 
         $user = new User('57f08f28-dc80-4adb-bc6b-1cfff1b73d6c');
 
+        $this->bankManager->getBalance($user->getId())->willReturn(new Money(1000, new Currency('GBP')));
+
         $this->bankManager->withdraw($user, $game->getBuyIn())->willReturn(
             $entryFee = new Money(500, new Currency('GBP'))
         );
@@ -69,15 +71,15 @@ class UserFundsHandlerTest extends TestCase
         $this->handler->handleGameEntryFee($game, $user);
     }
 
-    public function test_exception_is_thrown_if_issue_with_withdrawing_funds()
+    public function test_exception_is_thrown_if_issue_with_user_bank_currency_differ_from_game_buy_in_currency()
     {
         $game = $this->createGame();
 
         $user = new User('57f08f28-dc80-4adb-bc6b-1cfff1b73d6c');
 
-        $this->bankManager->withdraw($user, $game->getBuyIn())->willThrow(
-            $e = new BankingException('No funds mate')
-        );
+        $this->bankManager->getBalance($user->getId())->willReturn(new Money(1000, new Currency('EUR')));
+
+        $this->bankManager->withdraw($user, $game->getBuyIn())->shouldNotBeCalled();
 
         $this->feeStore->enter(Argument::type(GameEntry::class), Argument::type(Money::class))->shouldNotBeCalled();
 
@@ -85,9 +87,7 @@ class UserFundsHandlerTest extends TestCase
 
 
         $this->expectException(GameEntryException::class);
-        $this->expectExceptionMessage(
-            "User {$user->getId()} cannot enter Game {$game->getId()}. Message: {$e->getMessage()}"
-        );
+        $this->expectExceptionMessage('User cannot enter game due to Game currency and user bank currency mismatch');
 
         $this->handler->handleGameEntryFee($game, $user);
     }

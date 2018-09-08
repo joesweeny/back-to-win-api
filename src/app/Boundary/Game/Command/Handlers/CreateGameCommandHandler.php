@@ -6,6 +6,7 @@ use GamePlatform\Boundary\Game\Command\CreateGameCommand;
 use GamePlatform\Boundary\Game\GamePresenter;
 use GamePlatform\Domain\Game\Entity\Game;
 use GamePlatform\Domain\Game\Enum\GameStatus;
+use GamePlatform\Domain\Game\Exception\GameCreationException;
 use GamePlatform\Domain\Game\GameOrchestrator;
 use GamePlatform\Framework\Uuid\Uuid;
 
@@ -28,6 +29,7 @@ class CreateGameCommandHandler
 
     /**
      * @param CreateGameCommand $command
+     * @throws GameCreationException
      * @return \stdClass
      */
     public function handle(CreateGameCommand $command): \stdClass

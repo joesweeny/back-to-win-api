@@ -7,6 +7,7 @@ use GamePlatform\Domain\User\Entity\User;
 use GamePlatform\Domain\User\UserOrchestrator;
 use GamePlatform\Boundary\User\UserPresenter;
 use GamePlatform\Framework\Exception\UserCreationException;
+use Money\Currency;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
@@ -23,13 +24,14 @@ class CreateUserCommandHandlerTest extends TestCase
         $command = new CreateUserCommand(
             'joesweeny',
             'joe@email.com',
-            'password'
+            'password',
+            'GBP'
         );
 
         $orchestrator->createUser(Argument::that(function (User $user) {
             $this->assertEquals('joe@email.com', $user->getEmail());
             return true;
-        }))->shouldBeCalled();
+        }), new Currency('GBP'))->shouldBeCalled();
 
         $presenter->toDto(Argument::type(User::class))->shouldBeCalled();
 
@@ -47,10 +49,11 @@ class CreateUserCommandHandlerTest extends TestCase
         $command = new CreateUserCommand(
             'joesweeny',
             'joe@email.com',
-            'password'
+            'password',
+            'GBP'
         );
 
-        $orchestrator->createUser(Argument::type(User::class))->willThrow(
+        $orchestrator->createUser(Argument::type(User::class), new Currency('GBP'))->willThrow(
             new UserCreationException('A user has already registered with this email address joe@email.com')
         );
 

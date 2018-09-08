@@ -42,18 +42,6 @@ class GetControllerIntegrationTest extends TestCase
     {
         $this->container = $this->runMigrations($this->createContainer());
         $this->clock = $this->container->get(Clock::class);
-        $this->container->get(GameOrchestrator::class)->createGame(
-            new Game(
-                new Uuid('a47eb7ba-1ce7-4f63-9ecb-0d6a9b23fcc2'),
-                GameType::GENERAL_KNOWLEDGE(),
-                GameStatus::CREATED(),
-                new Money(500, new Currency('GBP')),
-                new Money(50, new Currency('GBP')),
-                new Money(10, new Currency('GBP')),
-                new \DateTimeImmutable('2018-07-18 00:00:00'),
-                4
-            )
-        );
         $this->token = $this->getValidToken($this->container);
     }
 
@@ -61,16 +49,12 @@ class GetControllerIntegrationTest extends TestCase
     {
         $game = $this->createGame(
             4,
-            new \DateTimeImmutable('2018-07-18T00:00:00+00:00'),
+            $start = $this->clock->now()->addMinutes(200),
             GameStatus::CREATED(),
             new Money(500, new Currency('GBP'))
         );
 
-        $user = $this->createUser(
-            $money = new Money(1000000, new Currency('GBP')),
-            'joe@joe.com',
-            'joe'
-        );
+        $user = $this->createUser('joe@joe.com', 'joe');
 
         $this->addUserToGame($game, $user);
 
@@ -92,7 +76,7 @@ class GetControllerIntegrationTest extends TestCase
         $this->assertEquals(500, $json->game->buy_in);
         $this->assertEquals(50, $json->game->max);
         $this->assertEquals(10, $json->game->min);
-        $this->assertEquals('2018-07-18T00:00:00+00:00', $json->game->start);
+        $this->assertEquals($start->format(\DATE_ATOM), $json->game->start);
         $this->assertTrue(isset($json->game->created_at));
         $this->assertTrue(isset($json->game->updated_at));
         $this->assertNotEmpty($json->users);
@@ -156,17 +140,14 @@ class GetControllerIntegrationTest extends TestCase
         );
     }
 
-    private function createUser(Money $balance, string $email, string $username): User
+    private function createUser(string $email, string $username): User
     {
         $user = $this->container->get(UserOrchestrator::class)->createUser(
             (new User('5a095ea0-bc3f-4534-a0ee-074e731a5892'))
                 ->setEmail($email)
                 ->setUsername($username)
-                ->setPasswordHash(new PasswordHash('password'))
-        );
-
-        $this->container->get(UserPurseOrchestrator::class)->updateUserPurse(
-            (new UserPurse($user->getId(), $balance))->setCreatedDate($this->clock->now())
+                ->setPasswordHash(new PasswordHash('password')),
+            new Currency('GBP')
         );
 
         return $user;

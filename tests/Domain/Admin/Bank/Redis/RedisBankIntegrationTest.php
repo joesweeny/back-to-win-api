@@ -38,7 +38,7 @@ class RedisBankIntegrationTest extends TestCase
     {
         $this->bank->deposit($id = Uuid::generate(), new Money(1000, new Currency('GBP')));
 
-        $value = $this->client->get((string) $id);
+        $value = $this->client->get('admin-bank:' . (string) $id);
 
         $this->assertEquals('{"amount":"1000","currency":"GBP"}', $value);
     }

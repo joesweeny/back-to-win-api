@@ -54,10 +54,10 @@ class EnterControllerIntegrationTest extends TestCase
             4,
             $this->clock->now()->add(new \DateInterval('P10D')),
             GameStatus::CREATED(),
-            new Money(500, new Currency('GBP'))
+            new Money(500, new Currency('FAKE'))
         );
 
-        $user = $this->createUser(new Currency('GBP'));
+        $user = $this->createUser(new Currency('FAKE'));
 
         $request = new ServerRequest(
             'POST',
@@ -76,10 +76,10 @@ class EnterControllerIntegrationTest extends TestCase
             4,
             $this->clock->now()->add(new \DateInterval('P10D')),
             GameStatus::CREATED(),
-            new Money(50000, new Currency('GBP'))
+            new Money(50000, new Currency('FAKE'))
         );
 
-        $user = $this->createUser(new Currency('GBP'));
+        $user = $this->createUser(new Currency('FAKE'));
 
         $request = new ServerRequest(
             'POST',
@@ -103,7 +103,7 @@ class EnterControllerIntegrationTest extends TestCase
     {
         $gameId = Uuid::generate();
 
-        $user = $this->createUser(new Currency('GBP'));
+        $user = $this->createUser(new Currency('FAKE'));
 
         $request = new ServerRequest(
             'POST',
@@ -125,7 +125,7 @@ class EnterControllerIntegrationTest extends TestCase
             4,
             $this->clock->now()->add(new \DateInterval('P10D')),
             GameStatus::CREATED(),
-            new Money(500, new Currency('GBP'))
+            new Money(500, new Currency('FAKE'))
         );
 
         $userId = Uuid::generate();
@@ -150,10 +150,10 @@ class EnterControllerIntegrationTest extends TestCase
             4,
             $this->clock->now()->add(new \DateInterval('P10D')),
             GameStatus::COMPLETED(),
-            new Money(50000, new Currency('GBP'))
+            new Money(50000, new Currency('FAKE'))
         );
 
-        $user = $this->createUser(new Currency('GBP'));
+        $user = $this->createUser(new Currency('FAKE'));
 
         $request = new ServerRequest(
             'POST',
@@ -178,10 +178,10 @@ class EnterControllerIntegrationTest extends TestCase
             4,
             $this->clock->now()->add(new \DateInterval('P10D')),
             GameStatus::CREATED(),
-            new Money(50, new Currency('EUR'))
+            new Money(50, new Currency('GBP'))
         );
 
-        $user = $this->createUser(new Currency('GBP'));
+        $user = $this->createUser(new Currency('FAKE'));
 
         $request = new ServerRequest(
             'POST',

@@ -162,7 +162,7 @@ class ContainerFactory
             EntryFeeStore::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($store = $container->get(Config::class)->get('bank.entry-fee.driver')) {
                     case 'redis':
-                        return new RedisEntryFeeStore(new Client($container->get(Client::class)));
+                        return new RedisEntryFeeStore($container->get(Client::class));
                     case 'log':
                         return new LogEntryFeeStore($container->get(LoggerInterface::class));
                     default:

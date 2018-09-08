@@ -29,7 +29,7 @@ class RedisBank implements Bank
      */
     public function deposit(Uuid $gameId, Money $money): void
     {
-        if ($this->client->exists((string) $gameId)) {
+        if ($this->client->exists(self::KEY . ':' . (string) $gameId)) {
             throw new BankingException("Record for Game {$gameId} already exists");
         }
 

@@ -30,7 +30,7 @@ class RedisEntryFeeStoreIntegrationTest extends TestCase
     public function setUp()
     {
         $this->container  = $this->setRedisDatabase($this->createContainer());
-        $this->container->get(Config::class)->set('bank.entry-fee.store-driver', 'redis');
+        $this->container->get(Config::class)->set('bank.entry-fee.driver', 'redis');
         $this->client = $this->container->get(Client::class);
         $this->store = $this->container->get(EntryFeeStore::class);
     }

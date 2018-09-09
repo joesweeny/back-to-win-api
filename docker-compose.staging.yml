@@ -2,7 +2,7 @@ version: '2'
 services:
 
   php:
-    image: joesweeny/game_platform_php_staging:latest
+    image: joesweeny/gameplatform_php_staging:latest
     environment:
      - ADMIN_BANK_DRIVER=redis
      - AUTH_TOKEN_DRIVER=jwt

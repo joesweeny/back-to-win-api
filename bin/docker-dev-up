@@ -6,5 +6,5 @@ if [[ $@ == *"-d"* ]]
 then
   # In daemon mode, provide some extra output
   echo -n "Running in deamon mode on: http://"
-  docker port gameplatform_nginx_1 80
+  docker port gameplatform_php_1 80
 fi

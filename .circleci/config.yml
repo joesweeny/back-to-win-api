@@ -28,3 +28,13 @@ jobs:
             docker-compose -f docker-compose.yml run php docker/wait-for-it.sh mysql:3306 -t 90
             docker-compose -f docker-compose.yml run php src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit true --standard=PSR2 src/app/
             docker-compose -f docker-compose.yml run --rm test bash /opt/bin/test
+
+      - deploy:
+          name: Deploy to Staging/Production
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              chmod +x ./.circleci/staging/docker-push.sh
+              ./.circleci/staging/docker-push.sh
+              chmod +x ./.circleci/staging/docker-deploy.sh
+              ./.circleci/staging/docker-deploy.sh
+            fi

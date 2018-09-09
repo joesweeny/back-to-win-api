@@ -2,11 +2,7 @@ version: '2'
 services:
 
   php:
-    build:
-      dockerfile: ./docker/php/Dockerfile
-      context: ./
-    ports:
-     - "80"
+    image: joesweeny/game_platform_php_staging:latest
     environment:
      - ADMIN_BANK_DRIVER=redis
      - AUTH_TOKEN_DRIVER=jwt
@@ -17,8 +13,6 @@ services:
      - ENTRY_FEE_STORE_DRIVER=redis
      - JWT_SECRET=t9BBDNMYwbN634AJrXv0
      - LOG_LOGGER=monolog
-    volumes:
-     - .:/opt
 
   mysql:
     image: 'mysql:5.6'
@@ -31,25 +25,6 @@ services:
      - MYSQL_DATABASE=app
      - MYSQL_USER=dev
      - MYSQL_PASSWORD=password
-
-  test:
-    build:
-      dockerfile: ./docker/php/Dockerfile
-      context: ./
-    ports:
-     - "80"
-    environment:
-     ADMIN_BANK_DRIVER: log
-     AUTH_TOKEN_DRIVER: jwt
-     BANK_DRIVER: log
-     DB_DSN: "sqlite::memory:"
-     DB_USER: root
-     DB_PASSWORD: password
-     ENTRY_FEE_STORE_DRIVER: log
-     JWT_SECRET: t9BBDNMYwbN634AJrXv0
-     LOG_LOGGER: monolog
-    volumes:
-     - .:/opt
 
   redis:
     image: 'redis:4'

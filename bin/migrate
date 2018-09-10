@@ -1,0 +1,3 @@
+#!/bin/bash
+
+php /opt/src/console migrations:migrate --no-interaction -vvv --query-time

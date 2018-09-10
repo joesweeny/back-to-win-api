@@ -14,7 +14,7 @@ services:
      - JWT_SECRET=t9BBDNMYwbN634AJrXv0
      - LOG_LOGGER=monolog
     ports:
-     - "8000:80"
+     - "80:80"
 
   mysql:
     image: 'mysql:5.6'

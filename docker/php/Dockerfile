@@ -14,11 +14,11 @@ RUN docker-php-ext-install -j$(nproc) \
     curl \
     json
 
-ADD ./docker/php/php.ini /usr/local/etc/php/php.ini
-ADD ./docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ADD ./docker/php/nginx.conf /etc/nginx/nginx.conf
-ADD ./src /opt/src/
-ADD ./bin /opt/bin/
+COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./docker/php/nginx.conf /etc/nginx/nginx.conf
+COPY ./src /opt/src/
+COPY ./bin /opt/bin/
 
 EXPOSE 80
 WORKDIR /opt

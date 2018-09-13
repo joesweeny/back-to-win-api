@@ -1,4 +1,4 @@
-FROM nginx:1
+FROM nginx:latest
 
 ADD ./docker/nginx-proxy/certs/localhost.crt /etc/nginx/ssl/localhost.crt
 ADD ./docker/nginx-proxy/certs/localhost.key /etc/nginx/ssl/localhost.key

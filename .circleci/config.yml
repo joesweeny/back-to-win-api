@@ -27,7 +27,7 @@ jobs:
           command: |
             composer install --ignore-platform-reqs
             docker-compose -f docker-compose.yml run web docker/wait-for-it.sh mysql:3306 -t 90
-            docker-compose -f docker-compose.yml web php src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit true --standard=PSR2 src/app/
+            docker-compose -f docker-compose.yml run web src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit true --standard=PSR2 src/app/
             docker-compose -f docker-compose.yml run --rm test bash /opt/bin/test
 
       - deploy:

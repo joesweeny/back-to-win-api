@@ -14,9 +14,9 @@ RUN docker-php-ext-install -j$(nproc) \
     curl \
     json
 
-COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
-COPY ./docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY ./docker/php/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/web/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/web/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./docker/web/nginx.conf /etc/nginx/nginx.conf
 COPY ./src /opt/src/
 COPY ./bin /opt/bin/
 

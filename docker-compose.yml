@@ -1,12 +1,35 @@
 version: '2'
 services:
 
-  php:
+  mysql:
+    image: 'mysql:5.6'
+    ports:
+     - '3306:3306'
+    volumes:
+     - .:/opt
+    environment:
+     - MYSQL_ROOT_PASSWORD=password
+     - MYSQL_DATABASE=app
+     - MYSQL_USER=dev
+     - MYSQL_PASSWORD=password
+
+  redis:
+    image: 'redis:4'
+
+  nginx-proxy:
     build:
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: ./docker/nginx-proxy/Dockerfile
       context: ./
     ports:
-     - "80"
+      - "80"
+      - "443"
+    links:
+      - web
+
+  web: &web
+    build:
+      dockerfile: ./docker/web/Dockerfile
+      context: ./
     links:
      - mysql
     environment:
@@ -23,42 +46,15 @@ services:
      - .:/opt
 
   migrate:
-    build:
-      dockerfile: ./docker/php/Dockerfile
-      context: ./
-    links:
-     - mysql
-    environment:
-     - ADMIN_BANK_DRIVER=redis
-     - AUTH_TOKEN_DRIVER=jwt
-     - BANK_DRIVER=redis
-     - DB_DSN=mysql:host=mysql;dbname=app
-     - DB_USER=root
-     - DB_PASSWORD=password
-     - ENTRY_FEE_STORE_DRIVER=redis
-     - JWT_SECRET=t9BBDNMYwbN634AJrXv0
-     - LOG_LOGGER=monolog
-    command: /opt/bin/migrate
+    <<: *web
     restart: on-failure
-
-  mysql:
-    image: 'mysql:5.6'
-    ports:
-     - '3306:3306'
-    volumes:
-     - .:/opt
-    environment:
-     - MYSQL_ROOT_PASSWORD=password
-     - MYSQL_DATABASE=app
-     - MYSQL_USER=dev
-     - MYSQL_PASSWORD=password
 
   test:
     build:
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: ./docker/web/Dockerfile
       context: ./
-    ports:
-     - "80"
+    links:
+     - mysql
     environment:
      ADMIN_BANK_DRIVER: log
      AUTH_TOKEN_DRIVER: jwt
@@ -71,6 +67,3 @@ services:
      LOG_LOGGER: monolog
     volumes:
      - .:/opt
-
-  redis:
-    image: 'redis:4'

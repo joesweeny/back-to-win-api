@@ -5,6 +5,7 @@ bin/docker-dev up $@
 if [[ $@ == *"-d"* ]]
 then
   # In daemon mode, provide some extra output
-  echo -n "Running in deamon mode on: http://"
-  docker port gameplatform_php_1 80
+
+  echo "Running daemon mode:"
+  echo "    proxy:    https://"$(bin/docker-dev port nginx-proxy 80)
 fi

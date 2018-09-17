@@ -61,7 +61,7 @@ class SettleController
             );
 
             return new JsendSuccessResponse();
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException | \InvalidArgumentException $e) {
             return (new JsendFailResponse([
                 new JsendError($e->getMessage())
             ]))->withStatus(404);

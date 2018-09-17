@@ -11,7 +11,7 @@
 <body>
 
 <div id="app">
-    Gary Richard - phase 1 of 3 is complete.
+    Gary Richardson - phase 1 of 3 is complete.
     <br><br>
     The dream is another step closer
 </div>

@@ -24,7 +24,7 @@ class ExtractorTest extends TestCase
         $this->assertEquals('ec0bff3c-3a9c-4f71-8a31-99936bd39f56', Uuid::createFromBinary($data->id));
         $this->assertEquals('joesweeny', $data->username);
         $this->assertEquals('joe@example.com', $data->email);
-        $this->assertEquals('2017-05-03 21:39:00', $data->created_at);
-        $this->assertEquals('2017-05-03 21:39:00', $data->updated_at);
+        $this->assertEquals(1493847540, $data->created_at);
+        $this->assertEquals(1493847540, $data->updated_at);
     }
 }

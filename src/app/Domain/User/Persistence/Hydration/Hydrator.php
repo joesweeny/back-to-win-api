@@ -18,7 +18,7 @@ final class Hydrator
             ->setUsername($data->username)
             ->setEmail($data->email)
             ->setPasswordHash(new PasswordHash($data->password))
-            ->setCreatedDate(new \DateTimeImmutable($data->created_at))
-            ->setLastModifiedDate(new \DateTimeImmutable($data->updated_at));
+            ->setCreatedDate((new \DateTimeImmutable)->setTimestamp($data->created_at))
+            ->setLastModifiedDate((new \DateTimeImmutable)->setTimestamp($data->updated_at));
     }
 }

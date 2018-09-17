@@ -11,7 +11,9 @@
 <body>
 
 <div id="app">
-    Welcome to your Micro Framework
+    Gary Richardson - phase 1 of 3 is complete.
+    <br><br>
+    The dream is another step closer
 </div>
 
 </body>

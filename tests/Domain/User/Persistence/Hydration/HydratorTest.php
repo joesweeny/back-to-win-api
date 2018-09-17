@@ -14,14 +14,14 @@ class HydratorTest extends TestCase
             'username' => 'joesweeny',
             'email' => 'joe@example.com',
             'password' => 'password',
-            'created_at' => '2017-05-03 21:39:00',
-            'updated_at' => '2017-05-03 21:39:00'
+            'created_at' => 1493847540,
+            'updated_at' => 1493847540
         ]);
 
         $this->assertEquals('ec0bff3c-3a9c-4f71-8a31-99936bd39f56', $user->getId()->__toString());
         $this->assertEquals('joesweeny', $user->getUsername());
         $this->assertEquals('joe@example.com', $user->getEmail());
-        $this->assertEquals('2017-05-03 21:39:00', $user->getCreatedDate());
-        $this->assertEquals('2017-05-03 21:39:00', $user->getLastModifiedDate());
+        $this->assertEquals(new \DateTimeImmutable('2017-05-03 21:39:00'), $user->getCreatedDate());
+        $this->assertEquals(new \DateTimeImmutable('2017-05-03 21:39:00'), $user->getLastModifiedDate());
     }
 }

@@ -18,8 +18,8 @@ final class Extractor
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
             'password' => $user->getPasswordHash(),
-            'created_at' => $user->getCreatedDate(),
-            'updated_at' => $user->getLastModifiedDate()
+            'created_at' => $user->getCreatedDate()->getTimestamp(),
+            'updated_at' => $user->getLastModifiedDate()->getTimestamp()
         ];
     }
 }

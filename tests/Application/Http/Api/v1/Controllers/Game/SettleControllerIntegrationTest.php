@@ -203,6 +203,30 @@ class SettleControllerIntegrationTest extends TestCase
         $this->assertEquals("Required field 'amount' is missing", $json->data->errors[1]->message);
     }
 
+    public function test_404_response_is_returned_if_game_id_provided_is_not_a_valid_uuid()
+    {
+        $body = (object) [
+            'game_id' => 1,
+            'user_id' => (string) $id = Uuid::generate(),
+            'currency' => 'GBP',
+            'amount' => 1500
+        ];
+
+        $request = new ServerRequest(
+            'POST',
+            '/api/game/settle',
+            ['Authorization' => "Bearer {$this->token}"],
+            json_encode($body)
+        );
+
+        $response = $this->handle($this->container, $request);
+
+        $json = json_decode($response->getBody()->getContents());
+
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals('Invalid UUID string: 1', $json->data->errors[0]->message);
+    }
+
     private function createGame(int $players, \DateTimeImmutable $start, GameStatus $status, Money $buyIn): Game
     {
         return $this->container->get(Writer::class)->insert(

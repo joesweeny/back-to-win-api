@@ -18,6 +18,6 @@ class HomepageControllerIntegrationTest extends TestCase
 
         $response = $this->handle($this->createContainer(), $request);
 
-        $this->assertContains('Welcome to your Micro Framework', $response->getBody()->getContents());
+        $this->assertContains('Gary Richardson', $response->getBody()->getContents());
     }
 }

@@ -36,13 +36,13 @@ services:
   migrate:
     image: joesweeny/gameplatform_web_staging:latest
     environment:
-     - ADMIN_BANK_DRIVER=redis
+     - ADMIN_BANK_DRIVER=log
      - AUTH_TOKEN_DRIVER=jwt
-     - BANK_DRIVER=redis
+     - BANK_DRIVER=log
      - DB_DSN=mysql:host=mysql;dbname=app
      - DB_USER=root
      - DB_PASSWORD=password
-     - ENTRY_FEE_STORE_DRIVER=redis
+     - ENTRY_FEE_STORE_DRIVER=log
      - JWT_SECRET=t9BBDNMYwbN634AJrXv0
      - LOG_LOGGER=monolog
     command: /opt/bin/migrate

@@ -2,70 +2,42 @@ openapi: 3.0.0
 info:
   title: Game Platform API
   version: 1.0.0
+  description: |
+      # Introduction
+      This API is documented in **OpenAPI format** and is a resource on how to use the Game Platform API.
+
+      # Authentication
+      Authentication for the Game Platform API is via JWT Bearer Token. Once registered as a User a token is retrieved
+      by sending a request to `POST /auth/token` with the following example payload:
+      ```
+      {
+        "email": "joe@joe.com",
+        "password": "myreallycomplicatedpassword!@woo"
+      }
+      ```
+
+      If verification passes the following response payload will be returned:
+      ```
+      {
+        "status": "success",
+        "data": {
+            "token": "eyJhbGciOiJIUzI..."
+          }
+      }
+      ```
+      All requests with the exception of `POST /auth/token` and `POST /api/user` require the following header to access
+      the applications resources:
+
+      `Authorization: Bearer {token value}`
+  contact:
+    name: API Support
+    email: joesweeny84@hotmail.com
+    url: https://github.com/joesweeny/game-platform
 servers:
   - url: https://api-staging.joesweeny.co.uk
     description: Staging Environment
 
 paths:
-  /auth/token:
-    post:
-      security: []
-      description: Request a token to use when sending requests to authorized endpoints
-      tags:
-        - Auth
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: joe@joe.com
-                password:
-                  type: string
-                  example: myreallycomplicatedpassword!@woo
-
-      responses:
-        '200':
-          description: Response containing application access token
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  data:
-                    type: object
-                    properties:
-                      token:
-                        type: string
-                        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw'
-
-        '400':
-          description: The request sent was incorrectly formatted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FailResponse'
-
-        '403':
-          description: Not authorized to perform this request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FailResponse'
-
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
   /api/user:
     post:
       security: []
@@ -131,7 +103,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
     get:
-      description: Get an array of all Users registered to this application
+      description: Get an array of all Users registered
       tags:
         - User
       responses:
@@ -295,6 +267,7 @@ paths:
                 currency:
                   type: string
                   example: 'FAKE'
+                  description: The currency for the Game used for buy_in, max and min properties
                 buy_in:
                   type: integer
                   example: 500
@@ -366,8 +339,7 @@ paths:
           name: limit
           schema:
             type: string
-            example:
-              $ref: '#/components/schemas/Date'
+            example: '2018-03-12T15:00+00:00'
           description: The date the Game starts (returning all Games starting on or after date provided)
         - in: query
           name: currency
@@ -470,14 +442,130 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /api/game/{gameId}/user/{userId}:
+    post:
+      description: Enter a User into a Game
+      tags:
+        - Game
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          required: true
+          description: ID of the Game to enter
+        - in: path
+          name: userId
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          required: true
+          description: ID of the User to enter
+
+      responses:
+        '200':
+          description: Response to confirm User has entered Game
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data:
+                    type: object
+                    nullable: true
+
+        '403':
+          description: Not authorized to perform this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+        '404':
+          description: The requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/game/settle:
+    post:
+      description: Settle a Game by finalising and paying the winner
+      tags:
+        - Game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                game_id:
+                  $ref: '#/components/schemas/Uuid'
+                user_id:
+                  $ref: '#/components/schemas/Uuid'
+                currency:
+                  type: string
+                  example: 'FAKE'
+                  description: The currency for the Game used for buy_in, max and min properties
+                amount:
+                  type: integer
+                  example: 500
+                  description: The figure to pay the winning User
+
+      responses:
+        '200':
+          description: Response to confirm the Game has been settled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data:
+                    type: object
+                    nullable: true
+
+        '403':
+          description: Not authorized to perform this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+        '404':
+          description: The requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+        '422':
+          description: Unable to settle Game with properties provided in request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
   schemas:
     User:
       type: object
@@ -579,6 +667,3 @@ components:
           example: 1
           description: >-
             A code to identify the error. "1" is used when no specific error code has been defined for this error
-          
-security:
-  - bearerAuth: []

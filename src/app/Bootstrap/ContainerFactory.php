@@ -88,7 +88,7 @@ class ContainerFactory
 
             Router::class => \DI\decorate(function (Router $router, ContainerInterface $container) {
                 return $router
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\App\Routes\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\OpenApi\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\User\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class))

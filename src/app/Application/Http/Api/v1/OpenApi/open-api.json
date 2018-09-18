@@ -1,0 +1,856 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Game Platform API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api-staging.joesweeny.co.uk",
+      "description": "Staging Environment"
+    }
+  ],
+  "paths": {
+    "/auth/token": {
+      "post": {
+        "security": [
+
+        ],
+        "description": "Request a token to use when sending requests to authorized endpoints",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "joe@joe.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "myreallycomplicatedpassword!@woo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response containing application access token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request sent was incorrectly formatted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized to perform this request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "post": {
+        "security": [
+
+        ],
+        "description": "Create a new User for this application",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "joesweeny"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "joe@joe.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "myreallycomplicatedpassword!@woo"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "example": "FAKE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response containing data of newly created User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/User"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request sent was incorrectly formatted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unable to create resource with properties provided in request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Get an array of all Users registered to this application",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of all Users registered to this application",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized to perform this request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{id}": {
+      "get": {
+        "description": "Retrieve data for a specific User",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "$ref": "#/components/schemas/Uuid"
+            },
+            "required": true,
+            "description": "ID of the User"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response containing data of requested User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/User"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized to perform this request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{id}/purse": {
+      "get": {
+        "description": "The total balance of a specific User's purse",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "$ref": "#/components/schemas/Uuid"
+            },
+            "required": true,
+            "description": "ID of the User"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response containing data of requested User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "purse": {
+                          "type": "object",
+                          "properties": {
+                            "user_id": {
+                              "$ref": "#/components/schemas/Uuid"
+                            },
+                            "currency": {
+                              "type": "string",
+                              "example": "FAKE"
+                            },
+                            "amount": {
+                              "type": "integer",
+                              "example": 1000,
+                              "description": "The smallest denominator i.e. £10 = 1000"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized to perform this request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/game": {
+      "post": {
+        "description": "Create a new Game",
+        "tags": [
+          "Game"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "GENERAL_KNOWLEDGE"
+                    ]
+                  },
+                  "currency": {
+                    "type": "string",
+                    "example": "FAKE"
+                  },
+                  "buy_in": {
+                    "type": "integer",
+                    "example": 500,
+                    "description": "The cost to buy into the Game in the smallest possible denominator for currency i.e. pence"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "example": 50,
+                    "description": "The maximum figure for the Game in line with the rules in the smallest possible denominator for currency i.e. pence"
+                  },
+                  "min": {
+                    "type": "integer",
+                    "example": 10,
+                    "description": "The minimum figure for the Game in line with the rules in the smallest possible denominator for currency i.e. pence"
+                  },
+                  "start": {
+                    "$ref": "#/components/schemas/Date"
+                  },
+                  "players": {
+                    "type": "integer",
+                    "example": 4,
+                    "description": "The total amount of players who can enter the Game"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response containing data of newly created Game",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "game": {
+                          "$ref": "#/components/schemas/Game"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request sent was incorrectly formatted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unable to create resource with properties provided in request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Get an array of all Games created",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CREATED",
+                "CANCELLED",
+                "COMPLETED",
+                "IN_PLAY"
+              ]
+            },
+            "description": "The current status of a Game"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "example": {
+                "$ref": "#/components/schemas/Date"
+              }
+            },
+            "description": "The date the Game starts (returning all Games starting on or after date provided)"
+          },
+          {
+            "in": "query",
+            "name": "currency",
+            "schema": {
+              "type": "string",
+              "example": "FAKE"
+            },
+            "description": "The currency associated to the Game"
+          },
+          {
+            "in": "query",
+            "name": "buy_in",
+            "schema": {
+              "type": "integer",
+              "example": 1000
+            },
+            "description": "The Game buy in value (returning all Games starting at this price or less)"
+          }
+        ],
+        "tags": [
+          "Game"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of all Users registered to this application",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "games": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Game"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized to perform this request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/game/{id}": {
+      "get": {
+        "description": "Retrieve data for a specific Game",
+        "tags": [
+          "Game"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "$ref": "#/components/schemas/Uuid"
+            },
+            "required": true,
+            "description": "ID of the User"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response containing data of requested Game",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "game": {
+                          "$ref": "#/components/schemas/Game"
+                        },
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/User"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized to perform this request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "username": {
+            "type": "string",
+            "example": "joesweeny"
+          },
+          "email": {
+            "type": "string",
+            "example": "joe@joe.com"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/Date"
+          },
+          "updated_at": {
+            "$ref": "#/components/schemas/Date"
+          }
+        }
+      },
+      "Game": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "GENERAL_KNOWLEDGE"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "example": "FAKE"
+          },
+          "buy_in": {
+            "type": "integer",
+            "example": 500,
+            "description": "The cost to buy into the Game in the smallest possible denominator for currency i.e. pence"
+          },
+          "max": {
+            "type": "integer",
+            "example": 50,
+            "description": "The maximum figure for the Game in line with the rules in the smallest possible denominator for currency i.e. pence"
+          },
+          "min": {
+            "type": "integer",
+            "example": 10,
+            "description": "The minimum figure for the Game in line with the rules in the smallest possible denominator for currency i.e. pence"
+          },
+          "start": {
+            "$ref": "#/components/schemas/Date"
+          },
+          "players": {
+            "type": "integer",
+            "example": 4,
+            "description": "The total amount of players who can enter the Game"
+          }
+        }
+      },
+      "Uuid": {
+        "type": "string",
+        "description": "UUID string using the v4 specification",
+        "example": "d3562005-4598-4e4e-9149-3d12ed58e14f"
+      },
+      "Date": {
+        "type": "string",
+        "description": "A date formatted to ISO 8601 specification",
+        "example": "2018-03-12T15:00:00+00:00"
+      },
+      "FailResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "fail"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "errors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/JsendError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "errors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/JsendError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "JsendError": {
+        "type": "object",
+        "required": [
+          "message",
+          "code"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Something went wrong"
+          },
+          "code": {
+            "type": "integer",
+            "example": 1,
+            "description": "A code to identify the error. \"1\" is used when no specific error code has been defined for this error"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [
+
+      ]
+    }
+  ]
+}

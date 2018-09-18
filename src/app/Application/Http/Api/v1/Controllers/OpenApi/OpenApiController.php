@@ -16,10 +16,18 @@ class OpenApiController
         }));
     }
 
+    /**
+     * @return ResponseInterface
+     * @throws \InvalidArgumentException
+     */
     public function spec(): ResponseInterface
     {
-        $data = json_decode(file_get_contents(__DIR__ . '/../../OpenApi/open-api.json'));
+        $file = file_get_contents(__DIR__ . '/../../OpenApi/open-api.json');
 
-        return new JsonResponse($data);
+        if (!$file) {
+            throw new \InvalidArgumentException('Unable to parse Open Api spec JSON file');
+        }
+
+        return new JsonResponse(json_decode($file));
     }
 }

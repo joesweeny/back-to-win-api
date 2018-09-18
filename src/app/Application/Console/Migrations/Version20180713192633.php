@@ -21,8 +21,8 @@ class Version20180713192633 extends AbstractMigration
         $table->addColumn('username', Type::STRING);
         $table->addColumn('email', Type::STRING);
         $table->addColumn('password', Type::STRING);
-        $table->addColumn('created_at', Type::DATETIME);
-        $table->addColumn('updated_at', Type::DATETIME);
+        $table->addColumn('created_at', Type::INTEGER);
+        $table->addColumn('updated_at', Type::INTEGER);
     }
 
     /**

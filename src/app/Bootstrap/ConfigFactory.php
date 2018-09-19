@@ -67,6 +67,20 @@ class ConfigFactory
                     'driver' => self::fromEnv('ADMIN_BANK_DRIVER'),
                 ]
             ],
+
+            'storage' => [
+                'driver' => self::fromEnv('STORAGE_DRIVER'),
+
+                'aws' => [
+                    'key' => self::fromEnv('AWS_KEY'),
+                    'secret' => self::fromEnv('AWS_SECRET'),
+                    's3-bucket' => self::fromEnv('AWS_S3_BUCKET'),
+                ],
+
+                'local' => [
+                    'path' => './src/public/img'
+                ]
+            ]
         ]);
     }
 

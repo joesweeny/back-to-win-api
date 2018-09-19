@@ -215,6 +215,8 @@ class ContainerFactory
             \GamePlatform\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
 
             \GamePlatform\Domain\GameResult\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
+
+            \GamePlatform\Domain\Avatar\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Avatar\Persistence\Illuminate\IlluminateDbRepository::class),
         ];
     }
 

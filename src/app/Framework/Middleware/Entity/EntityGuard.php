@@ -1,32 +1,31 @@
 <?php
 
-namespace GamePlatform\Framework\Middleware\Auth;
+namespace GamePlatform\Framework\Middleware\Entity;
 
-use Chief\CommandBus;
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Boundary\Auth\Command\ValidateTokenCommand;
 use GamePlatform\Framework\Exception\BadRequestException;
 use GamePlatform\Framework\Exception\NotAuthenticatedException;
+use Lcobucci\JWT\Parser;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AuthGuard implements MiddlewareInterface
+class EntityGuard implements MiddlewareInterface
 {
+    private $guardedRoutes = [
+        'PUT' => [
+            'route' => '/api/avatar',
+            'field' => 'user_id'
+        ]
+    ];
     /**
-     * @var CommandBus
+     * @var Parser
      */
-    private $bus;
-    /**
-     * @var Config
-     */
-    private $config;
+    private $parser;
 
-    public function __construct(CommandBus $bus, Config $config)
+    public function __construct(Parser $parser)
     {
-        $this->bus = $bus;
-        $this->config = $config;
+        $this->parser = $parser;
     }
 
     /**
@@ -36,26 +35,39 @@ class AuthGuard implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($this->isExempt($this->parseMethod($request), $this->parsePath($request))) {
+        if ($this->isRouteGuarded($this->parseMethod($request), $this->parsePath($request))) {
+            $body = json_decode($request->getBody()->getContents());
+
+            if (!$userId = ($body->user_id ?? null)) {
+                throw new BadRequestException("Required field 'user_id' is missing");
+            }
+
+            $token = $this->parser->parse($this->parseAuthToken($request));
+
+            if ($userId !== $token->getClaim('user_id')){
+                throw new NotAuthenticatedException('You are not authenticated to update this resource');
+            }
+
             return $handler->handle($request);
         }
-
-        $token = $this->parseAuthToken($request);
-
-        $this->bus->execute(new ValidateTokenCommand($token));
 
         return $handler->handle($request);
     }
 
-    private function isExempt(string $method, string $path): bool
+    private function isRouteGuarded(string $method, string $path): bool
     {
-        foreach ($this->config->get('auth.exempt-routes') as $key => $value) {
-            return $key === $method && $value === $path;
+        foreach ($this->guardedRoutes as $key => $value) {
+            return $key === $method && $value['route'] === $path;
         }
 
         return false;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return string
+     * @throws BadRequestException
+     */
     private function parseAuthToken(ServerRequestInterface $request): string
     {
         if (!$header = $request->getHeaderLine('Authorization')) {

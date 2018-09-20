@@ -74,12 +74,10 @@ class AddController
      */
     private function hydrateCommand(\stdClass $data): AddAvatarCommand
     {
-        $contents = base64_decode($data->contents);
-
         return new AddAvatarCommand(
             $data->user_id,
             $data->filename,
-            $contents ?: ''
+            base64_decode($data->contents) ?: ''
         );
     }
 }

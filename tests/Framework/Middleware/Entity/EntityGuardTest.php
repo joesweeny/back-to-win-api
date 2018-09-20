@@ -32,7 +32,7 @@ class EntityGuardTest extends TestCase
     {
         $request = new ServerRequest(
             'PUT',
-            '/api/avatar',
+            '/avatar',
             ['Authorization' => 'Bearer some-valid-token'],
             json_encode((object) ['user_id' => '1234'])
         );
@@ -43,7 +43,9 @@ class EntityGuardTest extends TestCase
                 ->getToken()
         );
 
-        $this->handler->handle($request)->willReturn($mockResponse = new TextResponse('Hello Joe'));
+        $this->handler->handle(Argument::type(ServerRequest::class))->willReturn(
+            $mockResponse = new TextResponse('Hello Joe')
+        );
 
         $response = $this->guard->process($request, $this->handler->reveal());
 
@@ -54,7 +56,7 @@ class EntityGuardTest extends TestCase
     {
         $request = new ServerRequest(
             'PUT',
-            '/api/avatar',
+            '/avatar',
             [],
             json_encode((object) ['user_id' => '1234'])
         );
@@ -72,7 +74,7 @@ class EntityGuardTest extends TestCase
     {
         $request = new ServerRequest(
             'PUT',
-            '/api/avatar',
+            '/avatar',
             ['Authorization' => 'Bearer some-valid-token']
         );
 
@@ -89,7 +91,7 @@ class EntityGuardTest extends TestCase
     {
         $request = new ServerRequest(
             'PUT',
-            '/api/avatar',
+            '/avatar',
             ['Authorization' => 'Bearer some-valid-token'],
             json_encode((object) ['user_id' => '1234'])
         );

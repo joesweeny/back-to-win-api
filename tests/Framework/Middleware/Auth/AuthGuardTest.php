@@ -37,7 +37,7 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'Bearer some-valid-token']);
 
-        $this->config->get('auth.exempt-paths')->willReturn([]);
+        $this->config->get('auth.exempt-routes')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->shouldBeCalled();
 
@@ -52,7 +52,7 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content');
 
-        $this->config->get('auth.exempt-paths')->willReturn([]);
+        $this->config->get('auth.exempt-routes')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand(Argument::any()))->shouldNotBeCalled();
 
@@ -67,7 +67,7 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'some-valid-token']);
 
-        $this->config->get('auth.exempt-paths')->willReturn([]);
+        $this->config->get('auth.exempt-routes')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand(Argument::any()))->shouldNotBeCalled();
 
@@ -82,7 +82,7 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'Bearer some-valid-token']);
 
-        $this->config->get('auth.exempt-paths')->willReturn([]);
+        $this->config->get('auth.exempt-routes')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->willThrow(
             $e = new NotAuthenticatedException('Not authenticated')
@@ -99,7 +99,7 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/some/content', ['Authorization' => 'Bearer some-valid-token']);
 
-        $this->config->get('auth.exempt-paths')->willReturn([]);
+        $this->config->get('auth.exempt-routes')->willReturn([]);
 
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->willThrow(
             $e = new TokenExpiryException('Token expired')
@@ -116,7 +116,7 @@ class AuthGuardTest extends TestCase
     {
         $request = new ServerRequest('GET', '/content');
 
-        $this->config->get('auth.exempt-paths')->willReturn(['GET' => '/content']);
+        $this->config->get('auth.exempt-routes')->willReturn(['GET' => '/content']);
 
         $this->bus->execute(new ValidateTokenCommand('some-valid-token'))->shouldNotBeCalled();
 

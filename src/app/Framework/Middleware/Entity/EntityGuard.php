@@ -46,7 +46,7 @@ class EntityGuard implements MiddlewareInterface
                 throw new NotAuthenticatedException('You are not authenticated to update this resource');
             }
 
-            return $handler->handle(RequestBuilder::rebuildRequest($request, $body));
+            return $handler->handle(RequestBuilder::rebuildRequest($request, json_encode($body) ?: ''));
         }
 
         return $handler->handle($request);

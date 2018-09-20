@@ -32,6 +32,7 @@ services:
      - ENTRY_FEE_STORE_DRIVER=redis
      - JWT_SECRET=t9BBDNMYwbN634AJrXv0
      - LOG_LOGGER=monolog
+     - STORAGE_DRIVER=aws
     networks:
      - proxynet
 

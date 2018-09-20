@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Framework\Middleware\Entity;
 
+use GamePlatform\Framework\Request\RequestBuilder;
 use GamePlatform\Framework\Exception\BadRequestException;
 use GamePlatform\Framework\Exception\NotAuthenticatedException;
 use Lcobucci\JWT\Parser;
@@ -13,10 +14,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class EntityGuard implements MiddlewareInterface
 {
     private $guardedRoutes = [
-        'PUT' => [
-            'route' => '/api/avatar',
-            'field' => 'user_id'
-        ]
+        'PUT' =>  '/avatar',
     ];
     /**
      * @var Parser
@@ -48,7 +46,7 @@ class EntityGuard implements MiddlewareInterface
                 throw new NotAuthenticatedException('You are not authenticated to update this resource');
             }
 
-            return $handler->handle($request);
+            return $handler->handle(RequestBuilder::rebuildRequest($request, $body));
         }
 
         return $handler->handle($request);
@@ -57,7 +55,7 @@ class EntityGuard implements MiddlewareInterface
     private function isRouteGuarded(string $method, string $path): bool
     {
         foreach ($this->guardedRoutes as $key => $value) {
-            return $key === $method && $value['route'] === $path;
+            return $key === $method && $value === $path;
         }
 
         return false;
@@ -83,7 +81,7 @@ class EntityGuard implements MiddlewareInterface
 
     private function parseMethod(ServerRequestInterface $request): string
     {
-        return $request->getMethod();
+        return strtoupper($request->getMethod());
     }
 
     private function parsePath(ServerRequestInterface $request): string

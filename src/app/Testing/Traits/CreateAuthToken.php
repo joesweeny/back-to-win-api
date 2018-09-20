@@ -9,12 +9,15 @@ use Interop\Container\ContainerInterface;
 
 trait CreateAuthToken
 {
-    public function getValidToken(ContainerInterface $container): string
+    public function getValidToken(ContainerInterface $container, Uuid $userId = null): string
     {
         $generator = $container->get(TokenGenerator::class);
 
         $clock = $container->get(Clock::class);
 
-        return $generator->generate(Uuid::generate(), $clock->now()->addDays(2));
+        return $generator->generate(
+            $userId ?: Uuid::generate(),
+            $clock->now()->addDays(2)
+        );
     }
 }

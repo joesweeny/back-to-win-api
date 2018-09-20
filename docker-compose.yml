@@ -42,6 +42,7 @@ services:
      - ENTRY_FEE_STORE_DRIVER=redis
      - JWT_SECRET=t9BBDNMYwbN634AJrXv0
      - LOG_LOGGER=monolog
+     - STORAGE_DRIVER=local
     volumes:
      - .:/opt
 
@@ -66,5 +67,6 @@ services:
      ENTRY_FEE_STORE_DRIVER: log
      JWT_SECRET: t9BBDNMYwbN634AJrXv0
      LOG_LOGGER: monolog
+     STORAGE_DRIVER: local
     volumes:
      - .:/opt

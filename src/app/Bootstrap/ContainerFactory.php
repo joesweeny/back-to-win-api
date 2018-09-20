@@ -2,6 +2,7 @@
 
 namespace GamePlatform\Bootstrap;
 
+use Aws\S3\S3Client;
 use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
 use GamePlatform\Domain\Auth\Services\Token\TokenValidator;
 use GamePlatform\Domain\Bank\Bank;
@@ -27,6 +28,9 @@ use Illuminate\Database\SQLiteConnection;
 use Interop\Container\ContainerInterface;
 use GamePlatform\Framework\CommandBus\ChiefAdapter;
 use GamePlatform\Framework\Routing\Router;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
+use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 use Predis\Client;
@@ -92,7 +96,8 @@ class ContainerFactory
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\User\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
                     ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Auth\RouteManager::class));
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Auth\RouteManager::class))
+                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Avatar\RouteManager::class));
             }),
 
             CommandBus::class => \DI\factory(function (ContainerInterface $container) {
@@ -189,6 +194,46 @@ class ContainerFactory
                         throw new \UnexpectedValueException("Auth token driver '$driver' not recognised");
                 }
             }),
+
+            Filesystem::class => \DI\factory(function (ContainerInterface $container) {
+                $config = $container->get(Config::class);
+
+                switch ($driver = $config->get('storage.driver')) {
+                    case 'S3':
+                        $client = S3Client::factory([
+                            'credentials' => [
+                                'key'    => $config->get('storage.aws.key'),
+                                'secret' => $config->get('storage.aws.secret'),
+                            ],
+                            'region' => 'eu-west-2',
+                            'version' => 'latest',
+                        ]);
+
+                        $adapter = new AwsS3Adapter($client, $config->get('storage.aws.s3-bucket'));
+
+                        return new Filesystem($adapter);
+                    case 'local':
+                        $local = new Local(
+                            $config->get('storage.local.path'),
+                            0,
+                            Local::SKIP_LINKS,
+                            [
+                                'file' => [
+                                    'public' => 0777,
+                                    'private' => 0777,
+                                ],
+                                'dir' => [
+                                    'public' => 0777,
+                                    'private' => 0777,
+                                ]
+                            ]
+                        );
+
+                        return new Filesystem($local);
+                    default:
+                        throw new \UnexpectedValueException("Storage driver '$driver' not recognised");
+                }
+            }),
         ];
     }
 
@@ -215,6 +260,8 @@ class ContainerFactory
             \GamePlatform\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
 
             \GamePlatform\Domain\GameResult\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
+
+            \GamePlatform\Domain\Avatar\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Avatar\Persistence\Illuminate\IlluminateDbRepository::class),
         ];
     }
 

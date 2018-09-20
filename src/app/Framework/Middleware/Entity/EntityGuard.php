@@ -42,7 +42,7 @@ class EntityGuard implements MiddlewareInterface
 
             $token = $this->parser->parse($this->parseAuthToken($request));
 
-            if ($userId !== $token->getClaim('user_id')){
+            if ($userId !== $token->getClaim('user_id')) {
                 throw new NotAuthenticatedException('You are not authenticated to update this resource');
             }
 

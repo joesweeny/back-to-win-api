@@ -198,7 +198,7 @@ class ContainerFactory
             Filesystem::class => \DI\factory(function (ContainerInterface $container) {
                 $config = $container->get(Config::class);
 
-                switch($driver = $config->get('storage.driver')) {
+                switch ($driver = $config->get('storage.driver')) {
                     case 'S3':
                         $client = S3Client::factory([
                             'credentials' => [
@@ -226,7 +226,8 @@ class ContainerFactory
                                     'public' => 0777,
                                     'private' => 0777,
                                 ]
-                            ]);
+                            ]
+                        );
 
                         return new Filesystem($local);
                     default:

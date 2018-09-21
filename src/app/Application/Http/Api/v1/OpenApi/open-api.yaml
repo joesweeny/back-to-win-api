@@ -1,13 +1,13 @@
 openapi: 3.0.0
 info:
-  title: Game Platform API
+  title: Back To Win API
   version: 1.0.0
   description: |
       # Introduction
-      This API is documented in **OpenAPI format** and is a resource on how to use the Game Platform API.
+      This API is documented in **OpenAPI format** and is a resource on how to use the Back To Win API.
 
       # Authentication
-      Authentication for the Game Platform API is via JWT Bearer Token. Once registered as a User a token is retrieved
+      Authentication for the Back To Win API is via JWT Bearer Token. Once registered as a User a token is retrieved
       by sending a request to `POST /auth/token` with the following example payload:
       ```
       {
@@ -34,7 +34,7 @@ info:
     email: joesweeny84@hotmail.com
     url: https://github.com/joesweeny/game-platform
 servers:
-  - url: https://api-staging.joesweeny.co.uk
+  - url: https://api-staging.backtowin.io
     description: Staging Environment
 
 paths:

@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Game Platform API",
+    "title": "Back To Win API",
     "version": "1.0.0",
-    "description": "# Introduction\nThis API is documented in **OpenAPI format** and is a resource on how to use the Game Platform API.\n\n# Authentication\nAuthentication for the Game Platform API is via JWT Bearer Token. Once registered as a User a token is retrieved\nby sending a request to `POST /auth/token` with the following example payload:\n```\n{\n  \"email\": \"joe@joe.com\",\n  \"password\": \"myreallycomplicatedpassword!@woo\"\n}\n```\n\nIf verification passes the following response payload will be returned:\n```\n{\n  \"status\": \"success\",\n  \"data\": {\n      \"token\": \"eyJhbGciOiJIUzI...\"\n    }\n}\n```\nAll requests with the exception of `POST /auth/token` and `POST /api/user` require the following header to access\nthe applications resources:\n\n`Authorization: Bearer {token value}`\n",
+    "description": "# Introduction\nThis API is documented in **OpenAPI format** and is a resource on how to use the Back To Win API.\n\n# Authentication\nAuthentication for the Back To Win API is via JWT Bearer Token. Once registered as a User a token is retrieved\nby sending a request to `POST /auth/token` with the following example payload:\n```\n{\n  \"email\": \"joe@joe.com\",\n  \"password\": \"myreallycomplicatedpassword!@woo\"\n}\n```\n\nIf verification passes the following response payload will be returned:\n```\n{\n  \"status\": \"success\",\n  \"data\": {\n      \"token\": \"eyJhbGciOiJIUzI...\"\n    }\n}\n```\nAll requests with the exception of `POST /auth/token` and `POST /api/user` require the following header to access\nthe applications resources:\n\n`Authorization: Bearer {token value}`\n",
     "contact": {
       "name": "API Support",
       "email": "joesweeny84@hotmail.com",
@@ -12,7 +12,7 @@
   },
   "servers": [
     {
-      "url": "https://api-staging.joesweeny.co.uk",
+      "url": "https://api-staging.backtowin.io",
       "description": "Staging Environment"
     }
   ],

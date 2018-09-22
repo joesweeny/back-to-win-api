@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Boundary\UserPurse;
+namespace BackToWin\Boundary\UserPurse;
 
-use GamePlatform\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
 
 class UserPursePresenter
 {

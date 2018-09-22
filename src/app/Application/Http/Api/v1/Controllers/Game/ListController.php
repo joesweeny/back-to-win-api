@@ -1,13 +1,13 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use GamePlatform\Boundary\Game\Command\ListGamesCommand;
-use GamePlatform\Framework\Controller\ControllerService;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
-use GamePlatform\Framework\Jsend\JsendResponse;
-use GamePlatform\Framework\Jsend\JsendSuccessResponse;
+use BackToWin\Boundary\Game\Command\ListGamesCommand;
+use BackToWin\Framework\Controller\ControllerService;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ListController

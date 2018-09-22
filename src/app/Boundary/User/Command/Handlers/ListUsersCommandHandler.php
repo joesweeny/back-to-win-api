@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command\Handlers;
+namespace BackToWin\Boundary\User\Command\Handlers;
 
-use GamePlatform\Boundary\User\Command\ListUsersCommand;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Boundary\User\UserPresenter;
+use BackToWin\Boundary\User\Command\ListUsersCommand;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Boundary\User\UserPresenter;
 
 class ListUsersCommandHandler
 {
@@ -32,7 +32,7 @@ class ListUsersCommandHandler
     /**
      * @param ListUsersCommand $command
      * @return array
-     * @throws \GamePlatform\Framework\Exception\UndefinedException
+     * @throws \BackToWin\Framework\Exception\UndefinedException
      */
     public function handle(ListUsersCommand $command): array
     {

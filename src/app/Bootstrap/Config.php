@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Bootstrap;
+namespace BackToWin\Bootstrap;
 
 use Adam\Bag\Bag;
 

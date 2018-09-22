@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Domain\GameResult\Persistence\Illuminate;
+namespace BackToWin\Domain\GameResult\Persistence\Illuminate;
 
-use GamePlatform\Domain\GameResult\Persistence\Repository;
-use GamePlatform\Framework\Exception\RepositoryDuplicationException;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Domain\GameResult\Persistence\Repository;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;

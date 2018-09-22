@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Framework\Middleware\Entity;
+namespace BackToWin\Framework\Middleware\Entity;
 
-use GamePlatform\Framework\Exception\BadRequestException;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\BadRequestException;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
 use GuzzleHttp\Psr7\ServerRequest;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;

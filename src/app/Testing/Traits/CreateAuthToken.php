@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Testing\Traits;
+namespace BackToWin\Testing\Traits;
 
-use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Auth\Services\Token\TokenGenerator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Uuid\Uuid;
 use Interop\Container\ContainerInterface;
 
 trait CreateAuthToken

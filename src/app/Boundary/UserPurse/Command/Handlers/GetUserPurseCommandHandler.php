@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Boundary\UserPurse\Command\Handlers;
+namespace BackToWin\Boundary\UserPurse\Command\Handlers;
 
-use GamePlatform\Boundary\UserPurse\Command\GetUserPurseCommand;
-use GamePlatform\Boundary\UserPurse\UserPursePresenter;
-use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\UserPurse\Command\GetUserPurseCommand;
+use BackToWin\Boundary\UserPurse\UserPursePresenter;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class GetUserPurseCommandHandler
 {

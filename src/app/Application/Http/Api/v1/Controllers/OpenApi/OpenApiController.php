@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\OpenApi;
+namespace BackToWin\Application\Http\Api\v1\Controllers\OpenApi;
 
-use GamePlatform\Framework\Buffer\OutputBuffer;
+use BackToWin\Framework\Buffer\OutputBuffer;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;

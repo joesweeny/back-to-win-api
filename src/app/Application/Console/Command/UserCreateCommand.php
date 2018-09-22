@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Application\Console\Command;
+namespace BackToWin\Application\Console\Command;
 
 use Chief\CommandBus;
-use GamePlatform\Boundary\User\Command\CreateUserCommand;
-use GamePlatform\Framework\Exception\UserCreationException;
+use BackToWin\Boundary\User\Command\CreateUserCommand;
+use BackToWin\Framework\Exception\UserCreationException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

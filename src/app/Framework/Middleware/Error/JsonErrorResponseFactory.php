@@ -1,13 +1,13 @@
 <?php
 
-namespace GamePlatform\Framework\Middleware\Error;
+namespace BackToWin\Framework\Middleware\Error;
 
-use GamePlatform\Framework\Exception\BadRequestException;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendErrorResponse;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Exception\BadRequestException;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendErrorResponse;
+use BackToWin\Framework\Jsend\JsendFailResponse;
 use Psr\Http\Message\ResponseInterface;
 
 class JsonErrorResponseFactory implements ErrorResponseFactory

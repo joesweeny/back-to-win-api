@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Exception;
+namespace BackToWin\Framework\Exception;
 
 class UndefinedValueException extends \Exception
 {

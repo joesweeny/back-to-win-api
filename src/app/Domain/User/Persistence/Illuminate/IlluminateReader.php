@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Domain\User\Persistence\Illuminate;
+namespace BackToWin\Domain\User\Persistence\Illuminate;
 
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\Persistence\Hydration\Hydrator;
-use GamePlatform\Domain\User\Persistence\Reader;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\Persistence\Hydration\Hydrator;
+use BackToWin\Domain\User\Persistence\Reader;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 

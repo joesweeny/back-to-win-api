@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Domain\Bank\User;
+namespace BackToWin\Domain\Bank\User;
 
-use GamePlatform\Domain\Bank\Bank;
-use GamePlatform\Domain\Bank\Exception\BankingException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Bank\Bank;
+use BackToWin\Domain\Bank\Exception\BankingException;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use Predis\Client;

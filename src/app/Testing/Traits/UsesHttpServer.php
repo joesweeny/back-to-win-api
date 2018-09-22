@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Testing\Traits;
+namespace BackToWin\Testing\Traits;
 
 use Interop\Container\ContainerInterface;
-use GamePlatform\Application\Http\HttpServer;
+use BackToWin\Application\Http\HttpServer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

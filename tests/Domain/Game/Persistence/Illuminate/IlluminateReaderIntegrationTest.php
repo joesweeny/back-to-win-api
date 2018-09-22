@@ -1,17 +1,17 @@
 <?php
 
-namespace GamePlatform\Domain\Game\Persistence\Illuminate;
+namespace BackToWin\Domain\Game\Persistence\Illuminate;
 
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Enum\GameType;
-use GamePlatform\Domain\Game\Persistence\GameRepositoryQuery;
-use GamePlatform\Domain\Game\Persistence\Reader;
-use GamePlatform\Domain\Game\Persistence\Writer;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
+use BackToWin\Domain\Game\Persistence\Reader;
+use BackToWin\Domain\Game\Persistence\Writer;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
 use Money\Currency;
 use Money\Money;

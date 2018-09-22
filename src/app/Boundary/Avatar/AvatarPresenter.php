@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Boundary\Avatar;
+namespace BackToWin\Boundary\Avatar;
 
-use GamePlatform\Domain\Avatar\Entity\Avatar;
+use BackToWin\Domain\Avatar\Entity\Avatar;
 
 class AvatarPresenter
 {

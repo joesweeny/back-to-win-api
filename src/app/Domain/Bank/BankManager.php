@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Domain\Bank;
+namespace BackToWin\Domain\Bank;
 
-use GamePlatform\Domain\Bank\Exception\BankingException;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Bank\Exception\BankingException;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
 class BankManager

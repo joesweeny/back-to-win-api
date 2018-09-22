@@ -1,13 +1,13 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar\Persistence\Illuminate;
+namespace BackToWin\Domain\Avatar\Persistence\Illuminate;
 
-use GamePlatform\Domain\Avatar\Entity\Avatar;
-use GamePlatform\Domain\Avatar\Persistence\Repository;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Domain\Avatar\Entity\Avatar;
+use BackToWin\Domain\Avatar\Persistence\Repository;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;

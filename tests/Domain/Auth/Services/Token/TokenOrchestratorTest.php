@@ -1,15 +1,15 @@
 <?php
 
-namespace GamePlatform\Domain\Auth\Services\Token;
+namespace BackToWin\Domain\Auth\Services\Token;
 
 use Cake\Chronos\Chronos;
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\DateTime\SystemClock;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\DateTime\SystemClock;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;

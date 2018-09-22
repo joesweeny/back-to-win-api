@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Testing\Traits;
+namespace BackToWin\Testing\Traits;
 
-use GamePlatform\Bootstrap\Config;
+use BackToWin\Bootstrap\Config;
 use Interop\Container\ContainerInterface;
 use Predis\Client;
 

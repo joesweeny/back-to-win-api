@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Domain\Admin\Bank\Persistence\Illuminate;
+namespace BackToWin\Domain\Admin\Bank\Persistence\Illuminate;
 
-use GamePlatform\Framework\Exception\RepositoryDuplicationException;
-use GamePlatform\Domain\Admin\Bank\Persistence\Repository;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
+use BackToWin\Domain\Admin\Bank\Persistence\Repository;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 use Money\Money;

@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command;
+namespace BackToWin\Boundary\User\Command;
 
-use GamePlatform\Framework\CommandBus\Command;
+use BackToWin\Framework\CommandBus\Command;
 
 class ListUsersCommand implements Command
 {

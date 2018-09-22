@@ -1,12 +1,13 @@
 FROM php:7.2-fpm
 
-RUN apt-get update
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         supervisor \
         nginx \
         libcurl4-gnutls-dev \
         libsqlite3-0 \
-        curl
+        curl && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install -j$(nproc) \
     pdo_mysql \

@@ -1,15 +1,15 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use GamePlatform\Boundary\Game\Command\GetByIdCommand;
-use GamePlatform\Boundary\GameEntry\Command\GetUsersForGameCommand;
-use GamePlatform\Framework\Controller\ControllerService;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
-use GamePlatform\Framework\Jsend\JsendResponse;
-use GamePlatform\Framework\Jsend\JsendSuccessResponse;
+use BackToWin\Boundary\Game\Command\GetByIdCommand;
+use BackToWin\Boundary\GameEntry\Command\GetUsersForGameCommand;
+use BackToWin\Framework\Controller\ControllerService;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 
 class GetController

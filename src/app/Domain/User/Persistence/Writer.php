@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Domain\User\Persistence;
+namespace BackToWin\Domain\User\Persistence;
 
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Exception\NotFoundException;
 
 interface Writer
 {

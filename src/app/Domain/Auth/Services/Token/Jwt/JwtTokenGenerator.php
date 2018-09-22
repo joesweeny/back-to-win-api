@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Domain\Auth\Services\Token\Jwt;
+namespace BackToWin\Domain\Auth\Services\Token\Jwt;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Auth\Services\Token\TokenGenerator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Uuid\Uuid;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 

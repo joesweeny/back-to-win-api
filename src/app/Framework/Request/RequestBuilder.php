@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Request;
+namespace BackToWin\Framework\Request;
 
 use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Http\Message\ServerRequestInterface;

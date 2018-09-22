@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Boundary\Game\Command;
+namespace BackToWin\Boundary\Game\Command;
 
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 use Chief\Command;
 
 class GetByIdCommand implements Command

@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Boundary\Game;
+namespace BackToWin\Boundary\Game;
 
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Persistence\GameRepositoryQuery;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
 use Money\Currency;
 
 class QueryBuilder

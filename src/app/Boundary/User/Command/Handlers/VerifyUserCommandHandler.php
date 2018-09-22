@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command\Handlers;
+namespace BackToWin\Boundary\User\Command\Handlers;
 
-use GamePlatform\Boundary\User\Command\VerifyUserCommand;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\User\Command\VerifyUserCommand;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class VerifyUserCommandHandler
 {

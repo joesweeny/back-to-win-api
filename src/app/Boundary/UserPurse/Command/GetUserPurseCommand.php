@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Boundary\UserPurse\Command;
+namespace BackToWin\Boundary\UserPurse\Command;
 
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 use Chief\Command;
 
 class GetUserPurseCommand implements Command

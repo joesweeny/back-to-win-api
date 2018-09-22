@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\CommandBus;
+namespace BackToWin\Framework\CommandBus;
 
 interface Command extends \Chief\Command
 {

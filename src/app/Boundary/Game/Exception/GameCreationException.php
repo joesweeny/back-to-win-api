@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Boundary\Game\Exception;
+namespace BackToWin\Boundary\Game\Exception;
 
 class GameCreationException extends \Exception
 {

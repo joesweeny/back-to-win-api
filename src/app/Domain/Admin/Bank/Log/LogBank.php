@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Domain\Admin\Bank\Log;
+namespace BackToWin\Domain\Admin\Bank\Log;
 
-use GamePlatform\Domain\Admin\Bank\Bank;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Admin\Bank\Bank;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use Psr\Log\LoggerInterface;

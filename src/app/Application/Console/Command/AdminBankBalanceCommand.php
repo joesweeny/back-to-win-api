@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Application\Console\Command;
+namespace BackToWin\Application\Console\Command;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Admin\Bank\Bank;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Admin\Bank\Bank;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

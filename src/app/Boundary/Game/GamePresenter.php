@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Boundary\Game;
+namespace BackToWin\Boundary\Game;
 
-use GamePlatform\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Entity\Game;
 
 class GamePresenter
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace GamePlatform\Domain\Game;
+namespace BackToWin\Domain\Game;
 
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Exception\GameCreationException;
-use GamePlatform\Domain\Game\Exception\GameSettlementException;
-use GamePlatform\Domain\Game\Persistence\GameRepositoryQuery;
-use GamePlatform\Domain\Game\Persistence\Reader;
-use GamePlatform\Domain\Game\Persistence\Writer;
-use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
-use GamePlatform\Domain\GameResult\GameResultOrchestrator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Exception\GameCreationException;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
+use BackToWin\Domain\Game\Persistence\GameRepositoryQuery;
+use BackToWin\Domain\Game\Persistence\Reader;
+use BackToWin\Domain\Game\Persistence\Writer;
+use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\GameResult\GameResultOrchestrator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 
 class GameOrchestrator
 {

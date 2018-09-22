@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Application\Console\Migrations;
+namespace BackToWin\Application\Console\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;

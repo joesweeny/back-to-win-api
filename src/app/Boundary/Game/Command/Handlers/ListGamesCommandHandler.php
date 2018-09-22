@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Boundary\Game\Command\Handlers;
+namespace BackToWin\Boundary\Game\Command\Handlers;
 
-use GamePlatform\Boundary\Game\Command\ListGamesCommand;
-use GamePlatform\Boundary\Game\GamePresenter;
-use GamePlatform\Boundary\Game\QueryBuilder;
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\GameOrchestrator;
+use BackToWin\Boundary\Game\Command\ListGamesCommand;
+use BackToWin\Boundary\Game\GamePresenter;
+use BackToWin\Boundary\Game\QueryBuilder;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\GameOrchestrator;
 
 class ListGamesCommandHandler
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar\Entity;
+namespace BackToWin\Domain\Avatar\Entity;
 
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class AvatarTest extends TestCase

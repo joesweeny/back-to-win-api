@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Controller;
+namespace BackToWin\Framework\Controller;
 
 use Chief\CommandBus;
 use Psr\Log\LoggerInterface;

@@ -1,15 +1,15 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
 use Chief\CommandBus;
-use GamePlatform\Boundary\Game\Command\EnterGameCommand;
-use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
-use GamePlatform\Framework\Jsend\JsendResponse;
-use GamePlatform\Framework\Jsend\JsendSuccessResponse;
+use BackToWin\Boundary\Game\Command\EnterGameCommand;
+use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 
 class EnterController
 {

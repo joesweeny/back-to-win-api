@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Application\Http;
+namespace BackToWin\Application\Http;
 
-use GamePlatform\Framework\Middleware\Auth\AuthGuard;
-use GamePlatform\Framework\Middleware\Entity\EntityGuard;
-use GamePlatform\Framework\Middleware\Error\ErrorHandler;
+use BackToWin\Framework\Middleware\Auth\AuthGuard;
+use BackToWin\Framework\Middleware\Entity\EntityGuard;
+use BackToWin\Framework\Middleware\Error\ErrorHandler;
 use Interop\Container\ContainerInterface;
-use GamePlatform\Framework\Routing\Router;
+use BackToWin\Framework\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Stratigility\MiddlewarePipe;

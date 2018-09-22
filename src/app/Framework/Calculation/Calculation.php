@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Calculation;
+namespace BackToWin\Framework\Calculation;
 
 use MyCLabs\Enum\Enum;
 

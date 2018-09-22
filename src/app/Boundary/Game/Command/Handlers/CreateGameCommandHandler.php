@@ -1,14 +1,14 @@
 <?php
 
-namespace GamePlatform\Boundary\Game\Command\Handlers;
+namespace BackToWin\Boundary\Game\Command\Handlers;
 
-use GamePlatform\Boundary\Game\Command\CreateGameCommand;
-use GamePlatform\Boundary\Game\GamePresenter;
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Exception\GameCreationException;
-use GamePlatform\Domain\Game\GameOrchestrator;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Boundary\Game\Command\CreateGameCommand;
+use BackToWin\Boundary\Game\GamePresenter;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Exception\GameCreationException;
+use BackToWin\Domain\Game\GameOrchestrator;
+use BackToWin\Framework\Uuid\Uuid;
 
 class CreateGameCommandHandler
 {

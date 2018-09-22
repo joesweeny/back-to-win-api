@@ -1,13 +1,13 @@
 <?php
 
-namespace GamePlatform\Boundary\GameEntry\Command\Handlers;
+namespace BackToWin\Boundary\GameEntry\Command\Handlers;
 
-use GamePlatform\Boundary\GameEntry\Command\GetUsersForGameCommand;
-use GamePlatform\Boundary\User\UserPresenter;
-use GamePlatform\Domain\Game\GameOrchestrator;
-use GamePlatform\Domain\GameEntry\GameEntryOrchestrator;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\GameEntry\Command\GetUsersForGameCommand;
+use BackToWin\Boundary\User\UserPresenter;
+use BackToWin\Domain\Game\GameOrchestrator;
+use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class GetUsersForGameCommandHandler
 {

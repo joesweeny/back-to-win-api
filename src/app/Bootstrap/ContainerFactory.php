@@ -1,33 +1,33 @@
 <?php
 
-namespace GamePlatform\Bootstrap;
+namespace BackToWin\Bootstrap;
 
 use Aws\S3\S3Client;
-use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
-use GamePlatform\Domain\Auth\Services\Token\TokenValidator;
-use GamePlatform\Domain\Bank\Bank;
-use GamePlatform\Domain\Bank\User\LogBank;
-use GamePlatform\Domain\Bank\User\RedisBank;
-use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use GamePlatform\Domain\GameEntry\Services\EntryFee\Log\LogEntryFeeStore;
-use GamePlatform\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
+use BackToWin\Domain\Auth\Services\Token\TokenGenerator;
+use BackToWin\Domain\Auth\Services\Token\TokenValidator;
+use BackToWin\Domain\Bank\Bank;
+use BackToWin\Domain\Bank\User\LogBank;
+use BackToWin\Domain\Bank\User\RedisBank;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\Log\LogEntryFeeStore;
+use BackToWin\Domain\GameEntry\Services\EntryFee\Redis\RedisEntryFeeStore;
 use Chief\Busses\SynchronousCommandBus;
 use Chief\CommandBus;
 use Chief\Container;
 use Chief\Resolvers\NativeCommandHandlerResolver;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\DateTime\SystemClock;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\DateTime\SystemClock;
 use DI\ContainerBuilder;
 use function DI\object;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
-use GamePlatform\Framework\Middleware\Error\ErrorResponseFactory;
-use GamePlatform\Framework\Middleware\Error\JsonErrorResponseFactory;
+use BackToWin\Framework\Middleware\Error\ErrorResponseFactory;
+use BackToWin\Framework\Middleware\Error\JsonErrorResponseFactory;
 use Illuminate\Database\Connection;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
 use Interop\Container\ContainerInterface;
-use GamePlatform\Framework\CommandBus\ChiefAdapter;
-use GamePlatform\Framework\Routing\Router;
+use BackToWin\Framework\CommandBus\ChiefAdapter;
+use BackToWin\Framework\Routing\Router;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
@@ -92,12 +92,12 @@ class ContainerFactory
 
             Router::class => \DI\decorate(function (Router $router, ContainerInterface $container) {
                 return $router
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\OpenApi\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\User\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Game\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Auth\RouteManager::class))
-                    ->addRoutes($container->get(\GamePlatform\Application\Http\Api\v1\Routing\Avatar\RouteManager::class));
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\OpenApi\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\User\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\UserPurse\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\Game\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\Auth\RouteManager::class))
+                    ->addRoutes($container->get(\BackToWin\Application\Http\Api\v1\Routing\Avatar\RouteManager::class));
             }),
 
             CommandBus::class => \DI\factory(function (ContainerInterface $container) {
@@ -153,12 +153,12 @@ class ContainerFactory
                 }
             }),
 
-            \GamePlatform\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
+            \BackToWin\Domain\Admin\Bank\Bank::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($bank = $container->get(Config::class)->get('bank.admin.driver')) {
                     case 'redis':
-                        return new \GamePlatform\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
+                        return new \BackToWin\Domain\Admin\Bank\Redis\RedisBank($container->get(Client::class));
                     case 'log':
-                        return new \GamePlatform\Domain\Admin\Bank\Log\LogBank($container->get(LoggerInterface::class));
+                        return new \BackToWin\Domain\Admin\Bank\Log\LogBank($container->get(LoggerInterface::class));
                     default:
                         throw new \UnexpectedValueException("Admin bank '$bank' not recognised");
                 }
@@ -180,7 +180,7 @@ class ContainerFactory
             TokenGenerator::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($driver = $container->get(Config::class)->get('auth.token.driver')) {
                     case 'jwt':
-                        return $container->get(\GamePlatform\Domain\Auth\Services\Token\Jwt\JwtTokenGenerator::class);
+                        return $container->get(\BackToWin\Domain\Auth\Services\Token\Jwt\JwtTokenGenerator::class);
                     default:
                         throw new \UnexpectedValueException("Auth token driver '$driver' not recognised");
                 }
@@ -189,7 +189,7 @@ class ContainerFactory
             TokenValidator::class => \DI\factory(function (ContainerInterface $container) {
                 switch ($driver = $container->get(Config::class)->get('auth.token.driver')) {
                     case 'jwt':
-                        return $container->get(\GamePlatform\Domain\Auth\Services\Token\Jwt\JwtTokenValidator::class);
+                        return $container->get(\BackToWin\Domain\Auth\Services\Token\Jwt\JwtTokenValidator::class);
                     default:
                         throw new \UnexpectedValueException("Auth token driver '$driver' not recognised");
                 }
@@ -243,25 +243,25 @@ class ContainerFactory
     private function defineDomain(): array
     {
         return [
-            \GamePlatform\Domain\User\Persistence\Reader::class => \DI\object(\GamePlatform\Domain\User\Persistence\Illuminate\IlluminateReader::class),
+            \BackToWin\Domain\User\Persistence\Reader::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateReader::class),
 
-            \GamePlatform\Domain\User\Persistence\Writer::class => \DI\object(\GamePlatform\Domain\User\Persistence\Illuminate\IlluminateWriter::class),
+            \BackToWin\Domain\User\Persistence\Writer::class => \DI\object(\BackToWin\Domain\User\Persistence\Illuminate\IlluminateWriter::class),
 
-            \GamePlatform\Domain\UserPurse\Persistence\Writer::class => \DI\object(\GamePlatform\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class),
+            \BackToWin\Domain\UserPurse\Persistence\Writer::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateWriter::class),
 
-            \GamePlatform\Domain\UserPurse\Persistence\Reader::class => \DI\object(\GamePlatform\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class),
+            \BackToWin\Domain\UserPurse\Persistence\Reader::class => \DI\object(\BackToWin\Domain\UserPurse\Persistence\Illuminate\IlluminateReader::class),
 
-            \GamePlatform\Domain\Game\Persistence\Writer::class => \DI\object(\GamePlatform\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
+            \BackToWin\Domain\Game\Persistence\Writer::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateWriter::class),
 
-            \GamePlatform\Domain\Game\Persistence\Reader::class => \DI\object(\GamePlatform\Domain\Game\Persistence\Illuminate\IlluminateReader::class),
+            \BackToWin\Domain\Game\Persistence\Reader::class => \DI\object(\BackToWin\Domain\Game\Persistence\Illuminate\IlluminateReader::class),
 
-            \GamePlatform\Domain\GameEntry\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class),
+            \BackToWin\Domain\GameEntry\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameEntry\Persistence\Illuminate\IlluminateRepository::class),
 
-            \GamePlatform\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
+            \BackToWin\Domain\Admin\Bank\Persistence\Repository::class => \DI\object(\BackToWin\Domain\Admin\Bank\Persistence\Illuminate\IlluminateRepository::class),
 
-            \GamePlatform\Domain\GameResult\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
+            \BackToWin\Domain\GameResult\Persistence\Repository::class => \DI\object(\BackToWin\Domain\GameResult\Persistence\Illuminate\IlluminateRepository::class),
 
-            \GamePlatform\Domain\Avatar\Persistence\Repository::class => \DI\object(\GamePlatform\Domain\Avatar\Persistence\Illuminate\IlluminateDbRepository::class),
+            \BackToWin\Domain\Avatar\Persistence\Repository::class => \DI\object(\BackToWin\Domain\Avatar\Persistence\Illuminate\IlluminateDbRepository::class),
         ];
     }
 

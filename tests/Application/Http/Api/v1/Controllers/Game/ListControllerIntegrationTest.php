@@ -1,17 +1,17 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Enum\GameType;
-use GamePlatform\Domain\Game\GameOrchestrator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\CreateAuthToken;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
-use GamePlatform\Testing\Traits\UsesHttpServer;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Domain\Game\GameOrchestrator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\CreateAuthToken;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
+use BackToWin\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use Money\Currency;
@@ -201,7 +201,7 @@ class ListControllerIntegrationTest extends TestCase
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals(
-            "Value 'DONE' is not part of the enum GamePlatform\Domain\Game\Enum\GameStatus",
+            "Value 'DONE' is not part of the enum BackToWin\Domain\Game\Enum\GameStatus",
             $json->data->errors[0]->message
         );
 

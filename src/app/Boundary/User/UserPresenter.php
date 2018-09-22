@@ -1,15 +1,15 @@
 <?php
 
-namespace GamePlatform\Boundary\User;
+namespace BackToWin\Boundary\User;
 
-use GamePlatform\Domain\User\Entity\User;
+use BackToWin\Domain\User\Entity\User;
 
 class UserPresenter
 {
     /**
      * @param User $user
      * @return \stdClass
-     * @throws \GamePlatform\Framework\Exception\UndefinedException
+     * @throws \BackToWin\Framework\Exception\UndefinedException
      */
     public function toDto(User $user): \stdClass
     {

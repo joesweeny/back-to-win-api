@@ -1,14 +1,14 @@
 <?php
 
-namespace GamePlatform\Domain\Auth\Services\Token\Jwt;
+namespace BackToWin\Domain\Auth\Services\Token\Jwt;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
-use GamePlatform\Domain\Auth\Services\Token\TokenValidator;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\TokenExpiryException;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Auth\Services\Token\TokenGenerator;
+use BackToWin\Domain\Auth\Services\Token\TokenValidator;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\TokenExpiryException;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 

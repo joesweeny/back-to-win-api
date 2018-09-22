@@ -1,13 +1,13 @@
 <?php
 
-namespace GamePlatform\Framework\Middleware\Auth;
+namespace BackToWin\Framework\Middleware\Auth;
 
 use Chief\CommandBus;
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Boundary\Auth\Command\ValidateTokenCommand;
-use GamePlatform\Framework\Exception\BadRequestException;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\TokenExpiryException;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Boundary\Auth\Command\ValidateTokenCommand;
+use BackToWin\Framework\Exception\BadRequestException;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\TokenExpiryException;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;

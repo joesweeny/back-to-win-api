@@ -1,14 +1,14 @@
 <?php
 
-namespace GamePlatform\Domain\GameEntry\Persistence\Illuminate;
+namespace BackToWin\Domain\GameEntry\Persistence\Illuminate;
 
-use GamePlatform\Domain\GameEntry\Entity\GameEntry;
-use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
-use GamePlatform\Domain\GameEntry\Persistence\Hydration\Hydrator;
-use GamePlatform\Domain\GameEntry\Persistence\Repository;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Exception\RepositoryDuplicationException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\GameEntry\Entity\GameEntry;
+use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\GameEntry\Persistence\Hydration\Hydrator;
+use BackToWin\Domain\GameEntry\Persistence\Repository;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 

@@ -1,25 +1,25 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Enum\GameType;
-use GamePlatform\Domain\Game\GameOrchestrator;
-use GamePlatform\Domain\Game\Persistence\Writer;
-use GamePlatform\Domain\GameEntry\GameEntryOrchestrator;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Domain\UserPurse\Entity\UserPurse;
-use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Password\PasswordHash;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\CreateAuthToken;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
-use GamePlatform\Testing\Traits\UsesHttpServer;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Domain\Game\GameOrchestrator;
+use BackToWin\Domain\Game\Persistence\Writer;
+use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Password\PasswordHash;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\CreateAuthToken;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
+use BackToWin\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use Money\Currency;

@@ -1,16 +1,16 @@
 <?php
 
-namespace GamePlatform\Application\Console\Command;
+namespace BackToWin\Application\Console\Command;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Bank\Bank;
-use GamePlatform\Domain\Bank\Exception\BankingException;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
-use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
-use GamePlatform\Framework\Calculation\Calculation;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Bank\Bank;
+use BackToWin\Domain\Bank\Exception\BankingException;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
+use BackToWin\Framework\Calculation\Calculation;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 use Interop\Container\ContainerInterface;
 use Money\Currency;
 use Money\Money;

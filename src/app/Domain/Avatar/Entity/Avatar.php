@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar\Entity;
+namespace BackToWin\Domain\Avatar\Entity;
 
-use GamePlatform\Framework\Entity\PrivateAttributesTrait;
-use GamePlatform\Framework\Entity\TimestampedTrait;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Entity\PrivateAttributesTrait;
+use BackToWin\Framework\Entity\TimestampedTrait;
+use BackToWin\Framework\Uuid\Uuid;
 
 class Avatar
 {

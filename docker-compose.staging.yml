@@ -21,7 +21,7 @@ services:
      - proxynet
 
   web: &web
-    image: joesweeny/gameplatform_web_staging:latest
+    image: joesweeny/back_to_win_api_web_staging:latest
     environment:
      - ADMIN_BANK_DRIVER=redis
      - AUTH_TOKEN_DRIVER=jwt
@@ -43,4 +43,4 @@ services:
 
 networks:
   proxynet:
-    name: gameplatform_network
+    name: back_to_win_api_network

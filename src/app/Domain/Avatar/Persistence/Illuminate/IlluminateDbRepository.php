@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar\Persistence\Illuminate;
+namespace BackToWin\Domain\Avatar\Persistence\Illuminate;
 
-use GamePlatform\Domain\Avatar\Entity\Avatar;
-use GamePlatform\Domain\Avatar\Persistence\Repository;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Avatar\Entity\Avatar;
+use BackToWin\Domain\Avatar\Persistence\Repository;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 

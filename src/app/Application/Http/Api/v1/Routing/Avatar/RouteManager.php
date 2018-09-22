@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Routing\Avatar;
+namespace BackToWin\Application\Http\Api\v1\Routing\Avatar;
 
 use FastRoute\RouteCollector;
-use GamePlatform\Application\Http\Api\v1\Controllers\Avatar\AddController;
-use GamePlatform\Application\Http\Api\v1\Controllers\Avatar\GetController;
-use GamePlatform\Framework\Routing\RouteMapper;
+use BackToWin\Application\Http\Api\v1\Controllers\Avatar\AddController;
+use BackToWin\Application\Http\Api\v1\Controllers\Avatar\GetController;
+use BackToWin\Framework\Routing\RouteMapper;
 
 class RouteManager implements RouteMapper
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Domain\Auth\Services\Token\Jwt;
+namespace BackToWin\Domain\Auth\Services\Token\Jwt;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Auth\Services\Token\TokenValidator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\TokenExpiryException;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Auth\Services\Token\TokenValidator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\TokenExpiryException;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token;

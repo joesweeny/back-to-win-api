@@ -1,17 +1,17 @@
 <?php
 
-namespace GamePlatform\Domain\Game\Services;
+namespace BackToWin\Domain\Game\Services;
 
-use GamePlatform\Domain\Admin\Bank\Services\FundsHandler;
-use GamePlatform\Domain\Game\Exception\GameSettlementException;
-use GamePlatform\Domain\Game\GameOrchestrator;
-use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
-use GamePlatform\Domain\GameEntry\GameEntryOrchestrator;
-use GamePlatform\Domain\User\Services\UserFundsHandler;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Admin\Bank\Services\FundsHandler;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
+use BackToWin\Domain\Game\GameOrchestrator;
+use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\GameEntry\GameEntryOrchestrator;
+use BackToWin\Domain\User\Services\UserFundsHandler;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
 class GameKeeper

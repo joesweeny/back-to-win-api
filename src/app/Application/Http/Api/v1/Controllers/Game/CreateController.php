@@ -1,14 +1,14 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use GamePlatform\Application\Http\Api\v1\Validation\Game\RequestValidator;
-use GamePlatform\Boundary\Game\Command\CreateGameCommand;
-use GamePlatform\Domain\Game\Exception\GameCreationException;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
-use GamePlatform\Framework\Jsend\JsendResponse;
-use GamePlatform\Framework\Jsend\JsendSuccessResponse;
+use BackToWin\Application\Http\Api\v1\Validation\Game\RequestValidator;
+use BackToWin\Boundary\Game\Command\CreateGameCommand;
+use BackToWin\Domain\Game\Exception\GameCreationException;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 use Chief\CommandBus;
 use Psr\Http\Message\ServerRequestInterface;
 

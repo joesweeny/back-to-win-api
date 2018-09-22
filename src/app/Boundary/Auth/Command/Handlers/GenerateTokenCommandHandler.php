@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Boundary\Auth\Command\Handlers;
+namespace BackToWin\Boundary\Auth\Command\Handlers;
 
-use GamePlatform\Boundary\Auth\Command\GenerateTokenCommand;
-use GamePlatform\Domain\Auth\Services\Token\TokenOrchestrator;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\Auth\Command\GenerateTokenCommand;
+use BackToWin\Domain\Auth\Services\Token\TokenOrchestrator;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class GenerateTokenCommandHandler
 {

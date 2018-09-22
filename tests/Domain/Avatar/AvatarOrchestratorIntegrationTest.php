@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar;
+namespace BackToWin\Domain\Avatar;
 
-use GamePlatform\Domain\Avatar\Entity\Avatar;
-use GamePlatform\Domain\Avatar\Persistence\Repository;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Domain\Avatar\Entity\Avatar;
+use BackToWin\Domain\Avatar\Persistence\Repository;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;

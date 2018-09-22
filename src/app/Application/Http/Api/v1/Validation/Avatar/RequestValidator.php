@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Validation\Avatar;
+namespace BackToWin\Application\Http\Api\v1\Validation\Avatar;
 
 class RequestValidator
 {

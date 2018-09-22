@@ -1,17 +1,17 @@
 <?php
 
-namespace GamePlatform\Domain\User\Persistence\Illuminate;
+namespace BackToWin\Domain\User\Persistence\Illuminate;
 
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\Persistence\Reader;
-use GamePlatform\Domain\User\Persistence\Writer;
-use GamePlatform\Framework\Password\PasswordHash;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\Persistence\Reader;
+use BackToWin\Domain\User\Persistence\Writer;
+use BackToWin\Framework\Password\PasswordHash;
+use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
 
 class IlluminateWriterIntegrationTest extends TestCase
 {

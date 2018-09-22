@@ -1,18 +1,18 @@
 <?php
 
-namespace GamePlatform\Domain\GameEntry;
+namespace BackToWin\Domain\GameEntry;
 
 use Cake\Chronos\Chronos;
-use GamePlatform\Domain\Game\Entity\Game;
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Enum\GameType;
-use GamePlatform\Domain\GameEntry\Entity\GameEntry;
-use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
-use GamePlatform\Domain\GameEntry\Persistence\Repository;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Game\Entity\Game;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Domain\GameEntry\Entity\GameEntry;
+use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\GameEntry\Persistence\Repository;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

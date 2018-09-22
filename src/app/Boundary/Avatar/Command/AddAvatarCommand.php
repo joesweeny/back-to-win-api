@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Boundary\Avatar\Command;
+namespace BackToWin\Boundary\Avatar\Command;
 
 use Chief\Command;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 
 class AddAvatarCommand implements Command
 {

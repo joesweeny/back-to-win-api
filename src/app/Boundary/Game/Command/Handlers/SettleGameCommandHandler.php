@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Boundary\Game\Command\Handlers;
+namespace BackToWin\Boundary\Game\Command\Handlers;
 
-use GamePlatform\Boundary\Game\Command\SettleGameCommand;
-use GamePlatform\Domain\Game\Exception\GameSettlementException;
-use GamePlatform\Domain\Game\Services\GameKeeper;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\Game\Command\SettleGameCommand;
+use BackToWin\Domain\Game\Exception\GameSettlementException;
+use BackToWin\Domain\Game\Services\GameKeeper;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class SettleGameCommandHandler
 {

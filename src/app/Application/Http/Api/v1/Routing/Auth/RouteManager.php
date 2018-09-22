@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Routing\Auth;
+namespace BackToWin\Application\Http\Api\v1\Routing\Auth;
 
 use FastRoute\RouteCollector;
-use GamePlatform\Application\Http\Api\v1\Controllers\Auth\TokenController;
-use GamePlatform\Framework\Routing\RouteMapper;
+use BackToWin\Application\Http\Api\v1\Controllers\Auth\TokenController;
+use BackToWin\Framework\Routing\RouteMapper;
 
 class RouteManager implements RouteMapper
 {

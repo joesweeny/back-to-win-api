@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar;
+namespace BackToWin\Domain\Avatar;
 
-use GamePlatform\Domain\Avatar\Entity\Avatar;
-use GamePlatform\Domain\Avatar\Persistence\Repository;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Avatar\Entity\Avatar;
+use BackToWin\Domain\Avatar\Persistence\Repository;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 use League\Flysystem\Filesystem;
 
 class AvatarOrchestrator

@@ -1,15 +1,15 @@
 <?php
 
-namespace GamePlatform\Domain\User;
+namespace BackToWin\Domain\User;
 
-use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Password\PasswordHash;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Password\PasswordHash;
+use BackToWin\Framework\Uuid\Uuid;
 use Illuminate\Database\Connection;
 use Interop\Container\ContainerInterface;
 use Money\Currency;

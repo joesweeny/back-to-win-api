@@ -1,13 +1,13 @@
 <?php
 
-namespace GamePlatform\Domain\Admin\Bank\Services;
+namespace BackToWin\Domain\Admin\Bank\Services;
 
-use GamePlatform\Domain\Admin\Bank\Bank;
-use GamePlatform\Domain\Admin\Bank\Exception\BankingException;
-use GamePlatform\Framework\Exception\RepositoryDuplicationException;
-use GamePlatform\Domain\Admin\Bank\Persistence\Repository;
-use GamePlatform\Domain\Admin\Exception\AdminException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Admin\Bank\Bank;
+use BackToWin\Domain\Admin\Bank\Exception\BankingException;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
+use BackToWin\Domain\Admin\Bank\Persistence\Repository;
+use BackToWin\Domain\Admin\Exception\AdminException;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

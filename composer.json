@@ -43,7 +43,7 @@
     },
     "autoload": {
         "psr-4": {
-            "GamePlatform\\": ["src/app/", "tests/"]
+            "BackToWin\\": ["src/app/", "tests/"]
         }
     }
 }

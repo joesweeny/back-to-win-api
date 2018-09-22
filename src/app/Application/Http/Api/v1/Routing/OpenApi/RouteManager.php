@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Routing\OpenApi;
+namespace BackToWin\Application\Http\Api\v1\Routing\OpenApi;
 
 use FastRoute\RouteCollector;
-use GamePlatform\Application\Http\Api\v1\Controllers\OpenApi\OpenApiController;
-use GamePlatform\Framework\Routing\RouteMapper;
+use BackToWin\Application\Http\Api\v1\Controllers\OpenApi\OpenApiController;
+use BackToWin\Framework\Routing\RouteMapper;
 
 class RouteManager implements RouteMapper
 {

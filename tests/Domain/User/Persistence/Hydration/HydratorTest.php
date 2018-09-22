@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Domain\User\Persistence\Hydration;
+namespace BackToWin\Domain\User\Persistence\Hydration;
 
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class HydratorTest extends TestCase

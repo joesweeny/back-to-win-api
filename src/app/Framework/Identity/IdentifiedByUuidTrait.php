@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Framework\Identity;
+namespace BackToWin\Framework\Identity;
 
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 
 trait IdentifiedByUuidTrait
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace GamePlatform\Application\Console;
+namespace BackToWin\Application\Console;
 
-use GamePlatform\Application\Console\Command\AdminBankBalanceCommand;
-use GamePlatform\Application\Console\Command\GameCreateCommand;
+use BackToWin\Application\Console\Command\AdminBankBalanceCommand;
+use BackToWin\Application\Console\Command\GameCreateCommand;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Finder\GlobFinder;
 use Doctrine\DBAL\Migrations\OutputWriter;
 use Doctrine\DBAL\Migrations\Tools\Console\Helper\ConfigurationHelper;
-use GamePlatform\Application\Console\Command\UserCreateCommand;
-use GamePlatform\Application\Console\Command\UserFundsAddCommand;
+use BackToWin\Application\Console\Command\UserCreateCommand;
+use BackToWin\Application\Console\Command\UserFundsAddCommand;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;

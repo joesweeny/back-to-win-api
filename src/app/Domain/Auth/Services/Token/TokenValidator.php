@@ -1,8 +1,8 @@
 <?php
 
-namespace GamePlatform\Domain\Auth\Services\Token;
+namespace BackToWin\Domain\Auth\Services\Token;
 
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
 
 interface TokenValidator
 {

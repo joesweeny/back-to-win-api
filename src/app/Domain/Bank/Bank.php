@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Domain\Bank;
+namespace BackToWin\Domain\Bank;
 
-use GamePlatform\Domain\Bank\Exception\BankingException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Bank\Exception\BankingException;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Money;
 
 interface Bank

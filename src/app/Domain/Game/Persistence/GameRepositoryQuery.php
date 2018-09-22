@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Domain\Game\Persistence;
+namespace BackToWin\Domain\Game\Persistence;
 
-use GamePlatform\Domain\Game\Enum\GameStatus;
-use GamePlatform\Domain\Game\Enum\GameType;
-use GamePlatform\Framework\Entity\PrivateAttributesTrait;
+use BackToWin\Domain\Game\Enum\GameStatus;
+use BackToWin\Domain\Game\Enum\GameType;
+use BackToWin\Framework\Entity\PrivateAttributesTrait;
 use Money\Currency;
 
 class GameRepositoryQuery

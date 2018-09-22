@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command\Handlers;
+namespace BackToWin\Boundary\User\Command\Handlers;
 
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Boundary\User\Command\GetUserByIdCommand;
-use GamePlatform\Boundary\User\UserPresenter;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Boundary\User\Command\GetUserByIdCommand;
+use BackToWin\Boundary\User\UserPresenter;
 
 class GetUserByIdCommandHandler
 {
@@ -31,7 +31,7 @@ class GetUserByIdCommandHandler
     /**
      * @param GetUserByIdCommand $command
      * @return \stdClass
-     * @throws \GamePlatform\Framework\Exception\NotFoundException
+     * @throws \BackToWin\Framework\Exception\NotFoundException
      */
     public function handle(GetUserByIdCommand $command): \stdClass
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Boundary\Avatar\Command\Handlers;
+namespace BackToWin\Boundary\Avatar\Command\Handlers;
 
-use GamePlatform\Boundary\Avatar\AvatarPresenter;
-use GamePlatform\Boundary\Avatar\Command\GetAvatarCommand;
-use GamePlatform\Domain\Avatar\AvatarOrchestrator;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\Avatar\AvatarPresenter;
+use BackToWin\Boundary\Avatar\Command\GetAvatarCommand;
+use BackToWin\Domain\Avatar\AvatarOrchestrator;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class GetAvatarCommandHandler
 {

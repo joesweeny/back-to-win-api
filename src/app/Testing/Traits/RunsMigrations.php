@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Testing\Traits;
+namespace BackToWin\Testing\Traits;
 
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Interop\Container\ContainerInterface;
-use GamePlatform\Application\Console\Console;
+use BackToWin\Application\Console\Console;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 

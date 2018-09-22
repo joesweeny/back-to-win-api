@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Middleware\Error;
+namespace BackToWin\Framework\Middleware\Error;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

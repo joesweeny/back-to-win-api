@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Buffer;
+namespace BackToWin\Framework\Buffer;
 
 /**
  * OutputBuffer

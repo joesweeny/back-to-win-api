@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Framework\Middleware\Entity;
+namespace BackToWin\Framework\Middleware\Entity;
 
-use GamePlatform\Framework\Request\RequestBuilder;
-use GamePlatform\Framework\Exception\BadRequestException;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Request\RequestBuilder;
+use BackToWin\Framework\Exception\BadRequestException;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
 use Lcobucci\JWT\Parser;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

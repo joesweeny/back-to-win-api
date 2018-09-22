@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command\Handlers;
+namespace BackToWin\Boundary\User\Command\Handlers;
 
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Boundary\User\UserPresenter;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Boundary\User\Command\GetUserByIdCommand;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Boundary\User\UserPresenter;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\User\Command\GetUserByIdCommand;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 

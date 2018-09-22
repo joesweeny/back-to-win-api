@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/gameplatform
+    working_directory: ~/back-to-win-platform
     machine:
       image: circleci/classic:201711-01
 

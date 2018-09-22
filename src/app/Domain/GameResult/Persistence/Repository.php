@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Domain\GameResult\Persistence;
+namespace BackToWin\Domain\GameResult\Persistence;
 
-use GamePlatform\Framework\Exception\RepositoryDuplicationException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Exception\RepositoryDuplicationException;
+use BackToWin\Framework\Uuid\Uuid;
 
 interface Repository
 {

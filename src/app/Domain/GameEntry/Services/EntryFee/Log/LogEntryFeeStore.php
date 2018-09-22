@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Domain\GameEntry\Services\EntryFee\Log;
+namespace BackToWin\Domain\GameEntry\Services\EntryFee\Log;
 
-use GamePlatform\Domain\GameEntry\Entity\GameEntry;
-use GamePlatform\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\GameEntry\Entity\GameEntry;
+use BackToWin\Domain\GameEntry\Services\EntryFee\EntryFeeStore;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 use Psr\Log\LoggerInterface;

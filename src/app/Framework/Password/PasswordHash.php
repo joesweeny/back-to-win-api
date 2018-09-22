@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Framework\Password;
+namespace BackToWin\Framework\Password;
 
 class PasswordHash
 {

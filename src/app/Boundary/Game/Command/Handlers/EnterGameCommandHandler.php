@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Boundary\Game\Command\Handlers;
+namespace BackToWin\Boundary\Game\Command\Handlers;
 
-use GamePlatform\Boundary\Game\Command\EnterGameCommand;
-use GamePlatform\Domain\Game\Services\GameKeeper;
-use GamePlatform\Domain\GameEntry\Exception\GameEntryException;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Framework\Exception\NotFoundException;
+use BackToWin\Boundary\Game\Command\EnterGameCommand;
+use BackToWin\Domain\Game\Services\GameKeeper;
+use BackToWin\Domain\GameEntry\Exception\GameEntryException;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Framework\Exception\NotFoundException;
 
 class EnterGameCommandHandler
 {

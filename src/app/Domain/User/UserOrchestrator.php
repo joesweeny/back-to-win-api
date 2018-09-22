@@ -1,16 +1,16 @@
 <?php
 
-namespace GamePlatform\Domain\User;
+namespace BackToWin\Domain\User;
 
-use GamePlatform\Domain\User\Persistence\Reader;
-use GamePlatform\Domain\User\Persistence\Writer;
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\UserPurse\Entity\UserPurse;
-use GamePlatform\Domain\UserPurse\UserPurseOrchestrator;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Exception\UserCreationException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\User\Persistence\Reader;
+use BackToWin\Domain\User\Persistence\Writer;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\UserPurseOrchestrator;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Exception\UserCreationException;
+use BackToWin\Framework\Uuid\Uuid;
 use Money\Currency;
 use Money\Money;
 
@@ -72,7 +72,7 @@ class UserOrchestrator
     /**
      * @param Uuid $id
      * @return User
-     * @throws \GamePlatform\Framework\Exception\NotFoundException
+     * @throws \BackToWin\Framework\Exception\NotFoundException
      */
     public function getUserById(Uuid $id): User
     {

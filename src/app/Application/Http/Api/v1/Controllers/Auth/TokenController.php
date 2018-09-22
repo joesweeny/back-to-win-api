@@ -1,16 +1,16 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Auth;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Auth;
 
 use Chief\CommandBus;
-use GamePlatform\Boundary\Auth\Command\GenerateTokenCommand;
-use GamePlatform\Boundary\User\Command\VerifyUserCommand;
-use GamePlatform\Framework\Exception\NotAuthenticatedException;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
-use GamePlatform\Framework\Jsend\JsendResponse;
-use GamePlatform\Framework\Jsend\JsendSuccessResponse;
+use BackToWin\Boundary\Auth\Command\GenerateTokenCommand;
+use BackToWin\Boundary\User\Command\VerifyUserCommand;
+use BackToWin\Framework\Exception\NotAuthenticatedException;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
 class TokenController

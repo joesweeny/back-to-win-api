@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Boundary\Avatar\Command\Handlers;
+namespace BackToWin\Boundary\Avatar\Command\Handlers;
 
-use GamePlatform\Boundary\Avatar\Command\AddAvatarCommand;
-use GamePlatform\Domain\Avatar\AvatarOrchestrator;
-use GamePlatform\Domain\Avatar\Entity\Avatar;
+use BackToWin\Boundary\Avatar\Command\AddAvatarCommand;
+use BackToWin\Domain\Avatar\AvatarOrchestrator;
+use BackToWin\Domain\Avatar\Entity\Avatar;
 
 class AddAvatarCommandHandler
 {

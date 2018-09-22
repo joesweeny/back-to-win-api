@@ -1,11 +1,11 @@
 <?php
 
-namespace GamePlatform\Domain\Auth\Services\Token\Jwt;
+namespace BackToWin\Domain\Auth\Services\Token\Jwt;
 
-use GamePlatform\Bootstrap\Config;
-use GamePlatform\Domain\Auth\Services\Token\TokenGenerator;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Bootstrap\Config;
+use BackToWin\Domain\Auth\Services\Token\TokenGenerator;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Hmac\Sha256;

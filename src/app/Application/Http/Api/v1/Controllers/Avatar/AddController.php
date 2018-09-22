@@ -1,15 +1,15 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Avatar;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Avatar;
 
 use Chief\CommandBus;
-use GamePlatform\Application\Http\Api\v1\Validation\Avatar\RequestValidator;
-use GamePlatform\Boundary\Avatar\Command\AddAvatarCommand;
-use GamePlatform\Framework\Jsend\JsendError;
-use GamePlatform\Framework\Jsend\JsendErrorResponse;
-use GamePlatform\Framework\Jsend\JsendFailResponse;
-use GamePlatform\Framework\Jsend\JsendResponse;
-use GamePlatform\Framework\Jsend\JsendSuccessResponse;
+use BackToWin\Application\Http\Api\v1\Validation\Avatar\RequestValidator;
+use BackToWin\Boundary\Avatar\Command\AddAvatarCommand;
+use BackToWin\Framework\Jsend\JsendError;
+use BackToWin\Framework\Jsend\JsendErrorResponse;
+use BackToWin\Framework\Jsend\JsendFailResponse;
+use BackToWin\Framework\Jsend\JsendResponse;
+use BackToWin\Framework\Jsend\JsendSuccessResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AddController

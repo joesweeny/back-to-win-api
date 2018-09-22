@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Game;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Game;
 
-use GamePlatform\Framework\DateTime\Clock;
-use GamePlatform\Testing\Traits\CreateAuthToken;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
-use GamePlatform\Testing\Traits\UsesHttpServer;
+use BackToWin\Framework\DateTime\Clock;
+use BackToWin\Testing\Traits\CreateAuthToken;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
+use BackToWin\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
@@ -90,7 +90,7 @@ class CreateControllerIntegrationTest extends TestCase
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals(
-            "Value 'SUPER_FUNKY_QUIZ' is not part of the enum GamePlatform\Domain\Game\Enum\GameType",
+            "Value 'SUPER_FUNKY_QUIZ' is not part of the enum BackToWin\Domain\Game\Enum\GameType",
             $json->data->errors[0]->message
         );
     }

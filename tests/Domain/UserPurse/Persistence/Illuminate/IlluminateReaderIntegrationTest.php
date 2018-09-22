@@ -1,16 +1,16 @@
 <?php
 
-namespace GamePlatform\Domain\UserPurse\Persistence\Illuminate;
+namespace BackToWin\Domain\UserPurse\Persistence\Illuminate;
 
-use GamePlatform\Domain\UserPurse\Entity\UserPurse;
-use GamePlatform\Domain\UserPurse\Entity\UserPurseTransaction;
-use GamePlatform\Domain\UserPurse\Persistence\Reader;
-use GamePlatform\Domain\UserPurse\Persistence\Writer;
-use GamePlatform\Framework\Calculation\Calculation;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
+use BackToWin\Domain\UserPurse\Entity\UserPurse;
+use BackToWin\Domain\UserPurse\Entity\UserPurseTransaction;
+use BackToWin\Domain\UserPurse\Persistence\Reader;
+use BackToWin\Domain\UserPurse\Persistence\Writer;
+use BackToWin\Framework\Calculation\Calculation;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
 use Interop\Container\ContainerInterface;
 use Money\Currency;
 use Money\Money;

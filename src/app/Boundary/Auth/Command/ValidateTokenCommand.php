@@ -1,6 +1,6 @@
 <?php
 
-namespace GamePlatform\Boundary\Auth\Command;
+namespace BackToWin\Boundary\Auth\Command;
 
 use Chief\Command;
 

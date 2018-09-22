@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Boundary\Auth\Command;
+namespace BackToWin\Boundary\Auth\Command;
 
 use Chief\Command;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Framework\Uuid\Uuid;
 
 class GenerateTokenCommand implements Command
 {

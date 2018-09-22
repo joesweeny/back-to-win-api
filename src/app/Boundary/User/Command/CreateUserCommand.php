@@ -1,9 +1,9 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command;
+namespace BackToWin\Boundary\User\Command;
 
-use GamePlatform\Framework\CommandBus\Command;
-use GamePlatform\Framework\Password\PasswordHash;
+use BackToWin\Framework\CommandBus\Command;
+use BackToWin\Framework\Password\PasswordHash;
 use Money\Currency;
 
 class CreateUserCommand implements Command

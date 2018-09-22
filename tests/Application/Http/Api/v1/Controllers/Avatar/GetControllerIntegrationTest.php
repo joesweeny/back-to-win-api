@@ -1,14 +1,14 @@
 <?php
 
-namespace GamePlatform\Application\Http\Api\v1\Controllers\Avatar;
+namespace BackToWin\Application\Http\Api\v1\Controllers\Avatar;
 
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\Persistence\Writer;
-use GamePlatform\Framework\Password\PasswordHash;
-use GamePlatform\Testing\Traits\CreateAuthToken;
-use GamePlatform\Testing\Traits\RunsMigrations;
-use GamePlatform\Testing\Traits\UsesContainer;
-use GamePlatform\Testing\Traits\UsesHttpServer;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\Persistence\Writer;
+use BackToWin\Framework\Password\PasswordHash;
+use BackToWin\Testing\Traits\CreateAuthToken;
+use BackToWin\Testing\Traits\RunsMigrations;
+use BackToWin\Testing\Traits\UsesContainer;
+use BackToWin\Testing\Traits\UsesHttpServer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Interop\Container\ContainerInterface;
 use League\Flysystem\Filesystem;

@@ -1,12 +1,12 @@
 <?php
 
-namespace GamePlatform\Boundary\User\Command\Handlers;
+namespace BackToWin\Boundary\User\Command\Handlers;
 
-use GamePlatform\Domain\User\Entity\User;
-use GamePlatform\Domain\User\UserOrchestrator;
-use GamePlatform\Boundary\User\UserPresenter;
-use GamePlatform\Boundary\User\Command\CreateUserCommand;
-use GamePlatform\Framework\Exception\UserCreationException;
+use BackToWin\Domain\User\Entity\User;
+use BackToWin\Domain\User\UserOrchestrator;
+use BackToWin\Boundary\User\UserPresenter;
+use BackToWin\Boundary\User\Command\CreateUserCommand;
+use BackToWin\Framework\Exception\UserCreationException;
 
 class CreateUserCommandHandler
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace GamePlatform\Domain\Avatar\Persistence;
+namespace BackToWin\Domain\Avatar\Persistence;
 
-use GamePlatform\Domain\Avatar\Entity\Avatar;
-use GamePlatform\Framework\Exception\NotFoundException;
-use GamePlatform\Framework\Uuid\Uuid;
+use BackToWin\Domain\Avatar\Entity\Avatar;
+use BackToWin\Framework\Exception\NotFoundException;
+use BackToWin\Framework\Uuid\Uuid;
 
 interface Repository
 {

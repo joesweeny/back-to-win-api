@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/back-to-win-platform
+    working_directory: ~/back-to-win-api
     machine:
       image: circleci/classic:201711-01
 

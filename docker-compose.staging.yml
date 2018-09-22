@@ -21,7 +21,7 @@ services:
      - proxynet
 
   web: &web
-    image: joesweeny/back_to_win_api_web_staging:latest
+    image: joesweeny/backtowinapi_web_staging:latest
     environment:
      - ADMIN_BANK_DRIVER=redis
      - AUTH_TOKEN_DRIVER=jwt

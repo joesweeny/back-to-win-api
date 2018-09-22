@@ -9,6 +9,7 @@ use Interop\Container\ContainerInterface;
 use BackToWin\Framework\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Stratigility\Middleware\PathMiddlewareDecorator;
 use Zend\Stratigility\MiddlewarePipe;
 use function Zend\Stratigility\path;
 
@@ -39,9 +40,9 @@ class HttpServer
     {
         $pipe = new MiddlewarePipe;
 
-        $pipe->pipe(path('/', $this->container->get(ErrorHandler::class)));
-        $pipe->pipe(path('/api', $this->container->get(AuthGuard::class)));
-        $pipe->pipe(path('/api', $this->container->get(EntityGuard::class)));
+        $pipe->pipe(new PathMiddlewareDecorator('/', $this->container->get(ErrorHandler::class)));
+        $pipe->pipe(new PathMiddlewareDecorator('/api', $this->container->get(AuthGuard::class)));
+        $pipe->pipe(new PathMiddlewareDecorator('/api', $this->container->get(EntityGuard::class)));
 
         return $pipe->process($request, $this->container->get(Router::class));
     }

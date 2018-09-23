@@ -7,5 +7,6 @@ a Game.
 Full documentation can be found in the `/docs` directory although links are provided below.
 
 1) [Getting Started](https://github.com/joesweeny/back-to-win-api/tree/master/docs/getting-started.md)
+2) [Testing](https://github.com/joesweeny/back-to-win-api/tree/master/docs/testing.md)
 
 

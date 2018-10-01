@@ -3,11 +3,11 @@
   "info": {
     "title": "Back To Win API",
     "version": "1.0.0",
-    "description": "# Introduction\nThis API is documented in **OpenAPI format** and is a resource on how to use the Back To Win API.\n\n# Authentication\nAuthentication for the Back To Win API is via JWT Bearer Token. Once registered as a User a token is retrieved\nby sending a request to `POST /auth/token` with the following example payload:\n```\n{\n  \"email\": \"joe@joe.com\",\n  \"password\": \"myreallycomplicatedpassword!@woo\"\n}\n```\n\nIf verification passes the following response payload will be returned:\n```\n{\n  \"status\": \"success\",\n  \"data\": {\n      \"token\": \"eyJhbGciOiJIUzI...\"\n    }\n}\n```\nAll requests with the exception of `POST /auth/token` and `POST /api/user` require the following header to access\nthe applications resources:\n\n`Authorization: Bearer {token value}`\n",
+    "description": "# Introduction\nThis API is documented in **OpenAPI format** and is a resource on how to use the Back To Win API.\n\n# Getting Started\nFirst port of call when using this API is to create a User to allow access to this application's protected\nendpoints. To create a user send a `POST` request to `/api/user` with the following payload:\n```\n{\n  \"email\": \"joe@joe.com\",\n  \"password\": \"myreallycomplicatedpassword!@woo\",\n  \"username\": \"joe\",\n  \"currency\": \"FAKE\"\n}\n```\nThis application's only supported currency at present is 'FAKE' which is a pretend monetary value.\n\n# Authentication\nAuthentication for the Back To Win API is via JWT Bearer Token. Once registered as a User a token is retrieved\nby sending a request to `POST /auth/token` with the following example payload:\n```\n{\n  \"email\": \"joe@joe.com\",\n  \"password\": \"myreallycomplicatedpassword!@woo\"\n}\n```\n\nIf verification passes the following response payload will be returned:\n```\n{\n  \"status\": \"success\",\n  \"data\": {\n      \"token\": \"eyJhbGciOiJIUzI...\"\n    }\n}\n```\nAll requests with the exception of `POST /auth/token` and `POST /api/user` require the following header to access\nthe applications resources:\n\n`Authorization: Bearer {token value}`\n",
     "contact": {
       "name": "API Support",
       "email": "joesweeny84@hotmail.com",
-      "url": "https://github.com/joesweeny/game-platform"
+      "url": "https://github.com/joesweeny/back-to-win-api"
     }
   },
   "servers": [
